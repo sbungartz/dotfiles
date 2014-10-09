@@ -2,5 +2,11 @@
 
 DOTFILES=$HOME/.dotfiles
 
-ln -s $DOTFILES/zshrc ~/.zshrc
+function lndh {
+  echo linking ~/.$1
+  ln -s $DOTFILES/$1 $HOME/.$1
+}
 
+lndh zshrc
+
+lndh gitignore

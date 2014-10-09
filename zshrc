@@ -12,6 +12,10 @@ plugins=(git scala sbt)
 export PATH=$HOME/bin:$PATH
 export PATH=/usr/local/bin:$PATH
 
+# language
+LANG=en_US.UTF-8
+LANGUAGE=en_US
+
 # sources
 source $ZSH/oh-my-zsh.sh
 
