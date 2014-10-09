@@ -2,11 +2,18 @@
 
 DOTFILES=$HOME/.dotfiles
 
+# update the submodules first
+echo updating submodules...
+git submodule update --recursive --init
+git submodule update --recursive
+
+# function to link dotfiles to home directory:
 function lndh {
   echo linking ~/.$1
   ln -s $DOTFILES/$1 $HOME/.$1
 }
 
+# dotfiles to link to home directory:
 lndh zshrc
 
 lndh gitignore
