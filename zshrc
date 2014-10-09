@@ -1,8 +1,8 @@
 export DOTFILES=$HOME/.dotfiles
 
 # oh-my-zsh
-export ZSH=$DOTFILES/zsh/.oh-my-zsh
-export ZSH_CUSTOM=$DOTFILES/zsh/custom
+export ZSH=$DOTFILES/oh-my-zsh
+export ZSH_CUSTOM=$DOTFILES/oh-my-zsh-custom
 
 export ZSH_THEME="robbyrussell"
 
