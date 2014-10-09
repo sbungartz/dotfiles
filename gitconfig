@@ -1,0 +1,15 @@
+[user]
+	email = sbungartz@online.de
+	name = sbungartz
+[core]
+	autocrlf = input
+	excludesfile = /home/simon/.gitignore
+	editor = vim
+[push]
+	default = simple
+[color]
+	ui = auto
+[diff]
+	tool = meld
+[merge]
+	tool = meld

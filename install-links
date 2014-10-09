@@ -10,3 +10,4 @@ function lndh {
 lndh zshrc
 
 lndh gitignore
+lndh gitconfig
