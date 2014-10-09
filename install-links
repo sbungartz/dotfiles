@@ -1,0 +1,6 @@
+#! /bin/bash
+
+DOTFILES=$HOME/.dotfiles
+
+ln -s $DOTFILES/zshrc ~/.zshrc
+
