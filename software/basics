@@ -1,10 +1,11 @@
 #! /bin/bash
 
 sudo apt-get install \
-vim \
-git \
-meld \
-xclip \
+	htop \
+	vim \
+	git \
+	meld \
+	xclip \
 
 # Install vundle and execute PluginInstall
 git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
