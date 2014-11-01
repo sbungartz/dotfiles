@@ -5,6 +5,7 @@ export DOTFILES="$DIR/.."
 
 sudo apt-get install \
 	zsh \
+	tmux \
 	htop \
 	vim \
 	git \
