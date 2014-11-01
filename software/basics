@@ -1,6 +1,10 @@
 #! /bin/bash
 
+DIR=$( cd "$( dirname "$0" )" && pwd )
+DOTFILES="$DIR/../"
+
 sudo apt-get install \
+	zsh \
 	htop \
 	vim \
 	git \
@@ -10,3 +14,8 @@ sudo apt-get install \
 # Install vundle and execute PluginInstall
 git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 vim +PluginInstall +qall
+
+# Set zsh as login shell for the user
+echo 'Setting /bin/zsh as your login shell. If you wish to do so enter your password. Otherwise hit Ctrl+C.'
+chsh -s /bin/zsh
+echo 'You need to log out and back in again so that zsh will become your default shell.'
