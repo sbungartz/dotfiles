@@ -1,4 +1,4 @@
-map <C-e> :NERDTreeToggle<CR>
+map <C-e> :NERDTreeTabsToggle<CR>
 
 let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git$', '\.hg', '\.svn', '\.bzr', '\.DS_Store$', 'node_modules', '\.tmp']
 
