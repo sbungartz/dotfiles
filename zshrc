@@ -16,6 +16,9 @@ export PATH=/usr/local/bin:$PATH
 LANG=en_US.UTF-8
 LANGUAGE=en_US
 
+# colorscheme
+export TERM=xterm-256color
+
 # sources
 source $ZSH/oh-my-zsh.sh
 
