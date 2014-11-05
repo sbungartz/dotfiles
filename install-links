@@ -15,6 +15,7 @@ function lndh {
 
 # dotfiles to link to home directory:
 lndh zshrc
+lndh bashrc
 
 lndh gitignore
 lndh gitconfig
