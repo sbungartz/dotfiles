@@ -20,5 +20,6 @@ LANGUAGE=en_US
 export TERM=xterm-256color
 
 # sources
+source /etc/zsh_command_not_found
 source $ZSH/oh-my-zsh.sh
 
