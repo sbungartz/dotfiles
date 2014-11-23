@@ -3,7 +3,7 @@
 	name = sbungartz
 [core]
 	autocrlf = input
-	excludesfile = /home/simon/.gitignore
+	excludesfile = ~/.gitignore
 	editor = vim
 [push]
 	default = simple
