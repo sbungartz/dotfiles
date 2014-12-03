@@ -1,2 +1,2 @@
-nnoremap <C-i> :r!xclip -o<CR>
+"nnoremap <C-i> :r!xclip -o<CR>
 
