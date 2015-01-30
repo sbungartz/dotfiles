@@ -8,6 +8,7 @@ sudo apt-get install \
 	tmux \
 	htop \
 	vim \
+	exuberant-ctags \
 	git \
 	meld \
 	xclip \

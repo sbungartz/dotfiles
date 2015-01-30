@@ -28,3 +28,6 @@ let g:lightline = {
       \ 'subseparator': { 'left': '|', 'right': '|' }
       \ }
 set laststatus=2
+
+" Allow .ctags as name for tag file
+set tags+=.ctags
