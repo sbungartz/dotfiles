@@ -31,3 +31,6 @@ set laststatus=2
 
 " Allow .ctags as name for tag file
 set tags+=.ctags
+
+" Enable mouse support for [a]ll modes
+set mouse=a
