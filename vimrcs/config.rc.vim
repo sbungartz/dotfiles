@@ -24,10 +24,24 @@ let g:lightline = {
       \ 'component': {
       \   'readonly': '%{&readonly?"✗":""}',
       \ },
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'fugitive': 'MyFugitive'
+      \ },
       \ 'separator': { 'left': '', 'right': '' },
       \ 'subseparator': { 'left': '|', 'right': '|' }
       \ }
 set laststatus=2
+
+function! MyFugitive()
+  if &ft !~? 'vimfiler\|gundo' && exists("*fugitive#head")
+    let _ = fugitive#head()
+    return strlen(_) ? '⎇ '._ : ''
+  endif
+  return ''
+endfunction
 
 " Allow .ctags as name for tag file
 set tags+=.ctags
