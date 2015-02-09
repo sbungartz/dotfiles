@@ -3,4 +3,5 @@
 nmap ,f :FufFile **/<CR>
 nmap ,b :FufBuffer<CR>
 nmap ,t :FufTaggedFile<CR>
+nmap ,r :FufRenewCache<CR>
 
