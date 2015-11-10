@@ -14,6 +14,12 @@ nnoremap <Right> :echoe "Use l"<CR>
 nnoremap <Up> :echoe "Use k"<CR>
 nnoremap <Down> :echoe "Use j"<CR>
 
+" Autoindent
+set expandtab
+set shiftwidth=4 softtabstop=4
+autocmd FileType html setlocal sw=2 sts=2
+autocmd FileType javascript setlocal sw=2 sts=2
+
 " Colorscheme
 if !has('gui_running')
 	set t_Co=256
