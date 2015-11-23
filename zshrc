@@ -21,6 +21,8 @@ export PATH=/usr/local/bin:$PATH
 # language
 LANG=en_US.UTF-8
 LANGUAGE=en_US
+LC_ALL=en_US.UTF-8
+
 
 # colorscheme
 export TERM=xterm-256color
