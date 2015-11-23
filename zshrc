@@ -8,6 +8,12 @@ export ZSH_THEME="robbyrussell"
 
 plugins=(git scala sbt)
 
+# tmuxinator
+export EDITOR='vim'
+
+# keyboard mode
+gsettings set org.gnome.desktop.input-sources current 1
+
 # paths
 export PATH=$HOME/bin:$PATH
 export PATH=/usr/local/bin:$PATH
