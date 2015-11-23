@@ -19,6 +19,7 @@ set expandtab
 set shiftwidth=4 softtabstop=4
 autocmd FileType html setlocal sw=2 sts=2
 autocmd FileType javascript setlocal sw=2 sts=2
+autocmd FileType yaml setlocal sw=2 sts=2
 
 " Colorscheme
 if !has('gui_running')
