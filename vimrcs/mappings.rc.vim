@@ -16,4 +16,4 @@ nmap ;t :YcmCompleter GetType<CR>
 nmap ;p :YcmCompleter GetParent<CR>
 nmap ;f :YcmCompleter FixIt<CR>
 nmap ;d :YcmCompleter GetDoc<CR>
-
+nmap ;r :YcmForceCompileAndDiagnostics<CR>

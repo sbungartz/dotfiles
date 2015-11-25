@@ -25,6 +25,12 @@ autocmd FileType yaml setlocal sw=2 sts=2
 highlight YcmErrorSection ctermbg=darkcyan
 highlight YcmWarningSection ctermbg=darkblue
 
+highlight SignColumn ctermbg=black
+highlight YcmErrorSign ctermbg=black ctermfg=darkred
+highlight YcmWarningSign ctermbg=black ctermfg=yellow
+
+let g:ycm_error_symbol = '🚨 ' "'☠ ' '🚫 ' '⚡ ' 
+let g:ycm_warning_symbol =  '🖕' "'😱 ' '⚠️ '
 let g:ycm_add_preview_to_completeopt = 1
 let g:ycm_autoclose_preview_window_after_insertion = 1
 
