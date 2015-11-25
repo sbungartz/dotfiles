@@ -21,6 +21,13 @@ autocmd FileType html setlocal sw=2 sts=2
 autocmd FileType javascript setlocal sw=2 sts=2
 autocmd FileType yaml setlocal sw=2 sts=2
 
+" YouCompleteMe
+highlight YcmErrorSection ctermbg=darkcyan
+highlight YcmWarningSection ctermbg=darkblue
+
+let g:ycm_add_preview_to_completeopt = 1
+let g:ycm_autoclose_preview_window_after_insertion = 1
+
 " Colorscheme
 if !has('gui_running')
 	set t_Co=256
