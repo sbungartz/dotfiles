@@ -6,5 +6,8 @@ alias gsur='git submodule update --recursive'
 
 alias gdc='git diff --cached'
 
+alias glol="git log --graph --pretty=format:'%Cred%h%Creset %G? -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an> %C(bold red)[%GS]%Creset' --abbrev-commit"
+alias glola="git log --graph --pretty=format:'%Cred%h%Creset %G? -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an> %C(bold red)[%GS]%Creset' --abbrev-commit --all"
+
 # ctags
 alias ctagsr='ctags -f .ctags -R --extra=+f .'
