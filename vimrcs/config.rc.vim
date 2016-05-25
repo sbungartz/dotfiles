@@ -8,6 +8,10 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-h> <C-w>h
 nnoremap <C-l> <C-w>l
 
+" Slime: Send text from vim to other tmux panes
+let g:slime_target = "tmux"
+nnoremap <C-c>c V:SlimeSend<CR>
+
 " Get off my lawn
 nnoremap <Left> :echoe "Use h"<CR>
 nnoremap <Right> :echoe "Use l"<CR>
