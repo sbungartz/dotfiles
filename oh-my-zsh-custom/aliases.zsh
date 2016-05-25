@@ -9,6 +9,9 @@ alias gdc='git diff --cached'
 alias glol="git log --graph --pretty=format:'%Cred%h%Creset %G? -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an> %C(bold red)[%GS]%Creset' --abbrev-commit"
 alias glola="git log --graph --pretty=format:'%Cred%h%Creset %G? -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an> %C(bold red)[%GS]%Creset' --abbrev-commit --all"
 
+# correct htop display in tmux
+alias htopx='TERM=screen htop'
+
 # mysql dev
 alias mysqlroot='mysql -u root -proot'
 
