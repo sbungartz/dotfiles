@@ -1,6 +1,6 @@
 Plugin 'scrooloose/nerdtree'
-Bundle 'jistr/vim-nerdtree-tabs'
-Bundle 'christoomey/vim-tmux-navigator'
+Plugin 'jistr/vim-nerdtree-tabs'
+Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'itchyny/lightline.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'L9'
