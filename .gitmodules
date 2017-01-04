@@ -4,3 +4,6 @@
 [submodule "lprdup"]
 	path = lprdup
 	url = https://github.com/sbungartz/lprdup
+[submodule "antigen"]
+	path = antigen
+	url = https://github.com/zsh-users/antigen.git

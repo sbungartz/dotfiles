@@ -1,12 +1,12 @@
 export DOTFILES=$HOME/.dotfiles
 
 # oh-my-zsh
-export ZSH=$DOTFILES/oh-my-zsh
-export ZSH_CUSTOM=$DOTFILES/oh-my-zsh-custom
-
-export ZSH_THEME="robbyrussell"
-
-plugins=(git scala sbt docker)
+#export ZSH=$DOTFILES/oh-my-zsh
+#export ZSH_CUSTOM=$DOTFILES/oh-my-zsh-custom
+#
+#export ZSH_THEME="robbyrussell"
+#
+#plugins=(git scala sbt docker)
 
 # tmuxinator
 export EDITOR='vim'
@@ -36,5 +36,7 @@ export TERM=xterm-256color
 
 # sources
 source /etc/zsh_command_not_found
-source $ZSH/oh-my-zsh.sh
+#source $ZSH/oh-my-zsh.sh
+
+source $DOTFILES/antigen/antigen.zsh
 
