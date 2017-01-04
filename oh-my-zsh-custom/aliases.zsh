@@ -17,3 +17,6 @@ alias mysqlroot='mysql -u root -proot'
 
 # ctags
 alias ctagsr='ctags -f .ctags -R --extra=+f .'
+
+# docker as root
+alias socker='sudo docker'

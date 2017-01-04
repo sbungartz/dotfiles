@@ -25,3 +25,7 @@ filetype plugin indent on    " required
 for f in split(globpath('$DOTFILES/vimrcs', '*.rc.vim'), '\n')
   exe 'source' f
 endfor
+
+" Finally allow for project specific vimrcs, but using secure mode:
+set exrc
+set secure

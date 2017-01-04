@@ -27,6 +27,7 @@ autocmd FileType css setlocal sw=2 sts=2
 autocmd FileType javascript setlocal sw=2 sts=2
 autocmd FileType yaml setlocal sw=2 sts=2
 autocmd FileType markdown setlocal sw=2 sts=2
+autocmd FileType julia setlocal sw=2 sts=2
 
 " Arduino files
 autocmd BufNewFile,BufReadPost *.ino,*.pde set filetype=cpp sw=2 sts=2
