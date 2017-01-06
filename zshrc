@@ -34,6 +34,8 @@ LC_ALL=en_US.UTF-8
 # colorscheme
 export TERM=xterm-256color
 
+setopt HIST_IGNORE_SPACE
+
 ########### ANTIGEN ################
 source $DOTFILES/antigen/antigen.zsh
 
