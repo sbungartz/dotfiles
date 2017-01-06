@@ -42,6 +42,8 @@ antigen use oh-my-zsh
 
 # Bundles from the default repo (robbyrussell's oh-my-zsh).
 antigen bundle command-not-found
+antigen bundle wd
+
 antigen bundle git
 antigen bundle scala
 antigen bundle sbt
