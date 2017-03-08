@@ -26,6 +26,10 @@ export PATH="$PATH:$GOPATH/bin"
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
+# python virtualenv
+export WORKON_HOME=~/.virtualenvs
+source /usr/local/bin/virtualenvwrapper.sh
+
 # language
 LANG=en_US.UTF-8
 LANGUAGE=en_US
