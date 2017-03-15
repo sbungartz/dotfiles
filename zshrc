@@ -41,28 +41,43 @@ export TERM=xterm-256color
 setopt HIST_IGNORE_SPACE
 
 ########### ANTIGEN ################
-source $DOTFILES/antigen/antigen.zsh
+# Static bundle loading from cookbook (https://github.com/zsh-users/antigen/wiki/Cookbook#static-bundle-loading)
+# Needed for performance until v2 becomes stable...
+#
+# Seems not to work with wd since env var $ZSH is not set. Always load slowly for now...
 
-# Load the oh-my-zsh's library.
-antigen use oh-my-zsh
-
-# Bundles from the default repo (robbyrussell's oh-my-zsh).
-antigen bundle command-not-found
-antigen bundle wd
-
-antigen bundle git
-antigen bundle scala
-antigen bundle sbt
-
-# Syntax highlighting bundle.
-#antigen bundle zsh-users/zsh-syntax-highlighting
-
-# Custom scripts to be sourced from this repo
-antigen bundle "$DOTFILES/local-bundle" --no-local-clone
-
-# Load the theme.
-antigen theme robbyrussell
-
-# Tell antigen that you're done.
-antigen apply
-
+# If there is cache available
+#if [[ -f ${ADOT:-$HOME/.antigen}/.cache/.zcache-payload ]]; then
+#    # Load bundles statically
+#    source ${ADOT:-$HOME/.antigen}/.cache/.zcache-payload
+#
+#    # You will need to call compinit
+#    autoload -Uz compinit
+#    compinit -d ${HOME}/.zcompdump
+#else
+    # If there is no cache available do load and execute antigen
+    source $DOTFILES/antigen/antigen.zsh
+    
+    # Load the oh-my-zsh's library.
+    antigen use oh-my-zsh
+    
+    # Bundles from the default repo (robbyrussell's oh-my-zsh).
+    antigen bundle command-not-found
+    antigen bundle wd
+    
+    antigen bundle git
+    antigen bundle scala
+    antigen bundle sbt
+    
+    # Syntax highlighting bundle.
+    #antigen bundle zsh-users/zsh-syntax-highlighting
+    
+    # Custom scripts to be sourced from this repo
+    antigen bundle "$DOTFILES/local-bundle" --no-local-clone
+    
+    # Load the theme.
+    antigen theme robbyrussell
+    
+    # Tell antigen that you're done.
+    antigen apply
+#fi
