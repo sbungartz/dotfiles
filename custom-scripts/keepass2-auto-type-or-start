@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# grep for [k]eepass2 since the it will match the actual keepass process, but not the grep command itself.
+# http://stackoverflow.com/a/9375940
+ps aux | grep '[k]eepass2/KeePass.exe' > /dev/null
+if [ $? -eq 0 ]; then
+  keepass2 --auto-type
+else
+  keepass2
+fi

@@ -24,3 +24,9 @@ lndh lprdupconfig
 lndh vimrc
 
 lndh tmux.conf
+
+#######################
+# i3 related stuff
+lndh config/i3
+lndh config/i3blocks
+lndh Xresources
