@@ -40,18 +40,33 @@ else:
     FA_PLUG = "<span font='FontAwesome'>\uf1e6</span>"
 
     # stands for using battery
-    FA_BATTERY = "<span font='FontAwesome'>\uf240</span>"
+    FA_BATTERY_0 = "<span font='FontAwesome'>\uf244</span>"
+    FA_BATTERY_1 = "<span font='FontAwesome'>\uf243</span>"
+    FA_BATTERY_2 = "<span font='FontAwesome'>\uf242</span>"
+    FA_BATTERY_3 = "<span font='FontAwesome'>\uf241</span>"
+    FA_BATTERY_4 = "<span font='FontAwesome'>\uf240</span>"
 
     # stands for unknown status of battery
     FA_QUESTION = "<span font='FontAwesome'>\uf128</span>"
 
     timeleft = ""
 
+    def battery_icon(percent):
+        if percent < 10:
+            return FA_BATTERY_0
+        if percent <= 25:
+            return FA_BATTERY_1
+        if percent <= 50:
+            return FA_BATTERY_2
+        if percent <= 75:
+            return FA_BATTERY_3
+        return FA_BATTERY_4
+
     if state == "Discharging":
         time = commasplitstatus[-1].split()[0]
         time = ":".join(time.split(":")[0:2])
         timeleft = " ({})".format(time)
-        fulltext = FA_BATTERY + " "
+        fulltext = battery_icon(percentleft) + " "
     elif state == "Full":
         fulltext = FA_PLUG + " "
     elif state == "Unknown":
