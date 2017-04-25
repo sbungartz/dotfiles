@@ -110,6 +110,11 @@ interval=30
 ##instance=1
 #interval=30
 
+[battery]
+command=$SCRIPT_DIR/battery
+markup=pango
+interval=30
+
 # Current keyboard layout
 [kbdd_layout]
 label=
