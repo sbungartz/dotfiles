@@ -71,10 +71,19 @@ bindsym $mod+Shift+F3 exec gksu pcmanfm
 bindsym $mod+F5 exec terminal -e 'mocp'
 bindsym $mod+t exec --no-startup-id pkill compton
 bindsym $mod+Ctrl+t exec --no-startup-id compton -bf
-bindsym Print exec scrot -e 'mv "$f" ~/Bilder/ && notify-send "Screenshot is at ~/Bilder/$f"'
-bindsym $mod+Print --release exec --no-startup-id scrot -w -e 'mv "$f" ~/Bilder/ && notify-send "Screenshot is at ~/Bilder/$f"'
-bindsym $mod+Shift+Print --release exec --no-startup-id scrot -s -e 'mv "$f" ~/Bilder/ && notify-send "Screenshot is at ~/Bilder/$f"'
+
 bindsym $mod+Ctrl+x --release exec --no-startup-id xkill
+
+# Screenshot apps...
+# scrot - area mode buggy...
+#bindsym Print exec scrot -e 'mv "$f" ~/Bilder/ && notify-send "Screenshot is at ~/Bilder/$f"'
+#bindsym $mod+Print --release exec --no-startup-id scrot -w -e 'mv "$f" ~/Bilder/ && notify-send "Screenshot is at ~/Bilder/$f"'
+#bindsym $mod+Shift+Print --release exec --no-startup-id scrot -s -e 'mv "$f" ~/Bilder/ && notify-send "Screenshot is at ~/Bilder/$f"'
+# gnome/unity style -- disable compton fading in area mode
+bindsym Print exec XDG_CURRENT_DESKTOP=Unity gnome-screenshot
+bindsym $mod+Print exec XDG_CURRENT_DESKTOP=Unity gnome-screenshot -w
+bindsym $mod+Shift+Print exec pkill compton && compton -b && XDG_CURRENT_DESKTOP=Unity gnome-screenshot -a && pkill compton && compton -bf
+
 
 # focus_follows_mouse no
 
