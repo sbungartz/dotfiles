@@ -48,10 +48,10 @@ signal=1
 # Memory usage
 #
 # The type defaults to "mem" if the instance is not specified.
-#[memory]
-#label=MEM
-#separator=false
-#interval=30
+[memory]
+#         
+label=
+interval=10
 
 #[memory]
 #label=SWAP
