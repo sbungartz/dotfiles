@@ -9,6 +9,8 @@ from subprocess import check_output
 
 status = check_output(['acpi'], universal_newlines=True)
 
+PERCENT_CRITICAL = 5
+
 if not status:
     # stands for no battery found
     #fulltext = "<span color='red'><span font='FontAwesome'>\uf00d \uf240</span></span>"
@@ -75,9 +77,11 @@ else:
         fulltext = FA_LIGHTNING + " " + FA_PLUG + " "
 
     def color(percent):
-        if percent < 10:
+        if percent <= PERCENT_CRITICAL:
             # exit code 33 will turn background red
-            return "#FFFFFF"
+            #return "#FFFFFF"
+            # or white with current theme...
+            return "#FF0000"
         if percent < 20:
             return "#FF3300"
         if percent < 30:
@@ -100,5 +104,5 @@ else:
 
 print(fulltext)
 print(fulltext)
-if percentleft < 10:
+if percentleft <= PERCENT_CRITICAL:
     exit(33)
