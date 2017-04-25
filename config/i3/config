@@ -200,6 +200,11 @@ assign [class="Spotify"] $ws10
 # Spotify seems to set this too late, so always force to corrent workspace https://community.spotify.com/t5/Desktop-Linux-Windows-Web-Player/WM-CLASS-window-property-on-Linux/m-p/1315693#M153640
 for_window [class="Spotify"] move to workspace $ws10
 
+# Launch workspace contents
+bindsym $mod+Mod1+8 exec thunderbird
+bindsym $mod+Mod1+9 exec google-chrome-stable --new-window https://web.whatsapp.com
+bindsym $mod+Mod1+0 exec spotify
+
 # assign [class="Pale moon"] $ws2
 # assign [class="Pcmanfm"] $ws3
 # assign [class="Skype"] $ws5
