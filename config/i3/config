@@ -283,6 +283,17 @@ bindcode $mod+47 exec --no-startup-id i3lock -i ~/.config/i3/lock_screen.png
 # Switch keyboard layout (relies on i3bar keyboard layout script to start kbdd -- TODO starting kbdd here would be better)
 bindsym Mod1+Shift+Return exec "dbus-send --dest=ru.gentoo.KbddService /ru/gentoo/KbddService ru.gentoo.kbdd.next_layout"
 
+# Volume Control (Prior/Next = Page Up/Down)
+set $cmdVolUp amixer -q -D pulse sset Master 5%+ unmute && pkill -RTMIN+1 i3blocks
+set $cmdVolDown amixer -q -D pulse sset Master 5%- && pkill -RTMIN+1 i3blocks
+set $cmdVolToggleMute amixer -q -D pulse sset Master toggle && pkill -RTMIN+1 i3blocks
+bindsym $mod+Prior exec --no-startup-id $cmdVolUp
+bindsym $mod+Next exec --no-startup-id $cmdVolDown
+bindsym $mod+End exec --no-startup-id $cmdVolToggleMute
+bindsym XF86AudioRaiseVolume exec --no-startup-id $cmdVolUp
+bindsym XF86AudioLowerVolume exec --no-startup-id $cmdVolDown
+bindsym XF86AudioMute exec --no-startup-id $cmdVolToggleMute
+
 # Autostart applications
 exec --no-startup-id unity-settings-daemon
 exec --no-startup-id nitrogen --restore; sleep 1; compton -bf
