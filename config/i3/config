@@ -301,6 +301,8 @@ exec hamster-indicator
 exec --no-startup-id "sleep 1 && nm-applet"
 ####exec --no-startup-id start_conky_maia
 ####exec --no-startup-id xautolock -time 10 -locker blurlock
+# Brightness with notification
+exec xfce4-power-manager
 
 # Start i3bar to display a workspace bar (plus the system information i3status if available)
 bar {
