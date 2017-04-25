@@ -118,7 +118,7 @@ menu=(
   [Shutdown]="systemctl poweroff"
   [Reboot]="systemctl reboot"
 #  [Hibernate]="systemctl hibernate"
-  [Suspend]="systemctl suspend"
+  [Suspend]="i3lock -i $HOME/.config/i3/lock_screen.png && systemctl suspend"
 #  [Halt]="systemctl halt"
   [Lock]="${LOCKSCRIPT:-i3lock --color=${BG_COLOR#"#"}}"
   [Logout]="i3-msg exit"
