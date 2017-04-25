@@ -195,6 +195,9 @@ bindsym $mod+Shift+9 move container to workspace $ws9; workspace $ws9
 bindsym $mod+Shift+0 move container to workspace $ws10; workspace $ws10
 
 # Open applications on specific workspaces
+# 'IDE' workspace:
+assign [class="org-contikios-cooja-Cooja"] $ws3
+# Standard workspaces:
 assign [class="Thunderbird"] $ws8
 assign [class="Spotify"] $ws10
 # Spotify seems to set this too late, so always force to corrent workspace https://community.spotify.com/t5/Desktop-Linux-Windows-Web-Player/WM-CLASS-window-property-on-Linux/m-p/1315693#M153640
