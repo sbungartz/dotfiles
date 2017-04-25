@@ -309,6 +309,7 @@ exec xfce4-power-manager
 bar {
 	status_command SCRIPT_DIR=$SCRIPT_DIR i3blocks
 	position top
+        height 24
 
 ## please set your primary output first. Example: 'xrandr --output eDP1 --primary'
 #	tray_output primary
