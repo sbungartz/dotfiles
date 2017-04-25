@@ -1,0 +1,24 @@
+#!/usr/bin/python2.7
+# -*- coding: utf-8 -*-
+
+from hamster.configuration import runtime
+from hamster.lib.stuff import format_duration
+from datetime import datetime
+
+facts = runtime.storage.get_todays_facts()
+if facts and facts[-1].end_time is None:
+    current_activity = facts[-1]
+    work_duration = datetime.now() - current_activity.start_time
+    #longtext = u' {}'.format(format_duration(work_duration, False))
+    longtext = u' {}'.format(format_duration(work_duration, False))
+    shorttext = longtext
+    color = '#ffffff'
+else:
+    longtext = u''
+    #longtext = u'😴'
+    shorttext = longtext
+    color = '#a0a0a0'
+
+print(longtext)
+print(shorttext)
+print(color)
