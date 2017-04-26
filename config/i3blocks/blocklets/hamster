@@ -1,10 +1,15 @@
-#!/usr/bin/python2.7
+#!/usr/bin/env python2
 # -*- coding: utf-8 -*-
 
 from hamster.configuration import runtime
 from hamster.lib.stuff import format_duration
 from datetime import datetime
+import os
+from os.path import expanduser
+import subprocess
+from subprocess import PIPE
 
+current_activity = None
 facts = runtime.storage.get_todays_facts()
 if facts and facts[-1].end_time is None:
     current_activity = facts[-1]
@@ -18,6 +23,19 @@ else:
     #longtext = u'😴'
     shorttext = longtext
     color = '#a0a0a0'
+
+if os.getenv('BLOCK_BUTTON') in ['1','3']:
+    activity_text = 'Start new activity'
+    if current_activity is not None:
+        activity_text = '{} ({})'.format(format_duration(work_duration))
+    menu_entries = [
+            activity_text,
+            'Show overview']
+
+    rofi = subprocess.Popen(['rofi', '-dmenu', '-i', '-lines', str(len(menu_entries)), '-p', 'Hamster: '], stdin=PIPE, stdout=PIPE)
+    selection = rofi.communicate(input='\n'.join(menu_entries))[0].strip()
+    if selection == 'Show overview':
+        subprocess.call(['hamster-time-tracker', 'overview'])
 
 print(longtext)
 print(shorttext)
