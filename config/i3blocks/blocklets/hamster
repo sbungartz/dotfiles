@@ -2,12 +2,13 @@
 # -*- coding: utf-8 -*-
 
 from hamster.configuration import runtime
-from hamster.lib.stuff import format_duration
+from hamster.lib.stuff import format_duration, Fact
 from datetime import datetime
 import os
 from os.path import expanduser
 import subprocess
 from subprocess import PIPE
+import dbus
 
 current_activity = None
 facts = runtime.storage.get_todays_facts()
@@ -27,15 +28,51 @@ else:
 if os.getenv('BLOCK_BUTTON') in ['1','3']:
     activity_text = 'Start new activity'
     if current_activity is not None:
-        activity_text = '{} ({})'.format(format_duration(work_duration))
+        activity_text = '{} ({})'.format(current_activity.serialized_name(), format_duration(work_duration, False))
     menu_entries = [
             activity_text,
-            'Show overview']
+            'Stop tracking' if current_activity is not None else '',
+            'Add previous activity',
+            'Overview',
+            'Statistics',
+            'Settings']
+    menu_entries = filter(None, menu_entries)
 
     rofi = subprocess.Popen(['rofi', '-dmenu', '-i', '-lines', str(len(menu_entries)), '-p', 'Hamster: '], stdin=PIPE, stdout=PIPE)
     selection = rofi.communicate(input='\n'.join(menu_entries))[0].strip()
-    if selection == 'Show overview':
-        subprocess.call(['hamster-time-tracker', 'overview'])
+
+    def show_hamster_window(window_name):
+        bus = dbus.SessionBus()
+        server = bus.get_object("org.gnome.Hamster.WindowServer",
+                                "/org/gnome/Hamster/WindowServer")
+        getattr(server, window_name)()
+
+    def remove_duplicates_preserving_order(xs):
+        seen = set()
+        return [x for x in xs if not (x in seen or seen.add(x))]
+
+    def rofi_start_tracking():
+        entries = remove_duplicates_preserving_order(reversed([fact.serialized_name() for fact in facts]))
+        rofi = subprocess.Popen(['rofi', '-dmenu', '-i', '-p', 'Start: '], stdin=PIPE, stdout=PIPE)
+        selection = rofi.communicate(input='\n'.join(entries))[0]
+        if selection != '':
+            runtime.storage.add_fact(Fact(selection.strip()))
+        print(selection)
+
+
+    if selection == activity_text:
+        rofi_start_tracking()
+    elif selection == 'Stop tracking':
+        runtime.storage.stop_tracking()
+    elif selection == 'Add previous activity':
+        show_hamster_window('edit')
+    elif selection == 'Overview':
+        show_hamster_window('overview')
+    elif selection == 'Statistics':
+        show_hamster_window('statistics')
+    elif selection == 'Settings':
+        show_hamster_window('preferences')
+
 
 print(longtext)
 print(shorttext)

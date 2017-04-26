@@ -69,8 +69,10 @@ bindsym $mod+F3 exec nautilus --no-desktop
 # bindsym $mod+F3 exec ranger
 bindsym $mod+Shift+F3 exec gksu pcmanfm
 bindsym $mod+F5 exec terminal -e 'mocp'
-bindsym $mod+t exec --no-startup-id pkill compton
+bindsym $mod+Shift+t exec --no-startup-id pkill compton
 bindsym $mod+Ctrl+t exec --no-startup-id compton -bf
+
+bindsym $mod+t exec BLOCK_BUTTON=1 ~/.config/i3blocks/blocklets/hamster
 
 bindsym $mod+Ctrl+x --release exec --no-startup-id xkill
 
