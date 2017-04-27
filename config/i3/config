@@ -322,7 +322,11 @@ exec --no-startup-id nm-applet
 ####exec --no-startup-id xautolock -time 10 -locker blurlock
 # Brightness with notification
 exec --no-startup-id xfce4-power-manager
+# Set keyboard layout and (re-)start kbdd for blocklet and keybindings/autolayout
 exec_always --no-startup-id "setxkbmap -layout de,us; killall kbdd; kbdd"
+# Set touchpad configuration
+exec "synclient VertScrollDelta=-112"
+
 
 # Start i3bar to display a workspace bar (plus the system information i3status if available)
 bar {
