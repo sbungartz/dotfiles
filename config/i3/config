@@ -114,7 +114,7 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # workspace back and forth (with/without active container)
-workspace_auto_back_and_forth yes
+#workspace_auto_back_and_forth yes
 bindsym $mod+b workspace back_and_forth
 bindsym $mod+Shift+b move container to workspace back_and_forth; workspace back_and_forth
 
@@ -225,6 +225,9 @@ bindsym $mod+Mod1+0 exec spotify
 # assign [class="Pcmanfm"] $ws3
 # assign [class="Skype"] $ws5
 
+# Use english keyboard for some applications
+for_window [class="Gnome-terminal"] exec "dbus-send --dest=ru.gentoo.KbddService /ru/gentoo/KbddService ru.gentoo.kbdd.set_layout uint32:1"
+
 # Open specific applications in floating mode
 for_window [title="alsamixer"] floating enable border pixel 1
 for_window [class="Calamares"] floating enable border normal
@@ -297,7 +300,7 @@ bindsym Control+Mod1+Delete exec $SCRIPT_DIR/shutdown_menu -c
 # Lock screen (47 = ; in us)
 bindcode $mod+47 exec --no-startup-id i3lock -i ~/.config/i3/lock_screen.png
 
-# Switch keyboard layout (relies on i3bar keyboard layout script to start kbdd -- TODO starting kbdd here would be better)
+# Switch keyboard layout (relies on i3bar keyboard layout script to start kbdd
 bindsym Mod1+Shift+Return exec "dbus-send --dest=ru.gentoo.KbddService /ru/gentoo/KbddService ru.gentoo.kbdd.next_layout"
 
 # Volume Control (Prior/Next = Page Up/Down)
@@ -312,13 +315,14 @@ bindsym XF86AudioLowerVolume exec --no-startup-id $cmdVolDown
 bindsym XF86AudioMute exec --no-startup-id $cmdVolToggleMute
 
 # Autostart applications
-exec --no-startup-id unity-settings-daemon
+#exec --no-startup-id unity-settings-daemon
 exec --no-startup-id nitrogen --restore; sleep 1; compton -bf
 exec --no-startup-id nm-applet
 ####exec --no-startup-id start_conky_maia
 ####exec --no-startup-id xautolock -time 10 -locker blurlock
 # Brightness with notification
-exec xfce4-power-manager
+exec --no-startup-id xfce4-power-manager
+exec_always --no-startup-id "setxkbmap -layout de,us; killall kbdd; kbdd"
 
 # Start i3bar to display a workspace bar (plus the system information i3status if available)
 bar {
