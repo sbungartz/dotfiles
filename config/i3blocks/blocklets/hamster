@@ -3,7 +3,7 @@
 
 from hamster.configuration import runtime
 from hamster.lib.stuff import format_duration, Fact
-from datetime import datetime
+from datetime import datetime, timedelta
 import os
 from os.path import expanduser
 import subprocess
@@ -52,6 +52,7 @@ if os.getenv('BLOCK_BUTTON') in ['1','3']:
         return [x for x in xs if not (x in seen or seen.add(x))]
 
     def rofi_start_tracking():
+        facts = runtime.storage.get_facts(datetime.now() - timedelta(days=365), datetime.now())
         entries = remove_duplicates_preserving_order(reversed([fact.serialized_name() for fact in facts]))
         rofi = subprocess.Popen(['rofi', '-dmenu', '-i', '-p', 'Start: '], stdin=PIPE, stdout=PIPE)
         selection = rofi.communicate(input='\n'.join(entries))[0]
