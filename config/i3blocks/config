@@ -42,7 +42,7 @@ markup=none
 
 [volume-pulseaudio]
 command=$SCRIPT_DIR/volume-pulseaudio -F 3 -f 3
-interval=once
+interval=1
 signal=1
 
 # Memory usage

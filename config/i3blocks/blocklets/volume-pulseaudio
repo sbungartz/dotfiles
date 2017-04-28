@@ -2,15 +2,15 @@
 # FROM https://github.com/vivien/i3blocks-contrib/blob/8fe610d2672eb4103b0b362689b6a84775622875/volume-pulseaudio/volume-pulseaudio
 # Displays the default device, volume, and mute status for i3blocks
 
-AUDIO_HIGH_SYMBOL='  '
+AUDIO_HIGH_SYMBOL=' '
 
 AUDIO_MED_THRESH=50
-AUDIO_MED_SYMBOL='  '
+AUDIO_MED_SYMBOL=' '
 
 AUDIO_LOW_THRESH=0
-AUDIO_LOW_SYMBOL='  '
+AUDIO_LOW_SYMBOL=' '
 
-AUDIO_MUTED_SYMBOL='  '
+AUDIO_MUTED_SYMBOL=' '
 
 DEFAULT_COLOR="#ffffff"
 MUTED_COLOR="#a0a0a0"
@@ -76,12 +76,13 @@ case "$BLOCK_BUTTON" in
     5) amixer -q -D pulse sset Master 5%- ;;
 esac
 
-for name in INDEX NAME VOL MUTED; do
+for name in INDEX NAME VOL MUTED PORT; do
     read $name
-done < <(pacmd list-sinks | grep "index:\|name:\|volume: front\|muted:" | grep -A3 '*')
+done < <(pacmd list-sinks | grep "index:\|name:\|volume: front\|muted:\|active port:" | grep -A4 '*')
 INDEX=$(echo "$INDEX" | grep -o '[0-9]\+')
 VOL=$(echo "$VOL" | grep -o "[0-9]*%" | head -1 )
 VOL="${VOL%?}"
+PORT=$(echo "$PORT" | awk -F '[<>]' '{print $(NF-1)}')
 
 NAME=$(echo "$NAME" | sed \
 's/.*<.*\.\(.*\)>.*/\1/; t;'\
@@ -106,6 +107,11 @@ if [[ $MUTED =~ "no" ]] ; then
 else
     SYMBOL=$AUDIO_MUTED_SYMBOL
     COLOR=$MUTED_COLOR
+fi
+
+# Use special symbol for headphones, hdmi, ...
+if [[ $PORT == 'analog-output-headphones' ]] ; then
+    SYMBOL=' '
 fi
 
 function print_format {
