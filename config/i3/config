@@ -207,7 +207,7 @@ bindsym $mod+Shift+0 move container to workspace $ws10; workspace $ws10
 
 # Open applications on specific workspaces
 # 'IDE' workspace:
-assign [class="org-contikios-cooja-Cooja"] $ws3
+assign [class="org-contikios-cooja-Cooja"] $ws4
 assign [class="jetbrains-idea-ce"] $ws3
 # Standard workspaces:
 assign [class="Thunderbird"] $ws8
@@ -325,7 +325,7 @@ exec --no-startup-id xfce4-power-manager
 # Set keyboard layout and (re-)start kbdd for blocklet and keybindings/autolayout
 exec --no-startup-id "setxkbmap -layout de,us; killall kbdd; kbdd"
 # Set touchpad configuration
-exec "synclient VertScrollDelta=-112"
+exec_always "synclient VertScrollDelta=-112"
 
 # Start i3bar to display a workspace bar (plus the system information i3status if available)
 bar {
