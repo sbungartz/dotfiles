@@ -1,0 +1,2 @@
+APT::Update::Post-Invoke { "pkill -RTMIN+5 i3blocks || true"; };
+DPkg::Post-Invoke { "pkill -RTMIN+5 i3blocks || true"; };

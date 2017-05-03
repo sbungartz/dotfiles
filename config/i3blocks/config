@@ -119,6 +119,11 @@ command=$SCRIPT_DIR/battery
 markup=pango
 interval=30
 
+[apt-upgrades]
+command=$SCRIPT_DIR/apt-upgrades
+signal=5
+interval=3600
+
 # Current keyboard layout
 [kbdd_layout]
 label=
@@ -129,7 +134,7 @@ interval=persist
 #
 [time]
 #command=date '+%Y-%m-%d %H:%M:%S'
-command=LC_ALL='de_DE.UTF-8' date '+%a, %-d.%-m. %H:%M:%S'
+command=date '+%a, %-d.%-m. %H:%M:%S'
 interval=1
 
 # Generic media player support
