@@ -143,12 +143,13 @@ bindsym $mod+Shift+s sticky toggle
 # focus the parent container
 bindsym $mod+a focus parent
 
+# Scatchpad stuff should be key next to numbers (KeyCode 20, - in englisch, ß in german)
 # move the currently focused window to the scratchpad
-bindsym $mod+Shift+minus move scratchpad
+bindcode $mod+Shift+20 move scratchpad
 
 # Show the next scratchpad window or hide the focused scratchpad window.
 # If there are multiple scratchpad windows, this command cycles through them.
-bindsym $mod+minus scratchpad show
+bindcode $mod+20 scratchpad show
 
 #navigate workspaces next / previous
 bindsym $mod+Ctrl+Right workspace next
