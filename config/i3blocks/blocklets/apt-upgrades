@@ -74,8 +74,8 @@ if $has_updates || $reboot ; then
         echo -e "$PENDING_SYMBOL$upgraded/$new/$removed/$held"
         echo -e "$PENDING_SYMBOL$upgraded/$new/$removed/$held"
     else
-        echo -e "reboot required"
-        echo -e "reboot"
+        echo -e "${PENDING_SYMBOL}reboot required"
+        echo -e "${PENDING_SYMBOL}reboot"
     fi
     echo $color
 elif [[ $ALWAYS_PRINT == 1 ]]; then
