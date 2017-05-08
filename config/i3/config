@@ -315,6 +315,11 @@ bindsym XF86AudioRaiseVolume exec --no-startup-id $cmdVolUp
 bindsym XF86AudioLowerVolume exec --no-startup-id $cmdVolDown
 bindsym XF86AudioMute exec --no-startup-id $cmdVolToggleMute
 
+# Media control
+bindsym $mod+Home exec --no-startup-id playerctl play-pause
+bindsym $mod+Delete exec --no-startup-id playerctl next
+bindsym $mod+Insert exec --no-startup-id playerctl previous
+
 # Autostart applications
 #exec --no-startup-id unity-settings-daemon
 exec --no-startup-id nitrogen --restore; sleep 1; compton -bf
