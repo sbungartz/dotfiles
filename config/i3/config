@@ -322,7 +322,7 @@ bindsym $mod+Insert exec --no-startup-id playerctl previous
 
 # Autostart applications
 #exec --no-startup-id unity-settings-daemon
-exec --no-startup-id update-notifier
+#exec --no-startup-id update-notifier
 exec --no-startup-id nitrogen --restore; sleep 1; compton -bf
 exec --no-startup-id nm-applet
 ####exec --no-startup-id start_conky_maia
