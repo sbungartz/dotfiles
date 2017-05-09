@@ -1,0 +1,63 @@
+#!/usr/bin/env python3
+
+import gi
+gi.require_version('Playerctl', '1.0')
+from gi.repository import Playerctl, GLib
+import sys
+
+COLOR_PLAYING = '#ffffff'
+COLOR_PAUSED = '#a0a0a0'
+
+player = Playerctl.Player(player_name='spotify')
+
+def print_status():
+    status = player.props.status
+    if status == 'Playing':
+        color = COLOR_PLAYING
+    else:
+        color = COLOR_PAUSED
+
+    if status is not None:
+        artist = player.get_artist()
+        title = player.get_title()
+        if artist == '' and title == '':
+            text = ''
+        else:
+            text = ' {} - {}'.format(artist, title)
+    else:
+        text = ''
+
+    print('<span foreground="{}">{}</span>'.format(color, text), flush=True)
+
+
+def on_metadata(player, e):
+    print_status()
+    #if 'xesam:artist' in e.keys() and 'xesam:title' in e.keys():
+    #    print('{artist} - {title}'.format(artist=e['xesam:artist'][0], title=e['xesam:title']))
+
+def on_play(player):
+    print_status()
+    #print('Playing at volume {}'.format(player.props.volume))
+
+def on_pause(player):
+    print_status()
+    #print('Paused the song: {}'.format(player.get_title()))
+
+def on_stop(player):
+    print_status()
+
+def on_exit(player):
+    print_status()
+
+#player.on('play', on_play)
+#player.on('pause', on_pause)
+player.on('metadata', on_metadata)
+#player.on('stop', on_stop)
+player.on('exit', on_exit)
+
+# print current status
+print_status()
+
+# wait for events
+main = GLib.MainLoop()
+main.run()

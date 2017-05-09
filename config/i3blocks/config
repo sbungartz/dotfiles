@@ -28,6 +28,22 @@ command=/usr/share/i3blocks/$BLOCK_NAME
 separator_block_width=15
 markup=none
 
+[mymediaplayer]
+command=$SCRIPT_DIR/mediaplayer
+interval=persist
+markup=pango
+
+# Generic media player support
+#
+# This displays "ARTIST - SONG" if a music is playing.
+# Supported players are: spotify, vlc, audacious, xmms2, mplayer, and others.
+#[mediaplayer]
+#label=
+#instance=spotify
+#interval=5
+#signal=10
+
+
 # Volume indicator
 #
 # The first parameter sets the step (and units to display)
@@ -96,7 +112,7 @@ interval=30
 #label=CPU
 #interval=10
 #min_width=CPU: 100.00%
-##separator=false
+#separator=false
 
 #[load_average]
 #interval=10
@@ -119,6 +135,11 @@ command=$SCRIPT_DIR/battery
 markup=pango
 interval=30
 
+[apt-upgrades]
+command=$SCRIPT_DIR/apt-upgrades
+signal=5
+interval=3600
+
 # Current keyboard layout
 [kbdd_layout]
 label=
@@ -128,17 +149,9 @@ interval=persist
 # Date Time
 #
 [time]
-command=date '+%Y-%m-%d %H:%M:%S'
+#command=date '+%Y-%m-%d %H:%M:%S'
+command=date '+%a, %-d.%-m. %H:%M:%S'
 interval=1
-
-# Generic media player support
-#
-# This displays "ARTIST - SONG" if a music is playing.
-# Supported players are: spotify, vlc, audacious, xmms2, mplayer, and others.
-#[mediaplayer]
-#instance=spotify
-#interval=5
-#signal=10
 
 # OpenVPN support
 #

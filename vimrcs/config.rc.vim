@@ -42,8 +42,8 @@ highlight SignColumn ctermbg=black
 highlight YcmErrorSign ctermbg=black ctermfg=darkred
 highlight YcmWarningSign ctermbg=black ctermfg=yellow
 
-let g:ycm_error_symbol = '🚨 ' "'☠ ' '🚫 ' '⚡ ' 
-let g:ycm_warning_symbol =  '🖕' "'😱 ' '⚠️ '
+let g:ycm_error_symbol = 'E' "'🚨' '☠ ' '🚫 ' '⚡ ' 
+let g:ycm_warning_symbol = 'W' "'🖕' '😱 ' '⚠️ '
 let g:ycm_add_preview_to_completeopt = 1
 let g:ycm_autoclose_preview_window_after_insertion = 1
 "let g:ycm_global_ycm_extra_conf = '~/.ycm_global_extra_conf.py'
