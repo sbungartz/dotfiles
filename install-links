@@ -29,5 +29,6 @@ lndh tmux.conf
 # i3 related stuff
 lndh config/i3
 lndh config/i3blocks
+mkdir -p $HOME/.config/font-manager
 lndh config/font-manager/local.conf
 lndh Xresources
