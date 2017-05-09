@@ -6,9 +6,15 @@ then
     exit 1
 fi
 
+if [[ ! -d "$DOTFILES" ]]
+then
+    echo "Dotfiles not set. Try sudo -E to keep environment." >&2
+    exit 2
+fi
+
 # APT-hook and regular update cron job for update notification bar
 # from https://github.com/vivien/i3blocks-contrib/tree/master/apt-upgrades
 ln -s $DOTFILES/custom-scripts/with-root/80i3blocks /etc/apt/apt.conf.d/
-(crontab -l 2>/dev/null; echo "0 * * * * apt-get update")| crontab -
+(crontab -u root -l 2>/dev/null; echo "0 * * * * apt-get update")| crontab -u root -
 
 
