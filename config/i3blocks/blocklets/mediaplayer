@@ -10,6 +10,10 @@ COLOR_PAUSED = '#a0a0a0'
 
 player = Playerctl.Player(player_name='spotify')
 
+def pango_escape(text):
+    """ Escape characters in the given literal text, so they will be correctly displayed in rendered pango markup"""
+    return text.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+
 def print_status():
     status = player.props.status
     if status == 'Playing':
@@ -27,7 +31,7 @@ def print_status():
     else:
         text = ''
 
-    print('<span foreground="{}">{}</span>'.format(color, text), flush=True)
+    print('<span foreground="{}">{}</span>'.format(color, pango_escape(text)), flush=True)
 
 
 def on_metadata(player, e):
