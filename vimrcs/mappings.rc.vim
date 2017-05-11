@@ -17,3 +17,6 @@ nmap ;p :YcmCompleter GetParent<CR>
 nmap ;f :YcmCompleter FixIt<CR>
 nmap ;d :YcmCompleter GetDoc<CR>
 nmap ;r :YcmForceCompileAndDiagnostics<CR>
+
+" open master source latex pdf
+autocmd FileType bib nmap <C-w> [{lv/,<CR>h"ty:silent! exec "!xdg-open /home/simon/projects/master/research/papers/<C-r>t.pdf &"<CR>
