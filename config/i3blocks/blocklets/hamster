@@ -15,8 +15,22 @@ facts = runtime.storage.get_todays_facts()
 if facts and facts[-1].end_time is None:
     current_activity = facts[-1]
     work_duration = datetime.now() - current_activity.start_time
-    #longtext = u' {}'.format(format_duration(work_duration, False))
-    longtext = u' {}'.format(format_duration(work_duration, False))
+
+    #work_icon = u''
+    #work_icon = u''
+    #work_icon = u''
+    #work_icon = u''
+    #work_icon = u''
+    work_icon = u''
+
+    if current_activity.category == 'uni':
+        work_icon = u''
+    elif current_activity.category == 'private-coding':
+        #work_icon = u''
+        #work_icon = u''
+        work_icon =u'' 
+
+    longtext = u'{} {}'.format(work_icon, format_duration(work_duration, False))
     shorttext = longtext
     color = '#ffffff'
 else:
