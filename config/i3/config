@@ -210,8 +210,9 @@ bindsym $mod+Shift+0 move container to workspace $ws10; workspace $ws10
 
 # Open applications on specific workspaces
 # 'IDE' workspace:
-assign [class="org-contikios-cooja-Cooja"] $ws4
 assign [class="jetbrains-idea-ce"] $ws3
+assign [class="jetbrains-pycharm-ce"] $ws3
+assign [class="org-contikios-cooja-Cooja"] $ws4
 # Standard workspaces:
 assign [class="Thunderbird"] $ws8
 for_window [title=".*WhatsApp - Google Chrome"] move to workspace $ws9
