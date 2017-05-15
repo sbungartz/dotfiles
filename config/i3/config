@@ -32,6 +32,7 @@ floating_modifier $mod
 
 # start a terminal
 bindsym $mod+Return exec gnome-terminal --hide-menubar
+bindsym $mod+Shift+Return exec gnome-terminal --hide-menubar --role='i3CustomFloatingTerminal'
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -234,6 +235,7 @@ bindsym $mod+Mod1+0 exec spotify
 for_window [class="Gnome-terminal"] exec "dbus-send --dest=ru.gentoo.KbddService /ru/gentoo/KbddService ru.gentoo.kbdd.set_layout uint32:1"
 
 # Open specific applications in floating mode
+for_window [window_role="i3CustomFloatingTerminal"] floating enable
 for_window [title="alsamixer"] floating enable border pixel 1
 for_window [class="Calamares"] floating enable border normal
 for_window [class="Clipgrab"] floating enable
