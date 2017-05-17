@@ -327,6 +327,7 @@ bindsym $mod+Insert exec --no-startup-id playerctl previous
 #exec --no-startup-id unity-settings-daemon
 #exec --no-startup-id update-notifier
 #exec --no-startup-id nitrogen --restore; sleep 1; compton -bf
+exec --no-startup-id /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id nitrogen --restore
 exec --no-startup-id compton -bf
 exec --no-startup-id nm-applet
