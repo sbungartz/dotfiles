@@ -21,6 +21,7 @@ nnoremap <Down> :echoe "Use j"<CR>
 " Autoindent
 set expandtab
 set shiftwidth=4 softtabstop=4
+autocmd FileType sshconfig setlocal sw=2 sts=2
 autocmd FileType cpp setlocal cindent cinoptions=g0
 autocmd FileType html setlocal sw=2 sts=2
 autocmd FileType css setlocal sw=2 sts=2
