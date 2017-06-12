@@ -1,5 +1,8 @@
 "nnoremap <C-i> :r!xclip -o<CR>
 
+" Write as root
+command Ws w !sudo tee > /dev/null %
+
 nmap ,f :FufFile **/<CR>
 nmap ,b :FufBuffer<CR>
 nmap ,t :FufTaggedFile<CR>
