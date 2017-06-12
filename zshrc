@@ -12,7 +12,7 @@ export DOTFILES=$HOME/.dotfiles
 export EDITOR='vim'
 
 # keyboard mode
-gsettings set org.gnome.desktop.input-sources current 1
+# gsettings set org.gnome.desktop.input-sources current 1
 
 # paths
 export PATH="$PATH:$HOME/.bin"
