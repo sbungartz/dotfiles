@@ -336,7 +336,7 @@ exec --no-startup-id nm-applet
 # Brightness with notification
 exec --no-startup-id xfce4-power-manager
 # Set keyboard layout and (re-)start kbdd for blocklet and keybindings/autolayout
-exec --no-startup-id "setxkbmap -layout de,us; killall kbdd; kbdd"
+exec_always --no-startup-id "setxkbmap -layout de,us; killall kbdd; kbdd"
 # Set touchpad configuration
 exec_always "synclient VertScrollDelta=-112 HorizScrollDelta=-112 VertEdgeScroll=0 HorizTwoFingerScroll=1"
 
