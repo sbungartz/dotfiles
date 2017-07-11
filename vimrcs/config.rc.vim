@@ -48,6 +48,7 @@ highlight SignColumn ctermbg=black
 highlight YcmErrorSign ctermbg=black ctermfg=darkred
 highlight YcmWarningSign ctermbg=black ctermfg=yellow
 
+let g:ycm_python_binary_path = 'python3.6'
 let g:ycm_error_symbol = 'E' "'🚨' '☠ ' '🚫 ' '⚡ ' 
 let g:ycm_warning_symbol = 'W' "'🖕' '😱 ' '⚠️ '
 let g:ycm_add_preview_to_completeopt = 1
