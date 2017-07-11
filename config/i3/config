@@ -213,6 +213,7 @@ bindsym $mod+Shift+0 move container to workspace $ws10; workspace $ws10
 # 'IDE' workspace:
 assign [class="jetbrains-idea-ce"] $ws3
 assign [class="jetbrains-pycharm-ce"] $ws3
+assign [class="TeXstudio"] $ws3
 assign [class="org-contikios-cooja-Cooja"] $ws4
 # Standard workspaces:
 assign [class="Thunderbird"] $ws8
