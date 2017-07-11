@@ -3,6 +3,8 @@
 " Write as root
 command Ws w !sudo tee > /dev/null %
 
+nmap ,s :NERDTreeFind<CR>
+
 nmap ,f :FufFile **/<CR>
 nmap ,b :FufBuffer<CR>
 nmap ,t :FufTaggedFile<CR>
