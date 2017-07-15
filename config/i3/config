@@ -1,7 +1,8 @@
 # i3 config file (v4)
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
-set $SCRIPT_DIR ~/.config/i3blocks/blocklets
+set $SCRIPTS ~/.config/i3/scripts
+set $BLOCKET_DIR ~/.config/i3blocks/blocklets
 
 # Set mod key (Mod1=<Alt>, Mod4=<Super>)
 set $mod Mod4
@@ -75,7 +76,7 @@ bindsym $mod+F5 exec terminal -e 'mocp'
 bindsym $mod+Shift+t exec --no-startup-id pkill compton
 bindsym $mod+Ctrl+t exec --no-startup-id compton -bf
 
-bindsym $mod+t exec BLOCK_BUTTON=1 ~/.config/i3blocks/blocklets/hamster
+bindsym $mod+t exec BLOCK_BUTTON=1 $BLOCKET_DIR/hamster
 
 bindsym $mod+Ctrl+x --release exec --no-startup-id xkill
 
@@ -135,7 +136,7 @@ bindsym $mod+q split toggle
 bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
-bindsym $mod+s layout stacking
+bindsym $mod+s layout stacking  # not really using stacking ever, gonna use mod+s for xrandr stuff
 bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
@@ -305,7 +306,7 @@ mode "resize" {
 }
 
 # Shutdown menu
-bindsym Control+Mod1+Delete exec $SCRIPT_DIR/shutdown_menu -c
+bindsym Control+Mod1+Delete exec $BLOCKET_DIR/shutdown_menu -c
 
 # Lock screen (47 = ; in us)
 bindcode $mod+47 exec --no-startup-id i3lock -i ~/.config/i3/lock_screen.png
@@ -329,6 +330,9 @@ bindsym $mod+Home exec --no-startup-id playerctl play-pause
 bindsym $mod+Delete exec --no-startup-id playerctl next
 bindsym $mod+Insert exec --no-startup-id playerctl previous
 
+# Display control
+bindsym $mod+p exec --no-startup-id $SCRIPTS/screen-modes
+
 # Autostart applications
 #exec --no-startup-id unity-settings-daemon
 #exec --no-startup-id update-notifier
@@ -348,7 +352,7 @@ exec_always "synclient VertScrollDelta=-112 HorizScrollDelta=-112 VertEdgeScroll
 
 # Start i3bar to display a workspace bar (plus the system information i3status if available)
 bar {
-	status_command SCRIPT_DIR=$SCRIPT_DIR i3blocks
+	status_command SCRIPT_DIR=$BLOCKET_DIR i3blocks
 	position top
         height 24
 

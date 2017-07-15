@@ -1,0 +1,53 @@
+#!/bin/bash
+
+XRANDR="$(xrandr)"
+
+OUTPUT_COUNT=$(echo "$XRANDR" | grep -c '\bconnected')
+if [[ $OUTPUT_COUNT == 1 ]]
+then
+    # Simply configure the single output to it's preferred value.
+    xrandr --auto
+    nitrogen --restore
+else
+    PRIMARY=$(echo "$XRANDR" | grep '\bconnected primary' | cut -d ' ' -f 1)
+    OTHER=$(echo "$XRANDR" | grep -e '\bconnected [0-9]' | cut -d ' ' -f 1)
+    OTHER_IS_ON=1
+    if [ -z $OTHER ]
+    then
+        OTHER=$(echo "$XRANDR" | grep -e '\bconnected (' | cut -d ' ' -f 1)
+        OTHER_IS_ON=0
+    fi
+
+    typeset -A menu
+    if [[ $OTHER_IS_ON == 1 ]]
+    then
+        menu=(
+            ["1: Place $OTHER right of $PRIMARY"]="xrandr --output $OTHER --right-of $PRIMARY"
+            ["2: Place $OTHER left of $PRIMARY"]="xrandr --output $OTHER --left-of $PRIMARY"
+            ["3: Place $OTHER above $PRIMARY"]="xrandr --output $OTHER --above $PRIMARY"
+            ["4: Place $OTHER below $PRIMARY"]="xrandr --output $OTHER --below $PRIMARY"
+            ["5: Place $OTHER same as $PRIMARY"]="xrandr --output $OTHER --auto --same-as $PRIMARY"
+            ["6: Use only $PRIMARY"]="xrandr --output $OTHER --off"
+            ["7: Use only $OTHER"]="xrandr --output $OTHER --primary --output $PRIMARY --off"
+            ["8: Make $OTHER the primary display"]="xrandr --output $OTHER --primary"
+        )
+    else
+        menu=(
+            ["1: Place $OTHER right of $PRIMARY"]="xrandr --output $OTHER --auto --right-of $PRIMARY"
+            ["2: Place $OTHER left of $PRIMARY"]="xrandr --output $OTHER --auto --left-of $PRIMARY"
+            ["3: Place $OTHER above $PRIMARY"]="xrandr --output $OTHER --auto --above $PRIMARY"
+            ["4: Place $OTHER below $PRIMARY"]="xrandr --output $OTHER --auto --below $PRIMARY"
+            ["5: Place $OTHER same as $PRIMARY"]="xrandr --output $OTHER --auto --same-as $PRIMARY"
+            ["6: Use only $OTHER"]="xrandr --output $OTHER --auto --primary --output $PRIMARY --off"
+        )
+    fi
+
+
+    selection=$(printf '%s\n' "${!menu[@]}" | sort | rofi -dmenu -i -p 'Display setup: ')
+    if [[ $? -eq 0 && ! -z ${selection} ]]
+    then
+        ${menu[${selection}]}
+        nitrogen --restore
+    fi
+fi
+
