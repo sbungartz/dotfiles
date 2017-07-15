@@ -89,7 +89,6 @@ bindsym Print exec XDG_CURRENT_DESKTOP=Unity gnome-screenshot
 bindsym $mod+Shift+Print exec XDG_CURRENT_DESKTOP=Unity gnome-screenshot -w
 bindsym Shift+Print exec pkill compton && compton -b && XDG_CURRENT_DESKTOP=Unity gnome-screenshot -a && pkill compton && compton -bf
 
-
 # focus_follows_mouse no
 
 # change focus
@@ -115,6 +114,12 @@ bindsym $mod+Shift+Left move left
 bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
+
+# move current workspace to next output (screen)
+bindsym $mod+Ctrl+h move workspace to output left
+bindsym $mod+Ctrl+j move workspace to output down
+bindsym $mod+Ctrl+k move workspace to output up
+bindsym $mod+Ctrl+l move workspace to output right
 
 # workspace back and forth (with/without active container)
 #workspace_auto_back_and_forth yes
