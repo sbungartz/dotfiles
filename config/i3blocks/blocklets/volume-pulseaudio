@@ -112,6 +112,8 @@ fi
 # Use special symbol for headphones, hdmi, ...
 if [[ $PORT == 'analog-output-headphones' ]] ; then
     SYMBOL=' '
+elif [[ $PORT =~ ^hdmi-output- ]]; then
+    SYMBOL=' '
 fi
 
 function print_format {
