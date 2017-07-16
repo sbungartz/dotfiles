@@ -1,0 +1,6 @@
+#!/bin/bash
+
+SCRIPT_DIR="$(dirname -- "$(readlink -f -- "${BASH_SOURCE[0]}")")"
+
+nitrogen --restore  # restore nitrogen wallpapers for new screen setup
+"$SCRIPT_DIR/restart-compton"  # restart compton with new shadow-exclude-reg
