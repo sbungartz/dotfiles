@@ -4,6 +4,19 @@ SCRIPT_DIR="$(dirname -- "$(readlink -f -- "${BASH_SOURCE[0]}")")"
 
 XRANDR="$(xrandr)"
 
+function duplicate_screens() {
+    BASE=$1
+    CLONE=$2
+    echo $BASE
+    echo $CLONE
+
+    if [[ $(echo "$XRANDR" | grep -A1 $BASE | grep -v $BASE) =~ ([0-9]+x[0-9]+) ]]
+    then
+        BASE_RESOLUTION=${BASH_REMATCH[1]}
+        xrandr --fb $BASE_RESOLUTION --output $BASE --mode $BASE_RESOLUTION --scale '1x1' --output $CLONE --scale-from $BASE_RESOLUTION --same-as $BASE
+    fi
+}
+
 OUTPUT_COUNT=$(echo "$XRANDR" | grep -c '\bconnected')
 if [[ $OUTPUT_COUNT == 1 ]]
 then
@@ -24,14 +37,16 @@ else
     if [[ $OTHER_IS_ON == 1 ]]
     then
         menu=(
-            ["1: Place $OTHER right of $PRIMARY"]="xrandr --output $OTHER --right-of $PRIMARY"
-            ["2: Place $OTHER left of $PRIMARY"]="xrandr --output $OTHER --left-of $PRIMARY"
-            ["3: Place $OTHER above $PRIMARY"]="xrandr --output $OTHER --above $PRIMARY"
-            ["4: Place $OTHER below $PRIMARY"]="xrandr --output $OTHER --below $PRIMARY"
-            ["5: Place $OTHER same as $PRIMARY"]="xrandr --output $OTHER --auto --same-as $PRIMARY"
-            ["6: Use only $PRIMARY"]="xrandr --output $OTHER --off"
-            ["7: Use only $OTHER"]="xrandr --output $OTHER --primary --output $PRIMARY --off"
-            ["8: Make $OTHER the primary display"]="xrandr --output $OTHER --primary"
+            ["01: Place $OTHER right of $PRIMARY"]="xrandr --output $OTHER --right-of $PRIMARY"
+            ["02: Place $OTHER left of $PRIMARY"]="xrandr --output $OTHER --left-of $PRIMARY"
+            ["03: Place $OTHER above $PRIMARY"]="xrandr --output $OTHER --above $PRIMARY"
+            ["04: Place $OTHER below $PRIMARY"]="xrandr --output $OTHER --below $PRIMARY"
+            ["05: Place $OTHER same as $PRIMARY"]="xrandr --output $OTHER --same-as $PRIMARY"
+            ["06: Dupliate screens at resolution of $PRIMARY"]="duplicate_screens $PRIMARY $OTHER"
+            ["07: Dupliate screens at resolution of $OTHER"]="duplicate_screens $OTHER $PRIMARY"
+            ["08: Use only $PRIMARY"]="xrandr --output $OTHER --off"
+            ["09: Use only $OTHER"]="xrandr --output $OTHER --primary --output $PRIMARY --off"
+            ["10: Make $OTHER the primary display"]="xrandr --output $OTHER --primary"
         )
     else
         menu=(
@@ -40,7 +55,9 @@ else
             ["3: Place $OTHER above $PRIMARY"]="xrandr --output $OTHER --auto --above $PRIMARY"
             ["4: Place $OTHER below $PRIMARY"]="xrandr --output $OTHER --auto --below $PRIMARY"
             ["5: Place $OTHER same as $PRIMARY"]="xrandr --output $OTHER --auto --same-as $PRIMARY"
-            ["6: Use only $OTHER"]="xrandr --output $OTHER --auto --primary --output $PRIMARY --off"
+            ["6: Dupliate screens at resolution of $PRIMARY"]="duplicate_screens $PRIMARY"
+            ["7: Dupliate screens at resolution of $OTHER"]="duplicate_screens $OTHER"
+            ["8: Use only $OTHER"]="xrandr --output $OTHER --auto --primary --output $PRIMARY --off"
         )
     fi
 
@@ -48,7 +65,11 @@ else
     selection=$(printf '%s\n' "${!menu[@]}" | sort | rofi -dmenu -i -p 'Display setup: ')
     if [[ $? -eq 0 && ! -z ${selection} ]]
     then
+        # First, reset both screens to preferred mode and no scale
+        xrandr --output $PRIMARY --preferred --scale 1x1 --output $OTHER --preferred --scale 1x1
+        # Now apply the selected setup command
         ${menu[${selection}]}
+        # Finally call the post-change hooks to re-confgure wallpapers and so on
         "$SCRIPT_DIR/after-screen-change"
     fi
 fi
