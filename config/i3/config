@@ -325,6 +325,9 @@ bindsym XF86AudioRaiseVolume exec --no-startup-id $cmdVolUp
 bindsym XF86AudioLowerVolume exec --no-startup-id $cmdVolDown
 bindsym XF86AudioMute exec --no-startup-id $cmdVolToggleMute
 
+# Toggle audio output between analog and HDMI
+bindsym $mod+Shift+o exec --no-startup-id $SCRIPTS/toggle-hdmi-audio
+
 # Media control
 bindsym $mod+Home exec --no-startup-id playerctl play-pause
 bindsym $mod+Delete exec --no-startup-id playerctl next
