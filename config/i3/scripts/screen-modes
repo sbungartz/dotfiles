@@ -20,8 +20,11 @@ function duplicate_screens() {
 OUTPUT_COUNT=$(echo "$XRANDR" | grep -c '\bconnected')
 if [[ $OUTPUT_COUNT == 1 ]]
 then
-    # Simply configure the single output to it's preferred value.
-    xrandr --auto
+    # Get the connected output name
+    CONNECTED=$(echo "$XRANDR" | grep -e '\bconnected' | cut -d ' ' -f 1)
+    # Configure all outputs automatically and the connected output as primary display with it's preferred mode and no scale
+    xrandr --auto --output $CONNECTED --primary --auto --scale '1x1'
+    # Now call the post-display change hooks
     "$SCRIPT_DIR/after-screen-change"
 else
     PRIMARY=$(echo "$XRANDR" | grep '\bconnected primary' | cut -d ' ' -f 1)
