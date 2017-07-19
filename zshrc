@@ -69,7 +69,7 @@ setopt HIST_IGNORE_SPACE
     antigen bundle scala
     antigen bundle sbt
 
-    antigen bundle zsh-users/zsh-completions
+#    antigen bundle zsh-users/zsh-completions
     
     # Syntax highlighting bundle.
     #antigen bundle zsh-users/zsh-syntax-highlighting
