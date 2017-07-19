@@ -18,6 +18,9 @@ sudo apt-get install \
 git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 vim +PluginInstall +qall
 
+# Create vim undo folder
+mkdir ~/.vim/undo
+
 # Set zsh as login shell for the user
 echo 'Setting /bin/zsh as your login shell. If you wish to do so enter your password. Otherwise hit Ctrl+C.'
 chsh -s /bin/zsh

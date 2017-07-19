@@ -11,6 +11,13 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-h> <C-w>h
 nnoremap <C-l> <C-w>l
 
+" Persistent undo
+set undofile
+set undodir=$HOME/.vim/undo
+
+set undolevels=1000
+set undoreload=10000
+
 " Slime: Send text from vim to other tmux panes
 let g:slime_target = "tmux"
 nnoremap <C-c>c V:SlimeSend<CR>
