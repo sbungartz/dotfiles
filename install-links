@@ -30,5 +30,6 @@ lndh tmux.conf
 lndh config/i3
 lndh config/i3blocks
 lndh config/compton.conf
+lndh config/ranger/rc.conf
 lndh Xresources
 lndh fonts.conf
