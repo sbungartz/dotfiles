@@ -1,8 +1,0 @@
-#!/bin/bash
-convert lock_screen_raw.png -blur 0x5 lock_screen.png
-
-convert lock_screen.png \
-    -blur 0x5 \
-    -font Roboto-Thin -pointsize 32 -fill white -gravity center -annotate +0+120 'Type password to unlock' \
-    icons/lock.png -gravity center -composite \
-    lock_screen.png
