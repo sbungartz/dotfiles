@@ -1,5 +1,6 @@
 " Enable syntax highlighting
 syntax on
+colorscheme default
 
 " Open new split panes to right and bottom, which feels more natural
 set splitbelow
