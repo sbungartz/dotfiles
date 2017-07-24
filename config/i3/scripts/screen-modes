@@ -7,8 +7,6 @@ XRANDR="$(xrandr)"
 function duplicate_screens() {
     BASE=$1
     CLONE=$2
-    echo $BASE
-    echo $CLONE
 
     if [[ $(echo "$XRANDR" | grep -A1 $BASE | grep -v $BASE) =~ ([0-9]+x[0-9]+) ]]
     then
@@ -58,8 +56,8 @@ else
             ["3: Place $OTHER above $PRIMARY"]="xrandr --output $OTHER --auto --above $PRIMARY"
             ["4: Place $OTHER below $PRIMARY"]="xrandr --output $OTHER --auto --below $PRIMARY"
             ["5: Place $OTHER same as $PRIMARY"]="xrandr --output $OTHER --auto --same-as $PRIMARY"
-            ["6: Dupliate screens at resolution of $PRIMARY"]="duplicate_screens $PRIMARY"
-            ["7: Dupliate screens at resolution of $OTHER"]="duplicate_screens $OTHER"
+            ["6: Dupliate screens at resolution of $PRIMARY"]="duplicate_screens $PRIMARY $OTHER"
+            ["7: Dupliate screens at resolution of $OTHER"]="duplicate_screens $OTHER $PRIMARY"
             ["8: Use only $OTHER"]="xrandr --output $OTHER --auto --primary --output $PRIMARY --off"
         )
     fi
