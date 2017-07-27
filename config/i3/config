@@ -337,7 +337,7 @@ bindsym $mod+Delete exec --no-startup-id playerctl next
 bindsym $mod+Insert exec --no-startup-id playerctl previous
 
 # Display control
-bindsym $mod+p exec --no-startup-id $SCRIPTS/screen-modes
+bindsym $mod+p exec $SCRIPTS/screen-modes
 
 # Toggle compton dim-inactive for currently focused window
 bindsym $mod+Ctrl+d exec --no-startup-id $SCRIPTS/toggle-window-always-bright
