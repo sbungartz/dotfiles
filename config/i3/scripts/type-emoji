@@ -1,0 +1,19 @@
+#!/bin/bash
+
+EMOJI_FILE="$HOME/.config/i3/scripts/emojis.txt"
+
+EMOJI=$(cat "$EMOJI_FILE" | rofi -dmenu -i -p 'Find emoji: ' | cut -d ' ' -f 1)
+
+# If the emoji is single character, we can just type it using xdotool
+# If it is a combined emoji, we have to 'copy-paste' it, so that receiving programs
+# (at least WhatsappWeb) interpret it correctly and make it the joined emoji.
+# The 'copy-paste' code however overwrites the clipboard and also only works on programs
+# that actually use Ctrl+V to paste stuff (unlike terminal emulators for example).
+# So to minimize the use of the copy-paste approach, only use it when necessary.
+if [[ ${#EMOJI} == 1 ]]
+then
+    xdotool type "$EMOJI"
+else
+    echo -n "$EMOJI" | xclip -i -selection clipboard
+    xdotool key --clearmodifiers "ctrl+v"
+fi

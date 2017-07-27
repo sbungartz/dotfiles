@@ -342,6 +342,9 @@ bindsym $mod+p exec --no-startup-id $SCRIPTS/screen-modes
 # Toggle compton dim-inactive for currently focused window
 bindsym $mod+Ctrl+d exec --no-startup-id $SCRIPTS/toggle-window-always-bright
 
+# Misc key bindings
+bindsym $mod+period exec $SCRIPTS/type-emoji
+
 # Autostart applications
 #exec --no-startup-id unity-settings-daemon
 #exec --no-startup-id update-notifier
