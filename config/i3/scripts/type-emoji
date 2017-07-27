@@ -12,8 +12,8 @@ EMOJI=$(cat "$EMOJI_FILE" | rofi -dmenu -i -p 'Find emoji: ' | cut -d ' ' -f 1)
 # So to minimize the use of the copy-paste approach, only use it when necessary.
 if [[ ${#EMOJI} == 1 ]]
 then
-    xdotool type "$EMOJI"
+    xdotool sleep 0.2 type --clearmodifiers "$EMOJI"
 else
     echo -n "$EMOJI" | xclip -i -selection clipboard
-    xdotool key --clearmodifiers "ctrl+v"
+    xdotool sleep 0.2 key --clearmodifiers "ctrl+v"
 fi
