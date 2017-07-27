@@ -1,7 +1,10 @@
-"nnoremap <C-i> :r!xclip -o<CR>
-
 " Write as root
 command Ws w !sudo tee > /dev/null %
+
+" Custom navigation mappings
+
+nmap ]q :cnext<CR>
+nmap [q :cprevious<CR>
 
 nmap ,s :NERDTreeFind<CR>
 
