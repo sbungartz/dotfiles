@@ -344,6 +344,7 @@ bindsym $mod+Ctrl+d exec --no-startup-id $SCRIPTS/toggle-window-always-bright
 
 # Misc key bindings
 bindsym $mod+period exec $SCRIPTS/type-emoji
+bindcode $mod+Shift+60 exec $SCRIPTS/type-emoji --paste-command 'ctrl+shift+v'
 
 # Autostart applications
 #exec --no-startup-id unity-settings-daemon
