@@ -11,8 +11,8 @@ export DOTFILES=$HOME/.dotfiles
 # tmuxinator
 export EDITOR='vim'
 
-# keyboard mode
-# gsettings set org.gnome.desktop.input-sources current 1
+# Disable Software Flow Control in tty driver, so accidental Ctrl+S does not freeze terminal
+stty -ixon
 
 # paths
 export PATH="$PATH:$HOME/.bin"
