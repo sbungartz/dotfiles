@@ -312,7 +312,7 @@ mode "resize" {
 bindsym Control+Mod1+Delete exec $BLOCKET_DIR/shutdown_menu -c
 
 # Lock screen (47 = ; in us)
-bindcode $mod+47 exec --no-startup-id i3lock -i ~/.config/i3/lock_screen.png
+bindcode $mod+47 exec --no-startup-id $SCRIPTS/lock-screen
 
 # Switch keyboard layout (relies on i3bar keyboard layout script to start kbdd
 bindsym Mod1+Shift+Return exec "dbus-send --dest=ru.gentoo.KbddService /ru/gentoo/KbddService ru.gentoo.kbdd.next_layout"

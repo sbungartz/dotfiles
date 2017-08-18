@@ -29,7 +29,7 @@
 #######################################################################
 
 # Use a custom lock script
-#LOCKSCRIPT="i3lock-extra -m pixelize"
+LOCKSCRIPT="~/.config/i3/scripts/lock-screen"
 
 # Colors: FG (foreground), BG (background), HL (highlighted)
 FG_COLOR="#bbbbbb"
@@ -118,7 +118,7 @@ menu=(
   [Shutdown]="systemctl poweroff"
   [Reboot]="systemctl reboot"
 #  [Hibernate]="systemctl hibernate"
-  [Suspend]="i3lock -i $HOME/.config/i3/lock_screen.png && sleep 2 && systemctl suspend"
+  [Suspend]="${LOCKSCRIPT} && sleep 2 && systemctl suspend"
 #  [Halt]="systemctl halt"
   [Lock]="${LOCKSCRIPT:-i3lock --color=${BG_COLOR#"#"}}"
   [Logout]="i3-msg exit"
