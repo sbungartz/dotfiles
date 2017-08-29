@@ -1,0 +1,8 @@
+#!/bin/bash
+set -e -u
+
+ICON=''
+#ICON='🚄'
+STATUS=$(curl https://portal.imice.de/api1/rs/status 2> /dev/null)
+
+echo "$ICON $(echo "$STATUS" | jq '.speed') km/h"
