@@ -1,8 +1,20 @@
 #!/bin/bash
 set -e -u
 
+# Only run, when connected to the on board WiFi
+if [[ "$(iwgetid -r)" != 'WIFIonICE' ]]
+then
+    echo ''
+    exit 0
+fi
+
 ICON=''
 #ICON='🚄'
-STATUS=$(curl https://portal.imice.de/api1/rs/status 2> /dev/null)
+STATUS=$(curl https://portal.imice.de/api1/rs/status 2> /dev/null || true)
 
-echo "$ICON $(echo "$STATUS" | jq '.speed') km/h"
+if [[ -z "$STATUS" ]]
+then
+    echo ''
+else
+    echo "$ICON $(echo "$STATUS" | jq '.speed') km/h"
+fi
