@@ -68,12 +68,13 @@ signal=1
 #         
 label=
 interval=10
+separator=false
+separator_block_width=4
 
-#[memory]
-#label=SWAP
-#instance=swap
-#separator=false
-#interval=30
+[memory]
+label=
+instance=swap
+interval=10
 
 # Disk usage
 #
