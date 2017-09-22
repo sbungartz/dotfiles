@@ -2,6 +2,9 @@
 syntax on
 colorscheme default
 
+" Avoid white text on yellow background for highlights
+highlight Search ctermbg=DarkBlue
+
 " Open new split panes to right and bottom, which feels more natural
 set splitbelow
 set splitright
