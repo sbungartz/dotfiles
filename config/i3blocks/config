@@ -35,6 +35,7 @@ markup=none
 # Only gray icon when not running, gray title/artist when paused,
 # bright title/artist when playing.
 [mediaplayer]
+instance=spotify;
 interval=persist
 markup=pango
 
