@@ -237,9 +237,13 @@ bindsym $mod+Mod1+8 exec thunderbird
 bindsym $mod+Mod1+9 exec google-chrome-stable --new-window https://web.whatsapp.com
 bindsym $mod+Mod1+0 exec spotify
 
-# assign [class="Pale moon"] $ws2
-# assign [class="Pcmanfm"] $ws3
-# assign [class="Skype"] $ws5
+########################################
+#### Apps with their own scratchpad
+
+# Calculator
+bindsym $mod+Mod1+c exec --no-startup-id gnome-calculator; exec "sleep 0.5; xdotool getactivewindow set_window --classname scratch-calculator"
+for_window [instance="scratch-calculator"] move scratchpad; scratchpad show
+bindsym $mod+c [instance="scratch-calculator"] scratchpad show
 
 # Use english keyboard for some applications
 for_window [class="Gnome-terminal"] exec "dbus-send --dest=ru.gentoo.KbddService /ru/gentoo/KbddService ru.gentoo.kbdd.set_layout uint32:1"
