@@ -16,9 +16,10 @@ if [[ -z "$STATUS" ]]
 then
     echo ''
 else
-    if [[ $(echo "$STATUS" | jq -r '.gpsStatus') == 'VALID' ]]
+    speed=$(echo "$STATUS" | jq -r '.speed')
+    if [[ $speed -gt 0 ]]
     then
-        echo "$ICON $(echo "$STATUS" | jq -r '.speed') km/h"
+        echo "$ICON $speed km/h"
     else
         echo "<span foreground=\"#a0a0a0\">$ICON</span>"
     fi
