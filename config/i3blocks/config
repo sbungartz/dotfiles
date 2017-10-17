@@ -46,6 +46,10 @@ command=$SCRIPT_DIR/volume-pulseaudio -F 3 -f 3
 interval=1
 signal=1
 
+# Number of keys currently loaded in ssh-agent.
+[ssh_loaded_identities]
+interval=5
+
 # Memory usage
 # Always shows free RAM, also shows used SWAP, if any.
 [memory]

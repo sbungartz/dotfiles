@@ -1,0 +1,13 @@
+#!/bin/bash
+set -u
+
+ICON=''
+
+KEYS="$(ssh-add -l)"
+if [[ $? == 0 ]]
+then
+    echo "$ICON $(echo "$KEYS" | wc -l)"
+else
+    # Hide, when no keys are loaded
+    echo
+fi
