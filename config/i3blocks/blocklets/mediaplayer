@@ -15,9 +15,17 @@ COLOR_PAUSED = '#a0a0a0'
 # Specifying a player-name is recommended, since switching players is not supported.
 player_name = os.environ.get('BLOCK_INSTANCE', '')
 player_icon = ''
+show_track = True
 if ';' in player_name:
     # Split at last semi-colon
-    match = re.match(r'^(.*);(.*)$', player_name)
+    match = re.match(r'^(.*);!(.*)$', player_name)
+    if match is not None:
+        # Exclamation mark before icon hides track.
+        show_track = False
+    else:
+        # Otherwise, this must match, since we know there is a semi-colon
+        match = re.match(r'^(.*);(.*)$', player_name)
+
     player_name = match.group(1)
     player_icon = match.group(2)
 
@@ -40,7 +48,7 @@ def print_status():
         color = COLOR_PAUSED
 
     text = ''
-    if status is not None:
+    if show_track and status is not None:
         artist = player.get_artist()
         title = player.get_title()
         if artist != '' or title != '':
