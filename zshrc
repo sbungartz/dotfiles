@@ -66,8 +66,8 @@ setopt HIST_IGNORE_SPACE
     antigen bundle wd
     
     antigen bundle git
-    antigen bundle scala
-    antigen bundle sbt
+    #antigen bundle scala
+    #antigen bundle sbt
 
 #    antigen bundle zsh-users/zsh-completions
     
