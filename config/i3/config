@@ -227,7 +227,6 @@ assign [class="org-contikios-cooja-Cooja"] $ws4
 # Standard workspaces:
 assign [class="Thunderbird"] $ws8
 for_window [title=".*WhatsApp - Google Chrome"] move to workspace $ws9
-set $SIGNAL_CHROME_APP_ID bikioccmkafdpakkkcpdbppfkghcmihk
 assign [class="Signal"] $ws9
 assign [class="Spotify"] $ws10
 # Spotify seems to set this too late, so always force to corrent workspace https://community.spotify.com/t5/Desktop-Linux-Windows-Web-Player/WM-CLASS-window-property-on-Linux/m-p/1315693#M153640
