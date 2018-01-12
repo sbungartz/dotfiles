@@ -63,11 +63,18 @@ def print_status():
     print('<span foreground="{}">{}</span>'.format(color, pango_escape(' '.join(display))), flush=True)
 
 
+def on_metadata():
+    title = player.get_title()
+    if 'last christmas' in title.lower():
+        player.next()
+    print_status()
+
+
 # Register events
 player.on('play', lambda p: print_status())
 player.on('pause', lambda p: print_status())
 player.on('stop', lambda p: print_status())
-player.on('metadata', lambda p, e: print_status())
+player.on('metadata', lambda p, e: on_metadata())
 player.on('exit', lambda p: print_status())
 
 # print current status
