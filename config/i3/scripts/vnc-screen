@@ -1,0 +1,17 @@
+#!/bin/bash
+
+OUTPUT='VGA-1'
+MODENAME='1280x800_60.00'
+MODELINE="1280x800_60.00  83.46  1280 1344 1480 1680  800 801 804 828  -HSync +Vsync"
+
+xrandr --newmode $MODELINE
+xrandr --addmode $OUTPUT $MODENAME
+
+xrandr --output $OUTPUT --mode $MODENAME --below HDMI-1
+./generate-lockscreen
+
+x11vnc -usepw -clip 1280x800+0+1080 -noxdamage -noncache
+
+xrandr --output $OUTPUT --off
+./generate-lockscreen
+
