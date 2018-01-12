@@ -70,6 +70,7 @@ bindsym $mod+Ctrl+m exec pavucontrol
 bindsym $mod+Ctrl+b exec terminal -e 'bmenu'
 bindsym $mod+F2 exec google-chrome-stable
 bindsym $mod+F3 exec nautilus --no-desktop
+bindsym $mod+F12 exec XDG_CURRENT_DESKTOP=Unity unity-control-center
 # bindsym $mod+F3 exec ranger
 bindsym $mod+Shift+F3 exec gksu pcmanfm
 bindsym $mod+F5 exec terminal -e 'mocp'
@@ -340,6 +341,11 @@ bindsym $mod+Shift+o exec --no-startup-id $SCRIPTS/toggle-hdmi-audio
 bindsym $mod+Home exec --no-startup-id playerctl play-pause
 bindsym $mod+Delete exec --no-startup-id playerctl next
 bindsym $mod+Insert exec --no-startup-id playerctl previous
+
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioPause exec playerctl pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
 
 # Display control
 bindsym $mod+p exec $SCRIPTS/screen-modes
