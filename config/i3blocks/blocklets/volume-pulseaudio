@@ -109,11 +109,13 @@ else
     COLOR=$MUTED_COLOR
 fi
 
-# Use special symbol for headphones, hdmi, ...
+# Use special symbol for headphones, hdmi, bluetooth speaker, ...
 if [[ $PORT == 'analog-output-headphones' ]] ; then
     SYMBOL=' '
 elif [[ $PORT =~ ^hdmi-output- ]]; then
     SYMBOL=' '
+elif [[ $PORT == 'headset-output' ]]; then
+    SYMBOL=" $SYMBOL"
 fi
 
 function print_format {
