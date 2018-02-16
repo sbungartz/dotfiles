@@ -30,6 +30,12 @@ if facts and facts[-1].end_time is None:
         #work_icon = u''
         work_icon =u'' 
 
+    # The last character of the category may be an icon
+    last_category_char = current_activity.category[-1]
+    # Treat characters in the Unicode Private Use Area as icons
+    if last_category_char >= u'\ue000' and last_category_char <= u'\uf8ff':
+        work_icon = last_category_char
+
     longtext = u'{} {}'.format(work_icon, format_duration(work_duration, False))
     shorttext = longtext
     color = '#ffffff'
