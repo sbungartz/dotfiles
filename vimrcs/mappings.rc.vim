@@ -1,6 +1,12 @@
 " Write as root
 command Ws w !sudo tee > /dev/null %
 
+" Yank current filename and line
+nmap yn :let @" = join([expand("%"), line(".")], ":")<CR>
+
+" Search cwd for word under cursor
+nmap gw :Ack <cword> -w<CR>
+
 " Custom navigation mappings
 
 nmap ]q :cnext<CR>

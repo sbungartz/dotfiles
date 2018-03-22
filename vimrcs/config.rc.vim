@@ -26,6 +26,15 @@ set undoreload=10000
 let g:slime_target = "tmux"
 nnoremap <C-c>c V:SlimeSend<CR>
 
+" Ack using ag
+if executable('ag')
+    let g:ackprg = 'ag --vimgrep'
+endif
+
+" FuzzyFinder
+let g:fuf_enumeratingLimit = 60
+
+
 " Get off my lawn
 nnoremap <Left> :echoe "Use h"<CR>
 nnoremap <Right> :echoe "Use l"<CR>
