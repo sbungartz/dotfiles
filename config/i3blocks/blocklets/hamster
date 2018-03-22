@@ -16,19 +16,7 @@ if facts and facts[-1].end_time is None:
     current_activity = facts[-1]
     work_duration = datetime.now() - current_activity.start_time
 
-    #work_icon = u''
     work_icon = u''
-    #work_icon = u''
-    #work_icon = u''
-    #work_icon = u''
-    #work_icon = u''
-
-    if current_activity.category == 'uni':
-        work_icon = u''
-    elif current_activity.category == 'private-coding':
-        #work_icon = u''
-        #work_icon = u''
-        work_icon =u'' 
 
     # The last character of the category may be an icon
     last_category_char = current_activity.category[-1]
