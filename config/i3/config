@@ -47,9 +47,6 @@ bindsym --release Mod2+button2 kill
 bindsym $mod+d exec --no-startup-id rofi -show drun
 bindsym $mod+Shift+d exec --no-startup-id rofi -show run
 
-# launch categorized menu
-bindsym $mod+z exec --no-startup-id morc_menu
-
 ################################################################################################
 ## sound-section - DO NOT EDIT if you wish to automatically upgrade Alsa -> Pulseaudio later! ##
 ################################################################################################
@@ -356,6 +353,15 @@ bindsym $mod+Ctrl+d exec --no-startup-id $SCRIPTS/toggle-window-always-bright
 # Misc key bindings
 bindsym $mod+period exec $SCRIPTS/type-emoji
 bindcode $mod+Shift+60 exec $SCRIPTS/type-emoji --paste-command 'ctrl+shift+v'
+
+# Pass user and password pasting mode
+bindsym $mod+x exec $SCRIPTS/pass-mode select
+mode "pass" {
+  bindsym $mod+u exec $SCRIPTS/pass-mode copy-user
+  bindsym $mod+p exec $SCRIPTS/pass-mode copy-pass
+
+  bindsym Escape mode "default"
+}
 
 # Autostart applications
 #exec --no-startup-id unity-settings-daemon
