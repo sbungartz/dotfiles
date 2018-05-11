@@ -63,7 +63,7 @@ else
     fi
 
 
-    selection=$(printf '%s\n' "${!menu[@]}" | sort | rofi -dmenu -i -p 'Display setup: ')
+    selection=$(printf '%s\n' "${!menu[@]}" | sort | rofi -dmenu -i -p 'Display setup')
     if [[ $? -eq 0 && ! -z ${selection} ]]
     then
         # First, reset both screens to preferred mode and no scale

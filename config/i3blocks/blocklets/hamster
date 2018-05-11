@@ -46,7 +46,7 @@ if os.getenv('BLOCK_BUTTON') in ['1','3']:
             'Settings']
     menu_entries = filter(None, menu_entries)
 
-    rofi = subprocess.Popen(['rofi', '-dmenu', '-i', '-lines', str(len(menu_entries)), '-p', 'Hamster: '], stdin=PIPE, stdout=PIPE)
+    rofi = subprocess.Popen(['rofi', '-dmenu', '-i', '-lines', str(len(menu_entries)), '-p', 'Hamster'], stdin=PIPE, stdout=PIPE)
     selection = rofi.communicate(input='\n'.join(menu_entries))[0].strip()
 
     def show_hamster_window(window_name):
@@ -62,7 +62,7 @@ if os.getenv('BLOCK_BUTTON') in ['1','3']:
     def rofi_start_tracking():
         facts = runtime.storage.get_facts(datetime.now() - timedelta(days=365), datetime.now())
         entries = remove_duplicates_preserving_order(reversed([fact.serialized_name() for fact in facts]))
-        rofi = subprocess.Popen(['rofi', '-dmenu', '-i', '-p', 'Start: '], stdin=PIPE, stdout=PIPE)
+        rofi = subprocess.Popen(['rofi', '-dmenu', '-i', '-p', 'Start'], stdin=PIPE, stdout=PIPE)
         selection = rofi.communicate(input='\n'.join(entries))[0].strip()
         # Abort, if nothing is selected or entered
         if selection == '':
@@ -71,7 +71,7 @@ if os.getenv('BLOCK_BUTTON') in ['1','3']:
         # of a category to assign this new activity to
         if not '@' in selection:
             categories = remove_duplicates_preserving_order(reversed([fact.category for fact in facts]))
-            rofi = subprocess.Popen(['rofi', '-dmenu', '-i', '-p', 'Category: '], stdin=PIPE, stdout=PIPE)
+            rofi = subprocess.Popen(['rofi', '-dmenu', '-i', '-p', 'Category'], stdin=PIPE, stdout=PIPE)
             category_selection = rofi.communicate(input='\n'.join(categories))[0].strip()
             if category_selection != '':
                 selection = '@'.join([selection, category_selection])
