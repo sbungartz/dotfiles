@@ -355,7 +355,8 @@ bindsym $mod+period exec $SCRIPTS/type-emoji
 bindcode $mod+Shift+60 exec $SCRIPTS/type-emoji --paste-command 'ctrl+shift+v'
 
 # Pass user and password pasting mode
-bindsym $mod+x exec $SCRIPTS/pass-mode select
+bindsym $mod+x exec $SCRIPTS/rofi-pass
+#bindsym $mod+x exec $SCRIPTS/pass-mode select
 mode "pass" {
   bindsym $mod+u exec $SCRIPTS/pass-mode copy-user
   bindsym $mod+p exec $SCRIPTS/pass-mode copy-pass
