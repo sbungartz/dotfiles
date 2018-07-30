@@ -24,6 +24,8 @@ set undoreload=10000
 
 " Slime: Send text from vim to other tmux panes
 let g:slime_target = "tmux"
+let g:slime_default_config = { "socket_name": "default", "target_pane": ":.1" }
+let g:slime_dont_ask_default = 1
 nnoremap <C-c>c V:SlimeSend<CR>
 
 " Ack using ag
@@ -51,6 +53,7 @@ autocmd FileType ruby setlocal sw=2 sts=2
 autocmd FileType html setlocal sw=2 sts=2
 autocmd FileType css setlocal sw=2 sts=2
 autocmd FileType javascript setlocal sw=2 sts=2
+autocmd FileType coffee setlocal sw=2 sts=2
 autocmd FileType yaml setlocal sw=2 sts=2
 autocmd FileType markdown setlocal sw=2 sts=2
 autocmd FileType julia setlocal sw=2 sts=2
