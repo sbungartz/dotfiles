@@ -15,7 +15,7 @@ case $KEY in
         ;;
 esac
 
-EMOJI=$(cat "$EMOJI_FILE" | rofi -dmenu -i -p 'Find emoji: ' | cut -d ' ' -f 1)
+EMOJI=$(cat "$EMOJI_FILE" | rofi -dmenu -i -p 'Find emoji' | cut -d ' ' -f 1)
 
 echo -n "$EMOJI" | xclip -i -selection clipboard
 xdotool key --clearmodifiers "$PASTE_COMMAND"

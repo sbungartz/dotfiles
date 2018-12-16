@@ -12,7 +12,7 @@ cmd_select() {
     password_files=( "${password_files[@]#"$prefix"/}" )
     password_files=( "${password_files[@]%.gpg}" )
 
-    password_file=$(printf '%s\n' "${password_files[@]}" | rofi -dmenu -p 'Pass')
+    password_file=$(printf '%s\n' "${password_files[@]}" | rofi -dmenu -i -p 'Pass')
 
     [[ -n $password_file ]] || exit 1
 
