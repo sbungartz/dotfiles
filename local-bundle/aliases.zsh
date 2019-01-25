@@ -29,5 +29,26 @@ alias dod='sudo -E docker-compose -f .docker-dev/docker-compose.yml'
 capshot() { xdg-open tmp/capybara/*.png([${1:--1}]) }
 
 # todo.txt
-alias t='todo-txt -a'
+alias t='todo-txt'
+alias tvim='vim ~/.todo-txt/todo.txt'
 alias tw='t ls @work'
+alias th='t ls @Home'
+
+alias c='clear'
+
+# udisksctl mounting and unmounting
+function udls {
+    udisksctl status
+    echo '============================================'
+    lsblk | grep -v 'loop /snap'
+}
+function udmount {
+    udisksctl mount -b "/dev/$1"
+}
+function udunmount {
+    udisksctl unmount -b "/dev/$1"
+}
+function udoff {
+    udisksctl unmount -b "/dev/$1"
+    udisksctl power-off -b "/dev/$1"
+}
