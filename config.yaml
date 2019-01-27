@@ -31,6 +31,9 @@ dotfiles:
   f_lprdupconfig:
     dst: ~/.lprdupconfig
     src: lprdupconfig
+  f_ranger_rc.conf:
+    dst: ~/.config/ranger/rc.conf
+    src: config/ranger/rc.conf
   f_tmux.conf:
     dst: ~/.tmux.conf
     src: tmux.conf
@@ -57,3 +60,4 @@ profiles:
     - f_xresources
     - f_fonts.conf
     - f_compton.conf
+    - f_ranger_rc.conf
