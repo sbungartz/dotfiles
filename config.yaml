@@ -16,6 +16,9 @@ dotfiles:
   d_i3blocks:
     dst: ~/.config/i3blocks
     src: config/i3blocks
+  f_compton.conf:
+    dst: ~/.config/compton.conf
+    src: config/compton.conf
   f_fonts.conf:
     dst: ~/.fonts.conf
     src: fonts.conf
@@ -53,3 +56,4 @@ profiles:
     - d_i3blocks
     - f_xresources
     - f_fonts.conf
+    - f_compton.conf
