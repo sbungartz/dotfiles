@@ -4,3 +4,6 @@
 [submodule "antigen"]
 	path = antigen
 	url = https://github.com/zsh-users/antigen.git
+[submodule "dotdrop"]
+	path = dotdrop
+	url = https://github.com/deadc0de6/dotdrop.git
