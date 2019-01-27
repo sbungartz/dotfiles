@@ -1,8 +1,0 @@
-*~
-*.swp
-*.swo
-.ctags
-.ctags.lock
-.ctags.temp
-*.pyc
-*.bib.bak
