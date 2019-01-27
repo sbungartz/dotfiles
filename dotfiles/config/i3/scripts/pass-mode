@@ -1,0 +1,40 @@
+#!/bin/bash
+
+shopt -s nullglob globstar
+
+TEMPFILE="$HOME/.i3-pass-mode-selection"
+prefix=${PASSWORD_STORE_DIR-$HOME/.password-store}
+
+cmd_select() {
+    i3_mode="${1-pass}"
+
+    password_files=( "$prefix"/**/*.gpg )
+    password_files=( "${password_files[@]#"$prefix"/}" )
+    password_files=( "${password_files[@]%.gpg}" )
+
+    password_file=$(printf '%s\n' "${password_files[@]}" | rofi -dmenu -i -p 'Pass')
+
+    [[ -n $password_file ]] || exit 1
+
+    echo "$password_file" > "$TEMPFILE"
+    i3-msg "mode \"$i3_mode\"" > /dev/null
+}
+
+cmd_copy_user() {
+    pass show "$(< $TEMPFILE)" | grep -E '^Username: ' | cut -d ' ' -f 1 --complement | xclip -i -selection clipboard
+}
+
+cmd_copy_pass() {
+    pass show -c "$(< $TEMPFILE)"
+
+    # After copying the password we are usually done
+    i3-msg "mode default" > /dev/null
+}
+
+COMMAND="$1"
+
+case "$1"  in
+    select) shift;      cmd_select "$@" ;;
+    copy-user) shift;   cmd_copy_user "$@" ;;
+    copy-pass) shift;   cmd_copy_pass "$@" ;;
+esac

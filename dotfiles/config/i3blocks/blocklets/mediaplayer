@@ -1,0 +1,85 @@
+#!/usr/bin/env python3
+
+import gi
+gi.require_version('Playerctl', '1.0')
+from gi.repository import Playerctl, GLib
+import sys
+import os
+import re
+
+COLOR_PLAYING = '#ffffff'
+COLOR_PAUSED = '#a0a0a0'
+
+# instance=[player-name]:[icon]
+# icon is optional.
+# Specifying a player-name is recommended, since switching players is not supported.
+player_name = os.environ.get('BLOCK_INSTANCE', '')
+player_icon = ''
+show_track = True
+if ';' in player_name:
+    # Split at last semi-colon
+    match = re.match(r'^(.*);!(.*)$', player_name)
+    if match is not None:
+        # Exclamation mark before icon hides track.
+        show_track = False
+    else:
+        # Otherwise, this must match, since we know there is a semi-colon
+        match = re.match(r'^(.*);(.*)$', player_name)
+
+    player_name = match.group(1)
+    player_icon = match.group(2)
+
+# If the player name is empty, set to None, so that playerctl uses default settings.
+if player_name == '':
+    player_name = None
+
+player = Playerctl.Player(player_name=player_name)
+
+def pango_escape(text):
+    """ Escape characters in the given literal text, so they will be correctly displayed in rendered pango markup"""
+    return text.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+
+
+def print_status():
+    status = player.props.status
+    if status == 'Playing':
+        color = COLOR_PLAYING
+    else:
+        color = COLOR_PAUSED
+
+    text = ''
+    if show_track and status is not None:
+        artist = player.get_artist()
+        title = player.get_title()
+        if artist != '' or title != '':
+            text = '{} - {}'.format(artist, title)
+
+    display = []
+    if player_icon != '':
+        display.append(player_icon)
+    if text != '':
+        display.append(text)
+
+    print('<span foreground="{}">{}</span>'.format(color, pango_escape(' '.join(display))), flush=True)
+
+
+def on_metadata():
+    title = player.get_title()
+    if 'last christmas' in title.lower():
+        player.next()
+    print_status()
+
+
+# Register events
+player.on('play', lambda p: print_status())
+player.on('pause', lambda p: print_status())
+player.on('stop', lambda p: print_status())
+player.on('metadata', lambda p, e: on_metadata())
+player.on('exit', lambda p: print_status())
+
+# print current status
+print_status()
+
+# wait for events
+main = GLib.MainLoop()
+main.run()
