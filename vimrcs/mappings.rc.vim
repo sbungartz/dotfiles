@@ -1,6 +1,15 @@
 " Write as root
 command Ws w !sudo tee > /dev/null %
 
+" Open current commit in github repository
+command Github !xdg-open "https://github.com/zweitag/$(basename $PWD)/blob/$(git rev-parse HEAD)/%"
+command GithubC !xdg-open "https://github.com/zweitag/$(basename $PWD)/commit/%:t"
+
+" Run rspec at given line in slime terminal
+" nmap T :execute "SlimeSend1 dod run --rm app dod-rspec ". join([@%, line(".")], ":")<CR>
+nmap T :execute "SlimeSend1 bin/rspec ". join([@%, line(".")], ":")<CR>
+nmap T :execute "SlimeSend1 rspec ". join([@%, line(".")], ":")<CR>
+
 " Yank current filename and line
 nmap yn :let @" = join([expand("%"), line(".")], ":")<CR>
 
