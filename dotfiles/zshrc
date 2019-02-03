@@ -24,7 +24,8 @@ export PATH="$PATH:$GOROOT/bin"
 export GOPATH=$HOME/go-work
 export PATH="$PATH:$GOPATH/bin"
 
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
 
 # python virtualenv
 export WORKON_HOME=~/.virtualenvs

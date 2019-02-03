@@ -1,0 +1,77 @@
+config:
+  backup: true
+  banner: true
+  create: true
+  dotpath: dotfiles
+  ignoreempty: false
+  keepdot: false
+  link_by_default: false
+  longkey: false
+  showdiff: false
+  workdir: ~/.config/dotdrop
+dotfiles:
+  d_i3:
+    dst: ~/.config/i3
+    src: config/i3
+  d_i3blocks:
+    dst: ~/.config/i3blocks
+    src: config/i3blocks
+  f_compton.conf:
+    dst: ~/.config/compton.conf
+    src: config/compton.conf
+  f_fonts.conf:
+    dst: ~/.fonts.conf
+    src: fonts.conf
+  f_gitconfig:
+    dst: ~/.gitconfig
+    src: gitconfig
+  f_gitignore:
+    dst: ~/.gitignore
+    src: gitignore
+  f_lprdupconfig:
+    dst: ~/.lprdupconfig
+    src: lprdupconfig
+  f_ranger_rc.conf:
+    dst: ~/.config/ranger/rc.conf
+    src: config/ranger/rc.conf
+  f_tmux.conf:
+    dst: ~/.tmux.conf
+    src: tmux.conf
+  f_vimrc:
+    dst: ~/.vimrc
+    src: vimrc
+  f_xresources:
+    dst: ~/.Xresources
+    src: Xresources
+  f_zshrc:
+    dst: ~/.zshrc
+    src: zshrc
+profiles:
+  simonlx:
+    dotfiles:
+    - f_zshrc
+    - f_vimrc
+    - f_gitignore
+    - f_gitconfig
+    - f_lprdupconfig
+    - f_tmux.conf
+    - d_i3
+    - d_i3blocks
+    - f_xresources
+    - f_fonts.conf
+    - f_compton.conf
+    - f_ranger_rc.conf
+  simon-xps13:
+    dotfiles:
+    - f_zshrc
+    - f_vimrc
+    - f_gitignore
+    - f_gitconfig
+    - f_lprdupconfig
+    - f_tmux.conf
+    - d_i3
+    - d_i3blocks
+    - f_xresources
+    - f_fonts.conf
+    - f_compton.conf
+    - f_ranger_rc.conf
