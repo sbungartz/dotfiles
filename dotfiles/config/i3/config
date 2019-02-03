@@ -176,7 +176,7 @@ set $ws5 50:5
 set $ws6 60:
 set $ws7 70:
 set $ws71 71:
-# alternative icon vor sprint planning tools: 
+# alternative icon for sprint planning tools: 
 set $ws8 80:
 set $ws81 81:
 set $ws9 90:
@@ -229,14 +229,24 @@ bindsym $mod+Shift+o move container to workspace $ws91; workspace $ws91
 bindsym $mod+Shift+0 move container to workspace $ws10; workspace $ws10
 
 # Assign some workspaces to specific screens
+{%@@ if profile == 'simon-xps13' @@%}
 set $DISPL_PRIMARY DP1
 set $DISPL_SECONDARY eDP1
+set $DISPL_TV $DISPL_PRIMARY
+{%@@ else @@%}
+# Assign non-existing screens as defaults to get NO-OP 
+set $DISPL_PRIMARY HDUMMY1
+set $DISPL_SECONDARY HDUMMY2
+set $DISPL_TV HDUMMY3
+{%@@ endif @@%}
 
 workspace "$ws1" output $DISPL_PRIMARY
 workspace "$ws2" output $DISPL_PRIMARY
 workspace "$ws3" output $DISPL_PRIMARY
 workspace "$ws4" output $DISPL_PRIMARY
 workspace "$ws7" output $DISPL_PRIMARY
+
+workspace "$ws6" output $DISPL_TV
 
 workspace "$ws71" output $DISPL_SECONDARY
 workspace "$ws8" output $DISPL_SECONDARY
@@ -253,6 +263,7 @@ assign [class="TeXstudio"] $ws3
 assign [class="org-contikios-cooja-Cooja"] $ws4
 # Standard workspaces:
 for_window [title=".*Targetprocess - Google Chrome"] move to workspace $ws71
+assign [class="Thunderbird"] $ws8
 for_window [title=".*Zweitag-Mail - Google Chrome"] move to workspace $ws8
 for_window [title=".*Zweitag.*Kalender.* - Google Chrome"] move to workspace $ws81
 for_window [title=".*WhatsApp - Google Chrome"] move to workspace $ws9
@@ -265,7 +276,11 @@ for_window [class="Spotify"] move to workspace $ws10
 # Launch workspace contents
 bindsym $mod+Mod1+1 exec google-chrome-stable --new-window
 bindsym $mod+Mod1+u exec google-chrome-stable --new-window https://zweitag.tpondemand.com;
+{%@@ if profile == 'simon-xps13' @@%}
 bindsym $mod+Mod1+8 exec google-chrome-stable --new-window https://mail.google.com;
+{%@@ else @@%}
+bindsym $mod+Mod1+8 exec thunderbird
+{%@@ endif @@%}
 bindsym $mod+Mod1+i exec google-chrome-stable --new-window https://calendar.google.com;
 bindsym $mod+Mod1+9 exec google-chrome-stable --new-window https://web.whatsapp.com; exec signal-desktop;
 bindsym $mod+Mod1+o exec slack
