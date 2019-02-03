@@ -438,7 +438,7 @@ exec_always gsettings set org.gnome.desktop.interface scaling-factor {{@@ displa
 bar {
 	status_command SCRIPT_DIR=$BLOCKET_DIR i3blocks
 	position top
-        height {{@@ 21 * display_scale @@}}
+        height {{@@ 24 * display_scale @@}}
 
 ## please set your primary output first. Example: 'xrandr --output eDP1 --primary'
 	tray_output primary

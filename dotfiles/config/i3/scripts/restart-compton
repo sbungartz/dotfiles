@@ -3,7 +3,7 @@ set -u
 
 PRIMARY_DESCR=$(xrandr | grep primary)
 
-DOCK_HEIGHT='{{@@ 21 * display_scale @@}}'
+DOCK_HEIGHT='{{@@ 24 * display_scale @@}}'
 OFFSET='+0+0'
 
 if [[ $PRIMARY_DESCR =~ [0-9]*x[0-9]+\+([0-9]+\+[0-9]+) ]]
