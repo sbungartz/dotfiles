@@ -11,7 +11,7 @@ LAYOUT=$(echo $LAYOUT | cut -d ' ' -f 2)
 $kbdd_send ru.gentoo.kbdd.set_layout uint32:0
 
 # Lock screen, block till unlocked
-i3lock --nofork -i ~/.config/i3/lock_screen.png
+i3lock --nofork -i ~/.cache/lock_screen.png
 
 # Now switch keyboard layout back to previous state
 $kbdd_send ru.gentoo.kbdd.set_layout uint32:$LAYOUT

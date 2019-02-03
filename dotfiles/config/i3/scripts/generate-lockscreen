@@ -1,8 +1,8 @@
 #!/bin/bash
 set -e -u
 
-IMAGE="$HOME/.config/i3/background"
-OUTPUT="$HOME/.config/i3/lock_screen.png"
+IMAGE="$HOME/.config/background"
+OUTPUT="$HOME/.cache/lock_screen.png"
 LOCK_ICON="$HOME/.config/i3/icons/lock.png"
 
 SCREEN_SIZE='1920x1980'
