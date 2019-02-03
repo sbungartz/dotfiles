@@ -63,6 +63,9 @@ label=
 instance=/
 interval=30
 
+[backup_status]
+interval=10
+
 # Show the speed of German ICE trains as reported by API
 # reachable from on-board WiFi.
 [ice_speed]
