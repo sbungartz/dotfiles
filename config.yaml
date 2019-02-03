@@ -61,3 +61,17 @@ profiles:
     - f_fonts.conf
     - f_compton.conf
     - f_ranger_rc.conf
+  simon-xps13:
+    dotfiles:
+    - f_zshrc
+    - f_vimrc
+    - f_gitignore
+    - f_gitconfig
+    - f_lprdupconfig
+    - f_tmux.conf
+    - d_i3
+    - d_i3blocks
+    - f_xresources
+    - f_fonts.conf
+    - f_compton.conf
+    - f_ranger_rc.conf
