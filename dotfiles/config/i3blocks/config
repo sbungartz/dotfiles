@@ -66,6 +66,9 @@ interval=30
 [backup_status]
 interval=10
 
+[backup_status2]
+interval=10
+
 [backup_status_local]
 interval=3600
 
