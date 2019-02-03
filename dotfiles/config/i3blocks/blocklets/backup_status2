@@ -1,0 +1,83 @@
+#!/bin/bash
+set -u -e
+
+ICON=''
+CONFIG_DIR="$HOME/.config/backup_status"
+VAR_DIR="$HOME/.cache/backup_status"
+
+OK_COLOR='#A0A0A0'
+ERROR_COLOR='#FF0000'
+PENDING_COLOR='#FFFFFF'
+
+function format_duration {
+    local TOTAL_SECONDS=$1
+    DURATION_HOURS=$(( TOTAL_SECONDS / 60 / 60 ))
+    DURATION_MINUTES=$(( TOTAL_SECONDS / 60 % 60 ))
+    DURATION_SECONDS=$(( TOTAL_SECONDS % 60 ))
+
+    (( DURATION_HOURS > 0 )) && printf '%d:' $DURATION_HOURS
+    printf '%02d:%02d' $DURATION_MINUTES $DURATION_SECONDS
+}
+
+if [ ! -d "$VAR_DIR" ]
+then
+    mkdir "$VAR_DIR"
+fi
+
+if [ ! -d "$CONFIG_DIR" ] || [ -z "$(ls "$CONFIG_DIR"/*)" ]
+then
+    color=$ERROR_COLOR
+    status_text=' No config found'
+fi
+
+status_text=''
+has_error=false
+has_pending=false
+
+for f in "$CONFIG_DIR"/*
+do
+    profile_name="$(basename "$f")"
+    max_age="$(< "$f")"
+    now=$(date +"%s")
+
+    if [ ! -f "$VAR_DIR/$profile_name" ]
+    then
+        has_error=true
+        status_text="$status_text $profile_name never ran."
+    else
+        read -r action timestamp < "$VAR_DIR/$profile_name"
+        if [ "$action" == 'start' ]
+        then
+            has_pending=true
+            status_text="$status_text $profile_name ($(format_duration $(( now - timestamp ))))"
+        elif [ "$action" == 'done' ]
+        then
+            if [ $(( now - timestamp )) -gt "$max_age" ]
+            then
+                has_pending=true
+                status_text="$status_text $profile_name backup required."
+            fi
+        elif [ "$action" == 'error' ]
+        then
+            has_error=true
+            status_text="$status_text $profile_name has failed."
+        else
+            has_error=true
+            status_text="$status_text $profile_name output incorrect."
+        fi
+    fi
+done
+
+if $has_error
+then
+    color=$ERROR_COLOR
+elif $has_pending
+then
+    color=$PENDING_COLOR
+else
+    color=$OK_COLOR
+fi
+
+echo "$ICON$status_text"
+echo "$ICON"
+echo $color
