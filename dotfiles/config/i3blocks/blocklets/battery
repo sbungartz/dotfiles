@@ -21,10 +21,12 @@ else:
     # if there is more than one battery in one laptop, the percentage left is 
     # available for each battery separately, although state and remaining 
     # time for overall block is shown in the status of the first battery 
-    batteries = status.split("\n")
+    batteries = [x for x in status.split("\n") if 'rate information unavailable' not in x]
     state_batteries=[]
     commasplitstatus_batteries=[]
     percentleft_batteries=[]
+    # Only use first battery, since the others are wireless devices like keyboard or trackpad
+    batteries = batteries[0:1]
     for battery in batteries:
         if battery!='':
             state_batteries.append(battery.split(": ")[1].split(", ")[0])

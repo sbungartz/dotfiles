@@ -6,3 +6,6 @@
 .ctags.temp
 *.pyc
 *.bib.bak
+.rspec_status
+.docker-data/
+.duplicity-ignore

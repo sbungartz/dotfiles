@@ -28,7 +28,7 @@
 # Since so few scripts are used without customizations, always copy script from
 # /usr/share/i3blocks to the blocklets directory ($SCRIPT_DIR)
 command=$SCRIPT_DIR/$BLOCK_NAME
-separator_block_width=15
+separator_block_width={{@@ 12 * display_scale @@}}
 markup=none
 
 # Mediaplayer (for Spotify)
@@ -62,6 +62,9 @@ interval=10
 label=
 instance=/
 interval=30
+
+[backup_status]
+interval=10
 
 # Show the speed of German ICE trains as reported by API
 # reachable from on-board WiFi.

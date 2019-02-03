@@ -1,0 +1,58 @@
+#!/bin/bash
+set -u -e
+
+ICON=''
+BACKUP_SERVICE='duply-system-daily.service'
+MAX_BACKUP_AGE=$(( 60 * (60 * 24 + 15) ))
+
+OK_COLOR='#A0A0A0'
+ERROR_COLOR='#FF0000'
+PENDING_COLOR='#FFFFFF'
+
+function format_duration {
+    local TOTAL_SECONDS=$1
+    DURATION_HOURS=$(( TOTAL_SECONDS / 60 / 60 ))
+    DURATION_MINUTES=$(( TOTAL_SECONDS / 60 % 60 ))
+    DURATION_SECONDS=$(( TOTAL_SECONDS % 60 ))
+
+    (( DURATION_HOURS > 0 )) && printf '%d:' $DURATION_HOURS
+    printf '%02d:%02d' $DURATION_MINUTES $DURATION_SECONDS
+}
+
+ACTIVE_STATE=$(systemctl show -p ActiveState --value $BACKUP_SERVICE)
+if [[ "$ACTIVE_STATE" == 'activating' ]]
+then
+    color=$PENDING_COLOR
+
+    START_TIME=$(systemctl show -p ExecMainStartTimestamp --value $BACKUP_SERVICE)
+
+    START_TIME_UNIX=$(date --date "$START_TIME" +%s)
+    NOW_UNIX=$(date +%s)
+    SECONDS_SINCE_START=$(( $NOW_UNIX - $START_TIME_UNIX ))
+
+    status_text=" $(format_duration $SECONDS_SINCE_START)"
+elif [[ "$ACTIVE_STATE" == 'failed' ]]
+then
+    color=$ERROR_COLOR
+    status_text=' Last Backup Failed!'
+else
+    LAST_RUN=$(systemctl show -p InactiveEnterTimestamp --value $BACKUP_SERVICE)
+
+    LAST_RUN_UNIX=$(date --date "$LAST_RUN" +%s)
+    NOW_UNIX=$(date +%s)
+    SECONDS_SINCE_LAST_RUN=$(( $NOW_UNIX - $LAST_RUN_UNIX))
+
+    if (( $SECONDS_SINCE_LAST_RUN > $MAX_BACKUP_AGE ))
+    then
+        color=$ERROR_COLOR
+        status_text=' Last Backup Too Old!'
+    else
+        color=$OK_COLOR
+        status_text=''
+        #status_text=" $(format_duration SECONDS_SINCE_LAST_RUN) ago"
+    fi
+fi
+
+echo "$ICON$status_text"
+echo "$ICON"
+echo $color

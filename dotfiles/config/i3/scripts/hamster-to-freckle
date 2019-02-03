@@ -1,0 +1,77 @@
+#!/usr/bin/env python2
+# -*- coding: utf-8 -*-
+
+import requests
+
+import os
+import re
+import json
+from os.path import expanduser
+from hamster.configuration import runtime
+from hamster.lib.stuff import format_duration, Fact
+from datetime import datetime, timedelta
+
+FRECKLE_TOKEN = os.environ.get('FRECKLE_TOKEN')
+date = os.environ.get('EXPORT_DATE') or datetime.now().strftime('%Y-%m-%d')
+
+DRY_RUN = False
+if FRECKLE_TOKEN is None:
+    DRY_RUN = True
+    print('DRY RUN: not actually uploading anything.')
+    print('Set environment variable FRECKLE_TOKEN to actually upload data.')
+
+with open(expanduser('~/.config/hamster-scripting/projects.json'), 'r') as f:
+    freckle_project_id_for_category = json.load(f)
+
+datetime = datetime.strptime(date, '%Y-%m-%d')
+day_start = datetime.replace(hour=0, minute=0, second=0, microsecond=0)
+day_end = datetime.replace(hour=23, minute=59, second=59, microsecond=0)
+
+#facts = runtime.storage.get_todays_facts()
+facts = runtime.storage.get_facts(day_start, day_end)
+
+time_spent = {}
+
+for fact in facts:
+    if fact.end_time is None:
+        continue
+    group = (fact.activity, fact.category)
+    time_spent_before = time_spent.get(group, timedelta(0))
+    time_spent[group] = time_spent_before + (fact.end_time - fact.start_time)
+
+print('uploading entries for {}'.format(date))
+entries_url = 'https://api.letsfreckle.com/v2/entries'
+api_headers = {
+        'X-FreckleToken': FRECKLE_TOKEN
+}
+
+for (activity, category), total_time in time_spent.iteritems():
+    freckle_project_id = freckle_project_id_for_category.get(category)
+    if freckle_project_id is None:
+        print('skipping {} of "{}@{}" because no project id is mapped'.format(total_time, activity, category))
+        continue
+
+    tp_reference_match = re.match('^[tT][pP]-([0-9]+) (.*)', activity)
+    if tp_reference_match:
+        freckle_description = '#{} {}'.format(tp_reference_match.group(1), tp_reference_match.group(2))
+    else:
+        freckle_description = activity
+
+    total_minutes = int(round((total_time.total_seconds()) / 60))
+
+    print('logging {} for "{}@{}" as {} minutes on "{}@{}"'.format(
+        total_time,
+        activity, category,
+        total_minutes,
+        freckle_description, freckle_project_id))
+
+    if not DRY_RUN:
+        payload = {
+            'date': date,
+            'project_id': int(freckle_project_id),
+            'description': freckle_description,
+            'minutes': total_minutes,
+        }
+
+        response = requests.post(entries_url, json=payload, headers=api_headers)
+        print(response.status_code)

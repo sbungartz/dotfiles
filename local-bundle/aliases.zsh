@@ -18,11 +18,11 @@ alias htopx='TERM=screen htop'
 alias mysqlroot='mysql -u root -proot'
 
 # ctags
-alias ctagsr='ctags -f .ctags -R --extra=+f .'
+alias ctagsr='ctags -f .ctags -R --extra=f .docker-dev'
 
 # docker as root
 alias socker='sudo -E docker'
-alias sompose='sudo -E docker-compose'
+alias sop='sudo -E docker-compose'
 alias dod='sudo -E docker-compose -f .docker-dev/docker-compose.yml'
 
 # open last capybara screenshot
@@ -31,10 +31,14 @@ capshot() { xdg-open tmp/capybara/*.png([${1:--1}]) }
 # todo.txt
 alias t='todo-txt'
 alias tvim='vim ~/.todo-txt/todo.txt'
+alias tvd='vim ~/.todo-txt/done.txt'
+alias tx='t xp 5'
+alias ta='t ls @_agendas'
 alias tw='t ls @work'
+alias tm='t ls @mittag'
 alias th='t ls @Home'
 
-alias c='clear'
+c() { clear && "$@" }
 
 # udisksctl mounting and unmounting
 function udls {

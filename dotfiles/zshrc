@@ -1,5 +1,25 @@
 export DOTFILES=$HOME/.dotfiles
 
+########
+# Vi editing mode and respective key bindings
+bindkey -v
+export KEYTIMEOUT=1
+
+# Use vim cli mode
+bindkey '^P' up-history
+bindkey '^N' down-history
+
+# backspace and ^h working even after
+# returning from command mode
+bindkey '^?' backward-delete-char
+bindkey '^h' backward-delete-char
+
+# ctrl-w removed word backwards
+bindkey '^w' backward-kill-word
+
+# ctrl-r starts searching history backward
+bindkey '^r' history-incremental-search-backward
+
 # oh-my-zsh
 #export ZSH=$DOTFILES/oh-my-zsh
 #export ZSH_CUSTOM=$DOTFILES/oh-my-zsh-custom
@@ -28,8 +48,18 @@ export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
 
 # python virtualenv
-export WORKON_HOME=~/.virtualenvs
-source /usr/local/bin/virtualenvwrapper.sh
+if [ -f /usr/local/bin/virtualenvwrapper.sh ]
+then
+    export WORKON_HOME=~/.virtualenvs
+    source /usr/local/bin/virtualenvwrapper.sh
+fi
+
+# rbenv
+if [ -f "$HOME/.rbenv/bin/rbenv" ]
+then
+    export PATH="$HOME/.rbenv/bin:$PATH"
+    eval "$(rbenv init -)"
+fi
 
 # language
 LANG=en_US.UTF-8
@@ -65,10 +95,16 @@ setopt HIST_IGNORE_SPACE
     # Bundles from the default repo (robbyrussell's oh-my-zsh).
     antigen bundle command-not-found
     antigen bundle wd
-    
+
+    antigen bundle httpie
     antigen bundle git
     #antigen bundle scala
     #antigen bundle sbt
+
+    antigen bundle docker-compose
+
+    antigen bundle ruby
+    antigen bundle rbenv
 
 #    antigen bundle zsh-users/zsh-completions
     
