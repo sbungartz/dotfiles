@@ -269,7 +269,7 @@ bindsym $mod+Mod1+8 exec google-chrome-stable --new-window https://mail.google.c
 bindsym $mod+Mod1+i exec google-chrome-stable --new-window https://calendar.google.com;
 bindsym $mod+Mod1+9 exec google-chrome-stable --new-window https://web.whatsapp.com; exec signal-desktop;
 bindsym $mod+Mod1+o exec slack
-bindsym $mod+Mod1+0 exec spotify --force-device-scale-factor=1.7
+bindsym $mod+Mod1+0 exec spotify --force-device-scale-factor={{@@ display_scale @@}}
 
 ########################################
 #### Apps with their own scratchpad
@@ -417,13 +417,13 @@ exec_always --no-startup-id "setxkbmap -layout de,us; killall kbdd; kbdd"
 exec_always "synclient VertScrollDelta=-112 HorizScrollDelta=-112 VertEdgeScroll=1 HorizTwoFingerScroll=1"
 
 # Set highdpi scaling factor...
-exec_always gsettings set org.gnome.desktop.interface scaling-factor 2
+exec_always gsettings set org.gnome.desktop.interface scaling-factor {{@@ display_scale @@}}
 
 # Start i3bar to display a workspace bar (plus the system information i3status if available)
 bar {
 	status_command SCRIPT_DIR=$BLOCKET_DIR i3blocks
 	position top
-        height 42
+        height {{@@ 21 * display_scale @@}}
 
 ## please set your primary output first. Example: 'xrandr --output eDP1 --primary'
 	tray_output primary

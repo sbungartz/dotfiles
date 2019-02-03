@@ -48,6 +48,8 @@ dotfiles:
     src: zshrc
 profiles:
   simonlx:
+    variables:
+      display_scale: 1
     dotfiles:
     - f_zshrc
     - f_vimrc
@@ -62,6 +64,8 @@ profiles:
     - f_compton.conf
     - f_ranger_rc.conf
   simon-xps13:
+    variables:
+      display_scale: 2
     dotfiles:
     - f_zshrc
     - f_vimrc

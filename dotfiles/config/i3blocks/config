@@ -28,7 +28,7 @@
 # Since so few scripts are used without customizations, always copy script from
 # /usr/share/i3blocks to the blocklets directory ($SCRIPT_DIR)
 command=$SCRIPT_DIR/$BLOCK_NAME
-separator_block_width=25
+separator_block_width={{@@ 12 * display_scale @@}}
 markup=none
 
 # Mediaplayer (for Spotify)
