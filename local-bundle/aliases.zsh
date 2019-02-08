@@ -11,6 +11,14 @@ alias glola="git log --graph --pretty=format:'%Cred%h%Creset %G? -%C(yellow)%d%C
 
 alias glfp='glol --first-parent'
 
+# During a merge, get diffs from merge base to HEAD or MERGE_HEAD
+# This helps showing the differences in the two branches in isolation
+alias gdmh='gd $(git merge-base MERGE_HEAD HEAD) HEAD'
+alias gdmm='gd $(git merge-base MERGE_HEAD HEAD) MERGE_HEAD'
+
+# List files with conflicts
+alias glsc='git diff --name-only --diff-filter=U'
+
 # correct htop display in tmux
 alias htopx='TERM=screen htop'
 
