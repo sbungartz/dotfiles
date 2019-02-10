@@ -72,7 +72,7 @@ bindsym $mod+F12 exec XDG_CURRENT_DESKTOP=Unity unity-control-center
 # bindsym $mod+F3 exec ranger
 bindsym $mod+Shift+F3 exec gksu pcmanfm
 bindsym $mod+F5 exec terminal -e 'mocp'
-bindsym $mod+Shift+t exec --no-startup-id pkill compton
+bindsym $mod+Mod1+Shift+t exec --no-startup-id pkill compton
 bindsym $mod+Mod1+t exec --no-startup-id $SCRIPTS/restart-compton
 
 bindsym $mod+t exec BLOCK_BUTTON=1 $BLOCKET_DIR/hamster

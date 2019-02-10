@@ -2,6 +2,7 @@
 	autocrlf = input
 	excludesfile = ~/.gitignore
 	editor = vim
+	pager = diff-so-fancy | less --tabs=4 -R
 [push]
 	default = simple
 [color]
@@ -15,4 +16,16 @@
 	cmd = kdiff3 --L1 \"$MERGED (Base)\" --L2 \"$MERGED (Local)\" --L3 \"$MERGED (Remote)\" -o \"$MERGED\" \"$BASE\" \"$LOCAL\" \"$REMOTE\"
 [alias]
 	serve = daemon --verbose --export-all --base-path=.git --reuseaddr --strict-paths .git/
+[color "diff-highlight"]
+	oldNormal = red bold
+	oldHighlight = red bold 52
+	newNormal = green bold
+	newHighlight = green bold 22
+[color "diff"]
+	meta = yellow
+	frag = magenta bold
+	commit = yellow bold
+	old = red bold
+	new = green bold
+	whitespace = red reverse
 {%@@ include 'gitconfig.private' @@%}
