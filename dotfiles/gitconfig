@@ -2,7 +2,7 @@
 	autocrlf = input
 	excludesfile = ~/.gitignore
 	editor = vim
-	pager = diff-so-fancy | less --tabs=4 -R
+	pager = (diff-so-fancy || cat) | less --tabs=4 -R
 [push]
 	default = simple
 [color]
