@@ -23,11 +23,8 @@ nmap [q :cprevious<CR>
 
 nmap ,s :NERDTreeFind<CR>
 
-nmap ,f :FufFile **/<CR>
-nmap ,b :FufBuffer<CR>
-nmap ,t :FufTaggedFile<CR>
-nmap ,c :!ctags -f .ctags -R --extra=+f<CR><CR>:FufRenewCache<CR>
-nmap ,r :FufRenewCache<CR>
+nmap ,f :CtrlP<CR>
+nmap ,b :CtrlPBuffer<CR>
 
 nmap ;gi :YcmCompleter GoToInclude<CR>
 nmap ;gc :YcmCompleter GoToDeclaration<CR>
