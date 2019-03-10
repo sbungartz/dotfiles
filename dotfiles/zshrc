@@ -120,3 +120,6 @@ setopt HIST_IGNORE_SPACE
     # Tell antigen that you're done.
     antigen apply
 #fi
+
+source $HOME/.asdf/asdf.sh
+source $HOME/.asdf/completions/asdf.bash
