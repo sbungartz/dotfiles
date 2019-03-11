@@ -1,0 +1,90 @@
+#!/bin/bash
+set -e
+# Collection of installation scripts to run when needed.
+
+#########################
+# Basics
+
+sudo apt install git zsh tmux htop vim-gtk xclip
+sudo apt install checkinstall
+sudo apt install curl
+sudo apt install ranger
+sudo apt install tree
+sudo apt install silversearcher-ag
+
+sudo apt install ncdu
+sudo apt install dstat
+
+# todo list
+sudo apt install todotxt-cli
+
+# Password manager
+sudo apt install pass
+
+# Yubikey stuff
+sudo apt-add-repository ppa:yubico/stable
+sudo apt update
+sudo apt install yubikey-manager
+sudo apt install scdaemon
+
+# google chrome
+wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add - 
+sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
+sudo apt-get update
+sudo apt-get install google-chrome-stable
+
+# spotify
+sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 0DF731E45CE24F27EEEB1450EFDC8610341D9410
+echo deb http://repository.spotify.com stable non-free | sudo tee /etc/apt/sources.list.d/spotify.list
+sudo apt-get update
+sudo apt-get install spotify-client
+
+# slack
+# download dep package from slack.com
+cd ~/Downloads
+sudo dpkg -i slack-desktop-*-amd64.deb
+
+# Signal Desktop
+curl -s https://updates.signal.org/desktop/apt/keys.asc | sudo apt-key add -
+echo "deb [arch=amd64] https://updates.signal.org/desktop/apt xenial main" | sudo tee -a /etc/apt/sources.list.d/signal-xenial.list
+sudo apt update && sudo apt install signal-desktop
+
+# Syncthing
+curl -s https://syncthing.net/release-key.txt | sudo apt-key add -
+echo "deb https://apt.syncthing.net/ syncthing stable" | sudo tee /etc/apt/sources.list.d/syncthing.list
+sudo apt update
+sudo apt install syncthing
+sudo apt install syncthing-gtk
+
+#########################
+# Dev: General
+
+# Tags for VIM navigation
+sudo apt install exuberant-ctags
+
+# ASDF Version Manager
+git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.7.0
+
+# More readable diffs
+cd ~/manual-builds
+wget https://raw.githubusercontent.com/so-fancy/diff-so-fancy/master/third_party/build_fatpack/diff-so-fancy
+chmod +x diff-so-fancy
+sudo mv diff-so-fancy ~/.bin
+sudo chown root:root ~/.bin/diff-so-fancy
+
+# Restart on file change
+sudo apt install entr
+
+#########################
+# Dev: Bash
+# Linting
+sudo apt install shellcheck
+
+#########################
+# Dev: Ruby
+
+# Install global ruby version
+asdf plugin-add ruby
+latest_ruby=2.6.1
+asdf install ruby $latest_ruby
+asdf global ruby $latest_ruby
