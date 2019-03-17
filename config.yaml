@@ -16,9 +16,15 @@ dotfiles:
   d_i3blocks:
     dst: ~/.config/i3blocks
     src: config/i3blocks
+  f_asdfrc:
+    dst: ~/.asdfrc
+    src: asdfrc
   f_compton.conf:
     dst: ~/.config/compton.conf
     src: config/compton.conf
+  f_default-gems:
+    dst: ~/.default-gems
+    src: default-gems
   f_fonts.conf:
     dst: ~/.fonts.conf
     src: fonts.conf
@@ -47,13 +53,13 @@ dotfiles:
     dst: ~/.zshrc
     src: zshrc
 profiles:
-  simonlx:
-    variables:
-      display_scale: 1
+  simon-xps13:
     dotfiles:
     - ALL
-  simon-xps13:
     variables:
       display_scale: 2
+  simonlx:
     dotfiles:
     - ALL
+    variables:
+      display_scale: 1
