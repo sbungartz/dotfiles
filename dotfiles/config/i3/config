@@ -136,7 +136,6 @@ bindsym $mod+q split toggle
 bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
-bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
@@ -147,7 +146,7 @@ bindsym $mod+Shift+space floating toggle
 bindsym $mod+space focus mode_toggle
 
 # toggle sticky
-bindsym $mod+Shift+s sticky toggle
+bindsym $mod+s sticky toggle
 
 # focus the parent container
 bindsym $mod+a focus parent
@@ -386,7 +385,7 @@ bindsym XF86AudioLowerVolume exec --no-startup-id $cmdVolDown
 bindsym XF86AudioMute exec --no-startup-id $cmdVolToggleMute
 
 # Toggle audio output between analog and HDMI
-#bindsym $mod+Shift+o exec --no-startup-id $SCRIPTS/toggle-hdmi-audio
+bindsym $mod+Shift+s exec --no-startup-id $SCRIPTS/toggle-hdmi-audio
 
 # Media control
 bindsym $mod+Home exec --no-startup-id playerctl play-pause
