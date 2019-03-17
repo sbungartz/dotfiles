@@ -116,6 +116,8 @@ elif [[ $PORT =~ ^hdmi-output- ]]; then
     SYMBOL=' '
 elif [[ $PORT == 'headset-output' ]]; then
     SYMBOL=" $SYMBOL"
+elif [[ $NAME == 'Snapcast' ]]; then
+    SYMBOL=" $SYMBOL"
 fi
 
 function print_format {
