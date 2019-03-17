@@ -88,3 +88,11 @@ asdf plugin-add ruby
 latest_ruby=2.6.1
 asdf install ruby $latest_ruby
 asdf global ruby $latest_ruby
+
+###############################
+# Dev: golang
+asdf plugin-add golang
+latest_golang=1.12
+asdf install golang $latest_golang
+asdf global golang $latest_golang
+

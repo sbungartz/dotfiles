@@ -38,9 +38,6 @@ stty -ixon
 export PATH="$PATH:$HOME/.bin"
 export PATH="$PATH:/usr/local/bin"
 
-export GOROOT=/opt/go
-export PATH="$PATH:$GOROOT/bin"
-
 export GOPATH=$HOME/go-work
 export PATH="$PATH:$GOPATH/bin"
 
