@@ -58,6 +58,7 @@ autocmd FileType yaml setlocal sw=2 sts=2
 autocmd FileType markdown setlocal sw=2 sts=2
 autocmd FileType julia setlocal sw=2 sts=2
 autocmd FileType bib setlocal sw=2 sts=2
+autocmd FileType go setlocal sw=0 tabstop=2
 
 " Spellcheck
 autocmd FileType markdown setlocal spell spelllang=de,en
