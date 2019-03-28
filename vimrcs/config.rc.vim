@@ -64,6 +64,14 @@ autocmd FileType go setlocal sw=0 tabstop=2
 autocmd FileType markdown setlocal spell spelllang=de,en
 autocmd FileType gitcommit setlocal spell spelllang=de,en
 
+" Golang
+" Build/Test on save.
+augroup auto_go
+    autocmd!
+    autocmd BufWritePost *.go :GoBuild
+    autocmd BufWritePost *_test.go :GoTest
+augroup end
+
 " Arduino files
 autocmd BufNewFile,BufReadPost *.ino,*.pde set filetype=cpp sw=2 sts=2
 " Markdown files
