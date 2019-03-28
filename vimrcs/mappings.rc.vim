@@ -21,6 +21,9 @@ nmap gw :Ack <cword> -w<CR>
 nmap ]q :cnext<CR>
 nmap [q :cprevious<CR>
 
+nmap ]l :lnext<CR>
+nmap [l :lprevious<CR>
+
 nmap ,s :NERDTreeFind<CR>
 
 nmap ,f :CtrlP<CR>
