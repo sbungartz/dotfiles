@@ -48,6 +48,7 @@ else
             ["08: Use only $PRIMARY"]="xrandr --output $OTHER --off"
             ["09: Use only $OTHER"]="xrandr --output $OTHER --primary --output $PRIMARY --off"
             ["10: Make $OTHER the primary display"]="xrandr --output $OTHER --primary"
+            ["11: Place $OTHER right of $PRIMARY at half scale"]="xrandr --output $OTHER --right-of $PRIMARY --scale 2x2"
         )
     else
         menu=(
@@ -59,6 +60,7 @@ else
             ["6: Dupliate screens at resolution of $PRIMARY"]="duplicate_screens $PRIMARY $OTHER"
             ["7: Dupliate screens at resolution of $OTHER"]="duplicate_screens $OTHER $PRIMARY"
             ["8: Use only $OTHER"]="xrandr --output $OTHER --auto --primary --output $PRIMARY --off"
+            ["9: Place $OTHER right of $PRIMARY at half scale"]="xrandr --output $OTHER --auto --right-of $PRIMARY --scale 2x2"
         )
     fi
 

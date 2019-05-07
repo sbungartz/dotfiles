@@ -11,17 +11,17 @@ from hamster.configuration import runtime
 from hamster.lib.stuff import format_duration, Fact
 from datetime import datetime, timedelta
 
-FRECKLE_TOKEN = os.environ.get('FRECKLE_TOKEN')
+NOKO_TOKEN = os.environ.get('NOKO_TOKEN')
 date = os.environ.get('EXPORT_DATE') or datetime.now().strftime('%Y-%m-%d')
 
 DRY_RUN = False
-if FRECKLE_TOKEN is None:
+if NOKO_TOKEN is None:
     DRY_RUN = True
     print('DRY RUN: not actually uploading anything.')
-    print('Set environment variable FRECKLE_TOKEN to actually upload data.')
+    print('Set environment variable NOKO_TOKEN to actually upload data.')
 
 with open(expanduser('~/.config/hamster-scripting/projects.json'), 'r') as f:
-    freckle_project_id_for_category = json.load(f)
+    noko_project_id_for_category = json.load(f)
 
 datetime = datetime.strptime(date, '%Y-%m-%d')
 day_start = datetime.replace(hour=0, minute=0, second=0, microsecond=0)
@@ -40,22 +40,22 @@ for fact in facts:
     time_spent[group] = time_spent_before + (fact.end_time - fact.start_time)
 
 print('uploading entries for {}'.format(date))
-entries_url = 'https://api.letsfreckle.com/v2/entries'
+entries_url = 'https://api.nokotime.com/v2/entries'
 api_headers = {
-        'X-FreckleToken': FRECKLE_TOKEN
+        'X-NokoToken': NOKO_TOKEN
 }
 
 for (activity, category), total_time in time_spent.iteritems():
-    freckle_project_id = freckle_project_id_for_category.get(category)
-    if freckle_project_id is None:
+    noko_project_id = noko_project_id_for_category.get(category)
+    if noko_project_id is None:
         print('skipping {} of "{}@{}" because no project id is mapped'.format(total_time, activity, category))
         continue
 
     tp_reference_match = re.match('^[tT][pP]-([0-9]+) (.*)', activity)
     if tp_reference_match:
-        freckle_description = '#{} {}'.format(tp_reference_match.group(1), tp_reference_match.group(2))
+        noko_description = '#{} {}'.format(tp_reference_match.group(1), tp_reference_match.group(2))
     else:
-        freckle_description = activity
+        noko_description = activity
 
     total_minutes = int(round((total_time.total_seconds()) / 60))
 
@@ -63,13 +63,13 @@ for (activity, category), total_time in time_spent.iteritems():
         total_time,
         activity, category,
         total_minutes,
-        freckle_description, freckle_project_id))
+        noko_description, noko_project_id))
 
     if not DRY_RUN:
         payload = {
             'date': date,
-            'project_id': int(freckle_project_id),
-            'description': freckle_description,
+            'project_id': int(noko_project_id),
+            'description': noko_description,
             'minutes': total_minutes,
         }
 
