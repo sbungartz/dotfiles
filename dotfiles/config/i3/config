@@ -266,7 +266,8 @@ assign [class="TeXstudio"] $ws3
 assign [class="org-contikios-cooja-Cooja"] $ws4
 # Standard workspaces:
 for_window [title=".*Targetprocess - Google Chrome"] move to workspace $ws71
-assign [class="Thunderbird"] $ws8
+assign [class="Thunderbird" instance="Mail"] $ws8
+assign [class="Thunderbird" instance="Calendar"] $ws81
 for_window [title=".*Zweitag-Mail - Google Chrome"] move to workspace $ws8
 for_window [title=".*Zweitag.*Kalender.* - Google Chrome"] move to workspace $ws81
 for_window [title=".*WhatsApp - Google Chrome"] move to workspace $ws9
