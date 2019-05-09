@@ -5,8 +5,8 @@ colorscheme default
 " Adjust some highlighting colors and methods where
 " the defaults produce poor contrast
 highlight Search ctermbg=Gray
-highlight clear SpellBad
-highlight SpellBad cterm=underline ctermfg=red
+highlight SpellBad ctermbg=None ctermfg=Red cterm=underline
+highlight Folded ctermbg=None
 
 " Open new split panes to right and bottom, which feels more natural
 set splitbelow
