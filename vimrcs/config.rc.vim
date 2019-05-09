@@ -2,8 +2,11 @@
 syntax on
 colorscheme default
 
-" Avoid white text on yellow background for highlights
+" Adjust some highlighting colors and methods where
+" the defaults produce poor contrast
 highlight Search ctermbg=Gray
+highlight clear SpellBad
+highlight SpellBad cterm=underline ctermfg=red
 
 " Open new split panes to right and bottom, which feels more natural
 set splitbelow
