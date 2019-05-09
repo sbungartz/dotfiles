@@ -11,6 +11,7 @@ sudo apt install curl
 sudo apt install ranger
 sudo apt install tree
 sudo apt install silversearcher-ag
+sudo apt install sxiv
 
 sudo apt install ncdu
 sudo apt install dstat
@@ -55,6 +56,9 @@ echo "deb https://apt.syncthing.net/ syncthing stable" | sudo tee /etc/apt/sourc
 sudo apt update
 sudo apt install syncthing
 sudo apt install syncthing-gtk
+
+# PDF Viewer with annotation support
+sudo apt install okular
 
 #########################
 # Dev: General
