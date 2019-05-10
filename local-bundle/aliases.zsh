@@ -47,6 +47,21 @@ alias to='t ls @Office'
 alias tm='t ls @mittag'
 alias th='t ls @Home'
 
+TODO_CONTEXT_FILE="$HOME/.config/todo-current-context"
+# Set and read and clear global todo context
+tcs() { echo "$@" > "$TODO_CONTEXT_FILE" }
+tcr() { cat "$TODO_CONTEXT_FILE" }
+tcc() { rm -f "$TODO_CONTEXT_FILE" }
+
+
+# List todos for current context
+# Either global todo context or via $TODO_CONTEXT
+tlsc() {
+    t ls ${TODO_CONTEXT:-$(tcr)}
+}
+
+alias tt='clear; tlsc'
+
 c() { clear && "$@" }
 
 # udisksctl mounting and unmounting
