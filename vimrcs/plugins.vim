@@ -1,30 +1,38 @@
+" Appearance
+Plugin 'itchyny/lightline.vim'
+
+" Navigation and search
 Plugin 'scrooloose/nerdtree'
 Plugin 'jistr/vim-nerdtree-tabs'
+Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'mileszs/ack.vim'
+
+" Integration
 Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'itchyny/lightline.vim'
+Plugin 'jpalardy/vim-slime.git'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-rhubarb'
-Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'Valloric/YouCompleteMe'
+
+" Editing
 Plugin 'tpope/vim-surround'
-Plugin 'rdnetto/YCM-Generator'
-Plugin 'JuliaLang/julia-vim'
-Plugin 'jpalardy/vim-slime.git'
-Plugin 'JamshedVesuna/vim-markdown-preview'
-Plugin 'fatih/vim-go'
-Plugin 'ekalinin/Dockerfile.vim'
-Plugin 'freitass/todo.txt-vim'
-Plugin 'mileszs/ack.vim'
-Plugin 'junegunn/goyo.vim'
-"Plugin 'evanmiller/nginx-vim-syntax'
+
+" Languages: Meta
 Plugin 'vim-syntastic/syntastic'
-"Plugin 'ajh17/VimCompletesMe'
 Plugin 'ludovicchabant/vim-gutentags'
-"Plugin 'maxboisvert/vim-simple-complete'
-" Ruby/Rails
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'rdnetto/YCM-Generator'
+
+" Languages: Single
+Plugin 'ekalinin/Dockerfile.vim'
+Plugin 'fatih/vim-go'
+Plugin 'JamshedVesuna/vim-markdown-preview'
+Plugin 'JuliaLang/julia-vim'
+Plugin 'freitass/todo.txt-vim'
+Plugin 'pedrohdz/vim-yaml-folds'
+
+" Languages: Ruby/Rails
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'tpope/vim-bundler'
 Plugin 'tpope/vim-rbenv'
 Plugin 'tpope/vim-rails'
 Plugin 'kchmck/vim-coffee-script'
-Plugin 'pedrohdz/vim-yaml-folds'
