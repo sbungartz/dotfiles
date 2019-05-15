@@ -16,6 +16,10 @@ nmap yn :let @" = join([expand("%"), line(".")], ":")<CR>
 " Search cwd for word under cursor
 nmap gw :Ack <cword> -w<CR>
 
+" Open frequently used configurations
+command GTDHome execute "normal! :edit QuickNote.md<CR>:vsplit Projekte.md<CR>:split todo/todo.txt<CR><C-W>h:split Irgendwann-Vielleicht.md<CR><C-W>k"
+command GTDWork execute "normal! :edit QuickNote.md<CR>:vsplit Work/Projekte.md<CR>:split todo/todo.txt<CR><C-W>h:split Work/Irgendwann-Vielleicht.md<CR><C-W>k"
+
 " Custom navigation mappings
 
 nmap ]q :cnext<CR>

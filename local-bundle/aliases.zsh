@@ -41,8 +41,10 @@ alias t='todo-txt'
 alias tvim='vim ~/.todo-txt/todo.txt'
 alias tvd='vim ~/.todo-txt/done.txt'
 alias tx='t xp 5'
-alias ta='t ls @_agendas'
+ta() { t ls @Agenda $@ | grep -e '[^ ]*:' }
+twa() { t ls @Warten $@ | grep -e '[^ ]*:' }
 alias tw='t ls +Work'
+alias tb='t ls @Besorgungen'
 alias to='t ls @Office'
 alias tm='t ls @mittag'
 alias th='t ls @Home'
@@ -53,6 +55,9 @@ tcs() { echo "$@" > "$TODO_CONTEXT_FILE" }
 tcr() { cat "$TODO_CONTEXT_FILE" }
 tcc() { rm -f "$TODO_CONTEXT_FILE" }
 
+# Append thought to Inbox
+THOUGHT_INBOX="$HOME/Notes/QuickNote.md"
+think() { echo -e -n "\n- $@" >> "$THOUGHT_INBOX" }
 
 # List todos for current context
 # Either global todo context or via $TODO_CONTEXT
