@@ -62,7 +62,7 @@ think() { echo -e -n "\n- $@" >> "$THOUGHT_INBOX" }
 # List todos for current context
 # Either global todo context or via $TODO_CONTEXT
 tlsc() {
-    t ls ${TODO_CONTEXT:-$(tcr)}
+    t ls ${TODO_CONTEXT:-$(tcr)} $@
 }
 
 alias tt='clear; tlsc'
