@@ -17,6 +17,10 @@ dotfiles:
   d_i3blocks:
     dst: ~/.config/i3blocks
     src: config/i3blocks
+  d_todo.actions.d:
+    dst: ~/.todo.actions.d
+    src: todo.actions.d
+    link: link
   f_asdfrc:
     dst: ~/.asdfrc
     src: asdfrc
