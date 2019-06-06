@@ -37,7 +37,7 @@ alias dod='sudo -E docker-compose -f .docker-dev/docker-compose.yml'
 capshot() { xdg-open tmp/capybara/*.png([${1:--1}]) }
 
 # todo.txt
-alias t='todo-txt'
+alias t='TODOTXT_FINAL_FILTER=~/.dotfiles/scripts/todo-txt/filter/hideFutureTasks todo-txt $TODOTXT_FLAGS'
 alias tvim='vim ~/.todo-txt/todo.txt'
 alias tvd='vim ~/.todo-txt/done.txt'
 alias tx='t xp 5'
