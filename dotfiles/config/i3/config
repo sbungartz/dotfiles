@@ -279,7 +279,8 @@ for_window [class="Spotify"] move to workspace $ws10
 
 # Launch workspace contents
 bindsym $mod+Mod1+1 exec google-chrome-stable --new-window
-bindsym $mod+Mod1+u exec google-chrome-stable --new-window https://zweitag.tpondemand.com;
+#bindsym $mod+Mod1+u exec google-chrome-stable --new-window https://zweitag.tpondemand.com;
+bindsym $mod+Mod1+u exec firefox --new-window https://zweitag.tpondemand.com;
 {%@@ if profile == 'simon-xps13' @@%}
 bindsym $mod+Mod1+8 exec google-chrome-stable --new-window https://mail.google.com;
 {%@@ else @@%}
