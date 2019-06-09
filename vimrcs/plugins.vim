@@ -23,12 +23,13 @@ Plugin 'Valloric/YouCompleteMe'
 Plugin 'rdnetto/YCM-Generator'
 
 " Languages: Single
+Plugin 'chrisbra/csv.vim'
+Plugin 'JamshedVesuna/vim-markdown-preview'
+Plugin 'pedrohdz/vim-yaml-folds'
+Plugin 'freitass/todo.txt-vim'
 Plugin 'ekalinin/Dockerfile.vim'
 Plugin 'fatih/vim-go'
-Plugin 'JamshedVesuna/vim-markdown-preview'
 Plugin 'JuliaLang/julia-vim'
-Plugin 'freitass/todo.txt-vim'
-Plugin 'pedrohdz/vim-yaml-folds'
 
 " Languages: Ruby/Rails
 Plugin 'vim-ruby/vim-ruby'
