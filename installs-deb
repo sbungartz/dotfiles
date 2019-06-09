@@ -60,6 +60,9 @@ sudo apt install syncthing-gtk
 # PDF Viewer with annotation support
 sudo apt install okular
 
+# Advanced screenshots (annotate on screen)
+sudo apt install flameshot
+
 #########################
 # Dev: General
 
