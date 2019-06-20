@@ -12,6 +12,7 @@ Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'jpalardy/vim-slime.git'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-rhubarb'
+Plugin 'jamessan/vim-gnupg'
 
 " Editing
 Plugin 'tpope/vim-surround'
