@@ -34,6 +34,9 @@ export EDITOR='vim'
 # Disable Software Flow Control in tty driver, so accidental Ctrl+S does not freeze terminal
 stty -ixon
 
+# Script config
+export PASSWORD_STORE_ENABLE_EXTENSIONS='true'
+
 # paths
 export PATH="$PATH:$HOME/.bin"
 export PATH="$PATH:/usr/local/bin"
