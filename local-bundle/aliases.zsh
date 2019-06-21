@@ -45,6 +45,16 @@ ta() { t ls @Agenda $@ | grep -e ' [^ ]*: ' }
 tap() { t ls @Agenda $@ | perl -n -e '/ ([^ ]+): / && print "$1\n"' | sort | uniq }
 twa() { t ls @Warten $@ | grep -e ' [^ ]*: ' }
 twap() { t ls @Warten $@ | perl -n -e '/ ([^ ]+): / && print "$1\n"' | sort | uniq }
+
+alias taw='ta +Work'
+alias tah='ta -+Work'
+alias tapw='tap +Work'
+alias taph='tap -+Work'
+alias twaw='twa +Work'
+alias twah='twa -+Work'
+alias twapw='twap +Work'
+alias twaph='twap -+Work'
+
 alias tw='t ls +Work'
 alias tb='t ls @Besorgungen'
 alias to='t ls @Office'
