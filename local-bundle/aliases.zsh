@@ -43,8 +43,10 @@ alias tvd='vim ~/.todo-txt/done.txt'
 alias tx='t xp 5'
 ta() { t ls @Agenda $@ | grep -e ' [^ ]*: ' }
 tap() { t ls @Agenda $@ | perl -n -e '/ ([^ ]+): / && print "$1\n"' | sort | uniq }
+taa() { t a $@ @Agenda }
 twa() { t ls @Warten $@ | grep -e ' [^ ]*: ' }
 twap() { t ls @Warten $@ | perl -n -e '/ ([^ ]+): / && print "$1\n"' | sort | uniq }
+twaa() { t -t a $@ @Warten }
 
 alias taw='ta +Work'
 alias tah='ta -+Work'
