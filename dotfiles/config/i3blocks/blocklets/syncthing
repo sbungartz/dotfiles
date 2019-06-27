@@ -1,0 +1,171 @@
+#!/usr/bin/env python3
+
+import os
+import xml.etree.ElementTree as XML
+from syncthing import Syncthing
+
+def load_api_key(config_path):
+    return XML.parse(config_path).find('./gui/apikey').text
+
+CONFIG_PATH = os.path.expandvars('$HOME/.config/syncthing/config.xml')
+API_KEY = load_api_key(CONFIG_PATH)
+
+st = Syncthing(API_KEY)
+
+local_icon = ''
+#separator = '<span foreground="#A0A0A0"> | </span>'
+separator = '  '
+important_devices = ['Phone']
+device_display_names = {
+    'Phone': ''
+}
+
+my_id = None
+devices = {}
+folders = {}
+
+def debug(msg):
+  #print(msg)
+  return
+
+def state_color(connection_state, sync_state):
+    if sync_state == 'complete':
+        color = '#FFFFFF'
+    elif sync_state == 'incomplete':
+        color = '#FF0000'
+    else:
+        raise 'Unkown state: {}'.format(sync_state)
+
+    if connection_state == 'disconnected':
+        color = color.replace('FF', 'A0')
+
+    return color
+
+def colored_text(color, text):
+    return "<span foreground=\"{}\">{}</span>".format(color, text)
+
+def on_change():
+    device_strings = []
+
+    local_state = 'complete'
+    for folder in folders.values():
+        if folder['my_completion'] < 100:
+            local_state = 'incomplete'
+            break
+
+    device_strings.append(colored_text(state_color('connected', local_state), local_icon))
+
+    for device_id, device in devices.items():
+        if device_id == my_id:
+            continue
+        if device['name'] not in important_devices and device['connected'] == False:
+            continue
+
+        connection = 'connected' if device['connected'] else 'disconnected'
+
+        sync_state = 'complete'
+        for folder in folders.values():
+            if device_id in folder['completions'] and folder['completions'][device_id] < 100:
+                sync_state = 'incomplete'
+                break
+
+        color = state_color(connection, sync_state)
+        text = device['display_name']
+
+        device_strings.append(colored_text(color, text))
+
+    print(separator.join(device_strings), flush=True)
+
+def calculate_my_completion(data):
+    if data['globalBytes'] == 0:
+      return 100
+
+    data['completion'] = completion = (data['inSyncBytes'] / data['globalBytes']) * 100
+    return calculate_completion(data)
+
+def calculate_completion(data):
+    completion = data['completion']
+    if completion == 100 and (data['needDeletes'] > 0 or data['needBytes'] > 0):
+        completion = 99.9
+    return completion
+
+def load_initial_state():
+    status = st.system.status()
+    my_id = status['myID']
+
+    config = st.system.config()
+
+    for folder in config['folders']:
+        folder_id = folder['id']
+        folders[folder_id] = {
+            'id': folder_id,
+            'label':  folder['label'],
+            'my_completion': calculate_my_completion(st.db.status(folder_id)),
+            'completions': {
+                d['deviceID']: calculate_completion(st.db.get('completion', params={'device': d['deviceID'], 'folder': folder_id })) for d in folder['devices']
+            },
+        }
+
+    for device in config['devices']:
+        device_id = device['deviceID']
+
+        devices[device_id] = {
+            'id': device_id,
+            'name': device['name'],
+            'display_name': device_display_names.get(device['name'], device['name']),
+            'connected': False,
+        }
+
+        debug(device['name'])
+        for folder_id, folder in folders.items():
+            if device_id in folder['completions']:
+                debug('  {:15} {:6.2f}%'.format(
+                    folder['label'],
+                    folder['completions'][device_id],
+                ))
+
+    connections = st.system.connections()['connections']
+    for device_id, info in connections.items():
+        devices[device_id]['connected'] = info['connected']
+
+    on_change()
+
+def follow_event_stream():
+    event_stream = st.events(filters=['DeviceConnected', 'DeviceDisconnected', 'FolderSummary', 'FolderCompletion', 'LocalChangeDetected'])
+
+    for event in event_stream:
+        event_type = event['type']
+        data = event['data']
+
+        changed = True
+        if event_type == 'DeviceConnected':
+            device_id = data['id']
+            devices[device_id]['connected'] = True
+        elif event_type == 'DeviceDisconnected':
+            device_id = data['id']
+            devices[device_id]['connected'] = False
+        elif event_type == 'FolderSummary':
+            folder_id = data['folder']
+            summary = data['summary']
+            new_completion = calculate_my_completion(summary)
+            debug('FS {}: {}'.format(folder_id, new_completion))
+            folders[folder_id]['my_completion'] = new_completion
+        elif event_type == 'FolderCompletion':
+            folder_id = data['folder']
+            device_id = data['device']
+            new_completion = calculate_completion(data)
+            debug('FC {}@{}: {}'.format(folder_id, device_id, new_completion))
+            folders[folder_id]['completions'][device_id] = new_completion
+        elif event_type == 'LocalChangeDetected':
+            folder_id = data['folderID']
+            debug('LC {} -- {}'.format(folder_id, data['path']))
+            for device_id in folders[folder_id]['completions']:
+                folders[folder_id]['completions'][device_id] = 99
+        else:
+            changed = False
+
+        if changed:
+            on_change()
+
+load_initial_state()
+follow_event_stream()

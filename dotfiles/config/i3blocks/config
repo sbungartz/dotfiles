@@ -63,6 +63,10 @@ label=
 instance=/
 interval=30
 
+[syncthing]
+interval=persist
+markup=pango
+
 [backup_status]
 interval=10
 
