@@ -42,11 +42,35 @@ alias tvim='vim ~/.todo-txt/todo.txt'
 alias tvd='vim ~/.todo-txt/done.txt'
 alias tx='t xp 5'
 ta() { t ls @Agenda $@ | grep -e ' [^ ]*: ' }
-tap() { t ls @Agenda $@ | perl -n -e '/ ([^ ]+): / && print "$1\n"' | sort | uniq }
+tap() { t ls @Agenda $@ | perl -n -e '/ ([^ ]+): / && print "$1\n"' | sort -u }
 taa() { t a $@ @Agenda }
 twa() { t ls @Warten $@ | grep -e ' [^ ]*: ' }
-twap() { t ls @Warten $@ | perl -n -e '/ ([^ ]+): / && print "$1\n"' | sort | uniq }
+twap() { t ls @Warten $@ | perl -n -e '/ ([^ ]+): / && print "$1\n"' | sort -u }
 twaa() { t -t a $@ @Warten }
+
+tp() { twa $@; echo -e '\e[90m-------------------------\e[0m'; ta $@ }
+tpp() {
+    waiting=$(twap $@)
+    agenda=$(tap $@)
+    while IFS= read -r person
+    do
+        if (echo "$waiting" | grep -qx "$person")
+        then
+            echo -en '\e[94m'
+        else
+            echo -en '\e[90m'
+        fi
+        echo -en '\e[0m  '
+        if (echo "$agenda" | grep -qx "$person")
+        then
+            echo -en '\e[94m'
+        else
+            echo -en '\e[90m'
+        fi
+        echo -en '\e[0m  '
+        echo "$person"
+    done < <((echo $waiting && echo $agenda) | sort -u)
+}
 
 alias taw='ta +Work'
 alias tah='ta -+Work'
@@ -56,11 +80,14 @@ alias twaw='twa +Work'
 alias twah='twa -+Work'
 alias twapw='twap +Work'
 alias twaph='twap -+Work'
+alias tpw='tp +Work'
+alias tph='tp -+Work'
+alias tppw='tpp +Work'
+alias tpph='tpp -+Work'
 
 alias tw='t ls +Work'
 alias tb='t ls @Besorgungen'
 alias to='t ls @Office'
-alias tm='t ls @mittag'
 alias th='t ls @Home'
 
 TODO_CONTEXT_FILE="$HOME/.config/todo-current-context"
