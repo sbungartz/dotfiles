@@ -102,9 +102,8 @@ think() { echo -e -n "\n- $@" >> "$THOUGHT_INBOX" }
 
 # List todos for current context
 # Either global todo context or via $TODO_CONTEXT
-tt() {
-    t ls ${TODO_CONTEXT:-$(tcr)} $@
-}
+tt() { t ls ${TODO_CONTEXT:-$(tcr)} $@ }
+tta() { t a $@ ${TODO_CONTEXT:-$(tcr)} }
 
 # udisksctl mounting and unmounting
 function udls {
