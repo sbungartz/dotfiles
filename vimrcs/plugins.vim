@@ -1,5 +1,6 @@
-" Appearance
+" Appearance and behavior
 Plugin 'itchyny/lightline.vim'
+Plugin 'Konfekt/FastFold'
 
 " Navigation and search
 Plugin 'scrooloose/nerdtree'
