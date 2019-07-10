@@ -2,8 +2,8 @@
 set -u -e
 
 ICON=''
-BACKUP_SERVICE='duply-system-daily.service'
-MAX_BACKUP_AGE=$(( 60 * (60 * 24 + 15) ))
+CONFIG_DIR="$HOME/.config/backup_status"
+VAR_DIR="$HOME/.cache/backup_status"
 
 OK_COLOR='#A0A0A0'
 ERROR_COLOR='#FF0000'
@@ -19,38 +19,63 @@ function format_duration {
     printf '%02d:%02d' $DURATION_MINUTES $DURATION_SECONDS
 }
 
-ACTIVE_STATE=$(systemctl show -p ActiveState --value $BACKUP_SERVICE)
-if [[ "$ACTIVE_STATE" == 'activating' ]]
+if [ ! -d "$VAR_DIR" ]
 then
-    color=$PENDING_COLOR
+    mkdir "$VAR_DIR"
+fi
 
-    START_TIME=$(systemctl show -p ExecMainStartTimestamp --value $BACKUP_SERVICE)
-
-    START_TIME_UNIX=$(date --date "$START_TIME" +%s)
-    NOW_UNIX=$(date +%s)
-    SECONDS_SINCE_START=$(( $NOW_UNIX - $START_TIME_UNIX ))
-
-    status_text=" $(format_duration $SECONDS_SINCE_START)"
-elif [[ "$ACTIVE_STATE" == 'failed' ]]
+if [ ! -d "$CONFIG_DIR" ] || [ -z "$(ls "$CONFIG_DIR"/*)" ]
 then
     color=$ERROR_COLOR
-    status_text=' Last Backup Failed!'
-else
-    LAST_RUN=$(systemctl show -p InactiveEnterTimestamp --value $BACKUP_SERVICE)
+    status_text=' No config found'
+fi
 
-    LAST_RUN_UNIX=$(date --date "$LAST_RUN" +%s)
-    NOW_UNIX=$(date +%s)
-    SECONDS_SINCE_LAST_RUN=$(( $NOW_UNIX - $LAST_RUN_UNIX))
+status_text=''
+has_error=false
+has_pending=false
 
-    if (( $SECONDS_SINCE_LAST_RUN > $MAX_BACKUP_AGE ))
+for f in "$CONFIG_DIR"/*
+do
+    profile_name="$(basename "$f")"
+    max_age="$(< "$f")"
+    now=$(date +"%s")
+
+    if [ ! -f "$VAR_DIR/$profile_name" ]
     then
-        color=$ERROR_COLOR
-        status_text=' Last Backup Too Old!'
+        has_error=true
+        status_text="$status_text $profile_name never ran."
     else
-        color=$OK_COLOR
-        status_text=''
-        #status_text=" $(format_duration SECONDS_SINCE_LAST_RUN) ago"
+        read -r action timestamp < "$VAR_DIR/$profile_name"
+        if [ "$action" == 'start' ]
+        then
+            has_pending=true
+            status_text="$status_text $profile_name ($(format_duration $(( now - timestamp ))))"
+        elif [ "$action" == 'done' ]
+        then
+            if [ $(( now - timestamp )) -gt "$max_age" ]
+            then
+                has_pending=true
+                status_text="$status_text $profile_name backup required."
+            fi
+        elif [ "$action" == 'error' ]
+        then
+            has_error=true
+            status_text="$status_text $profile_name has failed."
+        else
+            has_error=true
+            status_text="$status_text $profile_name output incorrect."
+        fi
     fi
+done
+
+if $has_error
+then
+    color=$ERROR_COLOR
+elif $has_pending
+then
+    color=$PENDING_COLOR
+else
+    color=$OK_COLOR
 fi
 
 echo "$ICON$status_text"

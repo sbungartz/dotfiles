@@ -1,3 +1,0 @@
-#!/bin/bash
-cd ~/projects/backup/simple-wrapper
-./backup-up-to-date

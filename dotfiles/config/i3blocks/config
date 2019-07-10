@@ -70,12 +70,6 @@ markup=pango
 [backup_status]
 interval=10
 
-[backup_status2]
-interval=10
-
-[backup_status_local]
-interval=3600
-
 # Show the speed of German ICE trains as reported by API
 # reachable from on-board WiFi.
 [ice_speed]
