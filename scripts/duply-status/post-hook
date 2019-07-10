@@ -1,0 +1,9 @@
+#!/bin/bash
+set -e -u
+
+if [ "$CMD_ERR" -eq 0 ]
+then
+    echo "done $(date +"%s")" > "$HOME/.cache/backup_status/$1"
+else
+    echo "error $(date +"%s")" > "$HOME/.cache/backup_status/$1"
+fi

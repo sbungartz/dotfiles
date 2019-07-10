@@ -1,0 +1,3 @@
+#!/bin/bash
+set -e -u
+echo "start $(date +"%s")" > "$HOME/.cache/backup_status/$1"
