@@ -142,6 +142,10 @@ bindsym $mod+e layout toggle split
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
 
+# make current window float in corner for picture-in-picture effect
+bindsym $mod+Ctrl+space floating enable; sticky enable; resize set width 400px height 250px; exec --no-startup-id $SCRIPTS/hover left
+bindsym $mod+Mod1+space floating enable; sticky enable; resize set width 400px height 250px; exec --no-startup-id $SCRIPTS/hover right
+
 # change focus between tiling / floating windows
 bindsym $mod+space focus mode_toggle
 
