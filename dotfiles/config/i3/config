@@ -281,6 +281,9 @@ assign [class="Spotify"] $ws10
 # Spotify seems to set this too late, so always force to corrent workspace https://community.spotify.com/t5/Desktop-Linux-Windows-Web-Player/WM-CLASS-window-property-on-Linux/m-p/1315693#M153640
 for_window [class="Spotify"] move to workspace $ws10
 
+# Selenium Chrome
+assign [instance="/tmp/\.com\.google\.Chrome\."] $ws4
+
 # Launch workspace contents
 bindsym $mod+Mod1+1 exec google-chrome-stable --new-window
 #bindsym $mod+Mod1+u exec google-chrome-stable --new-window https://zweitag.tpondemand.com;
