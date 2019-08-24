@@ -1,8 +1,12 @@
 #!/usr/bin/env python3
 
 import os
+import time
+import logging
 import xml.etree.ElementTree as XML
-from syncthing import Syncthing
+from syncthing import Syncthing, SyncthingError
+
+logging.getLogger('syncthing').setLevel(logging.CRITICAL)
 
 def load_api_key(config_path):
     return XML.parse(config_path).find('./gui/apikey').text
@@ -47,13 +51,15 @@ def colored_text(color, text):
 def on_change():
     device_strings = []
 
+    local_connection = 'disconnected' if my_id is None else 'connected'
+
     local_state = 'complete'
     for folder in folders.values():
         if folder['my_completion'] < 100:
             local_state = 'incomplete'
             break
 
-    device_strings.append(colored_text(state_color('connected', local_state), local_icon))
+    device_strings.append(colored_text(state_color(local_connection, local_state), local_icon))
 
     for device_id, device in devices.items():
         if device_id == my_id:
@@ -90,6 +96,8 @@ def calculate_completion(data):
     return completion
 
 def load_initial_state():
+    global my_id
+
     status = st.system.status()
     my_id = status['myID']
 
@@ -167,5 +175,14 @@ def follow_event_stream():
         if changed:
             on_change()
 
-load_initial_state()
-follow_event_stream()
+while True:
+    try:
+        load_initial_state()
+        follow_event_stream()
+    except (SyncthingError):
+        my_id = None
+        devices = {}
+        folders= {}
+        on_change()
+
+        time.sleep(5)
