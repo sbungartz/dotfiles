@@ -352,6 +352,8 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 
 # Resize window (you can also use the mouse for that)
 bindsym $mod+r mode "resize"
+bindsym $mod+Mod1+r resize set width 1200 height 700; move position center
+bindsym $mod+Ctrl+r resize set width 2000 height 1200; move position center
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode
         # Pressing left will shrink the window’s width.
