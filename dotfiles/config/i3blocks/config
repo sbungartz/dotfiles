@@ -66,6 +66,9 @@ interval=30
 [syncthing]
 interval=persist
 markup=pango
+instance=Phone!Phone:
+#ST_BLOCKLET_IMPORTANT_DEVICES=Phone
+#ST_BLOCKLET_DEVICE_DISPLAY_NAMES=Phone:
 
 [backup_status]
 interval=10

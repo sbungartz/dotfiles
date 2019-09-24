@@ -16,13 +16,19 @@ API_KEY = load_api_key(CONFIG_PATH)
 
 st = Syncthing(API_KEY)
 
-local_icon = ''
-#separator = '<span foreground="#A0A0A0"> | </span>'
-separator = '  '
-important_devices = ['Phone']
-device_display_names = {
-    'Phone': ''
-}
+local_icon = os.getenv('ST_BLOCKLET_LOCAL_ICON', '')
+separator = os.getenv('ST_BLOCKLET_SEPARATOR', '  ')
+
+if os.getenv('BLOCK_INSTANCE', '') != '':
+  split_instance = os.getenv('BLOCK_INSTANCE').split('!')
+  env_important_devices = split_instance[0]
+  env_device_display_names = split_instance[1]
+else:
+  env_important_devices = os.getenv('ST_BLOCKLET_IMPORTANT_DEVICES', '')
+  env_device_display_names = os.getenv('ST_BLOCKLET_DEVICE_DISPLAY_NAMES', '')
+
+important_devices = [x for x in env_important_devices.split(';') if x != '']
+device_display_names = dict([x.split(':') for x in env_device_display_names.split(';') if x != ''])
 
 my_id = None
 devices = {}
