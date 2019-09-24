@@ -11,7 +11,7 @@ logging.getLogger('syncthing').setLevel(logging.CRITICAL)
 def load_api_key(config_path):
     return XML.parse(config_path).find('./gui/apikey').text
 
-CONFIG_PATH = os.path.expandvars('$HOME/.config/syncthing/config.xml')
+CONFIG_PATH = os.getenv('ST_BLOCKLET_ST_CONF', os.path.expandvars('$HOME/.config/syncthing/config.xml'))
 API_KEY = load_api_key(CONFIG_PATH)
 
 st = Syncthing(API_KEY)
