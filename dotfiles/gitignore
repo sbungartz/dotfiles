@@ -4,6 +4,7 @@
 .ctags
 .ctags.lock
 .ctags.temp
+.~lock.*
 *.pyc
 *.bib.bak
 .rspec_status
