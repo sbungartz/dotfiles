@@ -2,6 +2,7 @@
 
 import os
 import time
+import glob
 import logging
 import xml.etree.ElementTree as XML
 from syncthing import Syncthing, SyncthingError
@@ -55,7 +56,7 @@ def colored_text(color, text):
     return "<span foreground=\"{}\">{}</span>".format(color, text)
 
 def on_change():
-    device_strings = []
+    status_strings = []
 
     local_connection = 'disconnected' if my_id is None else 'connected'
 
@@ -65,7 +66,7 @@ def on_change():
             local_state = 'incomplete'
             break
 
-    device_strings.append(colored_text(state_color(local_connection, local_state), local_icon))
+    status_strings.append(colored_text(state_color(local_connection, local_state), local_icon))
 
     for device_id, device in devices.items():
         if device_id == my_id:
@@ -84,9 +85,13 @@ def on_change():
         color = state_color(connection, sync_state)
         text = device['display_name']
 
-        device_strings.append(colored_text(color, text))
+        status_strings.append(colored_text(color, text))
 
-    print(separator.join(device_strings), flush=True)
+    for folder_id, folder in folders.items():
+        if glob.glob(os.path.join(folder['path'], '**/*sync-conflict*')):
+            status_strings.append(colored_text('#FFFF00', folder['label']))
+
+    print(separator.join(status_strings), flush=True)
 
 def calculate_my_completion(data):
     if data['globalBytes'] == 0:
@@ -114,6 +119,7 @@ def load_initial_state():
         folders[folder_id] = {
             'id': folder_id,
             'label':  folder['label'],
+            'path': folder['path'],
             'my_completion': calculate_my_completion(st.db.status(folder_id)),
             'completions': {
                 d['deviceID']: calculate_completion(st.db.get('completion', params={'device': d['deviceID'], 'folder': folder_id })) for d in folder['devices']
