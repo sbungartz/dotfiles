@@ -88,7 +88,7 @@ def on_change():
         status_strings.append(colored_text(color, text))
 
     for folder_id, folder in folders.items():
-        if glob.glob(os.path.join(folder['path'], '**/*sync-conflict*')):
+        if glob.glob(os.path.join(folder['path'], '**/*sync-conflict*'), recursive=True):
             status_strings.append(colored_text('#FFFF00', folder['label']))
 
     print(separator.join(status_strings), flush=True)
