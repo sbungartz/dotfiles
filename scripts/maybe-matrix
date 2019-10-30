@@ -1,0 +1,57 @@
+#!/usr/bin/env ruby
+
+INPUT_PATH = '/home/simon/Notes/Irgendwann-Vielleicht.md'
+
+Entry = Struct.new(
+  :text,
+  :time,
+  :value,
+  keyword_init: true,
+)
+
+module FileParser
+  def self.parse_maybe_file(data)
+    data.split("\n").map do |line|
+      line = line.strip
+      time_match = /t:([0-9]+)/.match(line)
+      value_match = /v:([0-9]+)/.match(line)
+      next unless time_match && value_match
+
+      Entry.new(
+        text: line.strip.gsub(/\A-/, '').gsub(/[tv]:[0-9]+/, '').strip,
+        time: Integer(time_match[1]),
+        value: Integer(value_match[1]),
+      )
+    end.compact
+  end
+end
+
+module DataAggregator
+  TIME_BUCKETS = [
+    [0, (0..1)],
+    [1, (1..2)],
+    [2, (2..3)],
+    [3, (3..5)],
+    [5, (5..8)],
+    [8, (8..13)],
+    [13, (13..21)],
+  ]
+
+  VALUE_VALUES = [1, 2, 3]
+
+  def self.aggregate(entries)
+    aggregated = TIME_BUCKETS.map {|label, _| [label, VALUE_VALUES.map {|value| [value, []] }.to_h] }.to_h
+    entries.each do |entry|
+      time_bucket = TIME_BUCKETS.find
+    end
+  end
+end
+
+
+entries = FileParser.parse_maybe_file(File.read(INPUT_PATH))
+
+#OUTPUT_PATH = 'maybe-matrix.html'
+#
+#File.open(OUTPUT_PATH, 'w') do |output|
+#  output.puts 'hello'
+#end
