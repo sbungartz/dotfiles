@@ -5,6 +5,8 @@ set -e
 #########################
 # Basics
 
+sudo ufw enable
+
 sudo apt install git zsh tmux htop vim-gtk xclip
 sudo apt install checkinstall
 sudo apt install curl
@@ -15,6 +17,10 @@ sudo apt install sxiv
 
 sudo apt install ncdu
 sudo apt install dstat
+
+sudo apt install exuberant-ctags
+sudo apt install python3
+sudo apt install python3-pip
 
 # todo list
 sudo apt install todotxt-cli
@@ -55,7 +61,11 @@ curl -s https://syncthing.net/release-key.txt | sudo apt-key add -
 echo "deb https://apt.syncthing.net/ syncthing stable" | sudo tee /etc/apt/sources.list.d/syncthing.list
 sudo apt update
 sudo apt install syncthing
-sudo apt install syncthing-gtk
+mkdir -p ~/.config/systemd/user
+curl -s https://raw.githubusercontent.com/syncthing/syncthing/master/etc/linux-systemd/user/syncthing.service > ~/.config/systemd/user/syncthing.service
+systemctl --user enable syncthing.service
+systemctl --user start syncthing.service
+sudo ufw allow syncthing
 
 # PDF Viewer with annotation support
 sudo apt install okular
