@@ -68,3 +68,8 @@ profiles:
     - ALL
     variables:
       display_scale: 1
+  simon-laptop:
+    dotfiles:
+    - ALL
+    variables:
+      display_scale: 1
