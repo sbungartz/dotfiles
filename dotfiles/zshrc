@@ -110,5 +110,8 @@ setopt HIST_IGNORE_SPACE
     antigen apply
 #fi
 
-source $HOME/.asdf/asdf.sh
-source $HOME/.asdf/completions/asdf.bash
+if [ -d $HOME/.asdf ]
+then
+    source $HOME/.asdf/asdf.sh
+    source $HOME/.asdf/completions/asdf.bash
+fi
