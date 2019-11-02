@@ -20,6 +20,10 @@ nmap gw :Ack <cword> -w<CR>
 command GTDHome execute "normal! :edit QuickNote.md<CR>:vsplit Projekte.md<CR>:split todo/todo.txt<CR><C-W>h:split Irgendwann-Vielleicht.md<CR><C-W>k"
 command GTDWork execute "normal! :edit QuickNote.md<CR>:vsplit Work/Projekte.md<CR>:split todo/todo.txt<CR><C-W>h:split Work/Irgendwann-Vielleicht.md<CR><C-W>k"
 
+" Alignment using EasyAlign plugin
+xmap ga <Plug>(EasyAlign)
+nmap ga <Plug>(EasyAlign)
+
 " Custom navigation mappings
 
 nmap ]q :cnext<CR>
@@ -47,3 +51,7 @@ nmap ;r :YcmForceCompileAndDiagnostics<CR>
 
 " open master source latex pdf
 autocmd FileType bib nmap <C-w> 0[{lv/,<CR>h"ty:silent! exec "!xdg-open /home/simon/projects/master/research/papers/<C-r>t.pdf &"<CR>
+
+" Align GitHub-flavored Markdown tables
+autocmd FileType markdown vmap ,<Bslash> :EasyAlign*<Bar><Enter>
+

@@ -17,6 +17,7 @@ Plugin 'jamessan/vim-gnupg'
 
 " Editing
 Plugin 'tpope/vim-surround'
+Plugin 'junegunn/vim-easy-align'
 
 " Languages: Meta
 Plugin 'vim-syntastic/syntastic'
