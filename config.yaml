@@ -57,6 +57,9 @@ dotfiles:
   f_zshrc:
     dst: ~/.zshrc
     src: zshrc
+  f_gpg-agent.conf:
+    src: gnupg/gpg-agent.conf
+    dst: ~/.gnupg/gpg-agent.conf
 profiles:
   simon-xps13:
     dotfiles:
