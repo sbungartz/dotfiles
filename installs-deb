@@ -22,6 +22,8 @@ sudo apt install exuberant-ctags
 sudo apt install python3
 sudo apt install python3-pip
 
+sudo apt install duply python-pexpect
+
 # todo list
 sudo apt install todotxt-cli
 
@@ -30,9 +32,8 @@ sudo apt install pass
 
 # Yubikey stuff
 sudo apt-add-repository ppa:yubico/stable
-sudo apt update
-sudo apt install yubikey-manager
-sudo apt install scdaemon
+sudo apt install yubikey-manager scdaemon
+# Needs reboot to work
 
 # google chrome
 wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add - 
@@ -41,7 +42,7 @@ sudo apt-get update
 sudo apt-get install google-chrome-stable
 
 # spotify
-sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 0DF731E45CE24F27EEEB1450EFDC8610341D9410
+curl -sS https://download.spotify.com/debian/pubkey.gpg | sudo apt-key add -
 echo deb http://repository.spotify.com stable non-free | sudo tee /etc/apt/sources.list.d/spotify.list
 sudo apt-get update
 sudo apt-get install spotify-client
@@ -86,8 +87,8 @@ git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.7.0
 cd ~/.manual-builds
 wget https://raw.githubusercontent.com/so-fancy/diff-so-fancy/master/third_party/build_fatpack/diff-so-fancy
 chmod +x diff-so-fancy
-sudo mv diff-so-fancy ~/.bin
-sudo chown root:root ~/.bin/diff-so-fancy
+sudo chown root:root diff-so-fancy
+sudo mv diff-so-fancy /usr/local/bin
 
 # Restart on file change
 sudo apt install entr
@@ -164,7 +165,7 @@ sudo apt install blueman
 
 # required tools
 sudo apt install fonts-roboto fonts-font-awesome
-sudo apt install i3lock nitrogen lxappearance compton i3blocks rofi pavucontrol kbdd xfce4-power-manager
+sudo apt install i3lock nitrogen lxappearance compton i3blocks rofi pavucontrol kbdd xfce4-power-manager xdotool
 
 # aptitude for apt blocklet
 sudo apt-get install aptitude
