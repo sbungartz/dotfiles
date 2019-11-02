@@ -183,6 +183,17 @@ cd ~/.manual-builds
 wget -O playerctl.deb https://github.com/acrisci/playerctl/releases/download/v0.5.0/playerctl-0.5.0_amd64.deb
 sudo dpkg -i playerctl.deb
 
+# Touchpad settings
+sudo tee /usr/share/X11/xorg.conf.d/41-libinput-custom.conf <<EOF
+Section "InputClass"
+    Identifier "libinput touchpad catchall"
+    MatchIsTouchpad "on"
+    Driver "libinput"
+    Option "Tapping" "on"
+    Option "NaturalScrolling" "true"
+EndSection
+EOF
+
 ### Manual Setup:
 # Configure these settings using lxappearance:
 # Window-theme: Ambience, Symbols: Ubuntu-Mono-Dark
