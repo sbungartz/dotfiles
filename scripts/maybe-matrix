@@ -3,6 +3,7 @@
 INPUT_PATH = '/home/simon/Notes/Irgendwann-Vielleicht.md'
 
 Entry = Struct.new(
+  :line,
   :text,
   :time,
   :value,
@@ -11,13 +12,14 @@ Entry = Struct.new(
 
 module FileParser
   def self.parse_maybe_file(data)
-    data.split("\n").map do |line|
+    data.split("\n").each_with_index.map do |line, line_number|
       line = line.strip
       time_match = /t:([0-9]+)/.match(line)
       value_match = /v:([0-9]+)/.match(line)
       next unless time_match && value_match
 
       Entry.new(
+        line: line_number,
         text: line.strip.gsub(/\A-/, '').gsub(/[tv]:[0-9]+/, '').strip,
         time: Integer(time_match[1]),
         value: Integer(value_match[1]),
@@ -27,31 +29,150 @@ module FileParser
 end
 
 module DataAggregator
-  TIME_BUCKETS = [
-    [0, (0..1)],
-    [1, (1..2)],
-    [2, (2..3)],
-    [3, (3..5)],
-    [5, (5..8)],
-    [8, (8..13)],
-    [13, (13..21)],
-  ]
+  TIME_BUCKETS = [0, 1, 2, 3, 5, 8, 13, 21, '∞']
 
   VALUE_VALUES = [1, 2, 3]
 
   def self.aggregate(entries)
-    aggregated = TIME_BUCKETS.map {|label, _| [label, VALUE_VALUES.map {|value| [value, []] }.to_h] }.to_h
+    aggregated = TIME_BUCKETS.map {|bucket| [bucket, VALUE_VALUES.map {|value| [value, []] }.to_h] }.to_h
     entries.each do |entry|
-      time_bucket = TIME_BUCKETS.find
+      next unless VALUE_VALUES.include?(entry.value)
+      time_bucket = TIME_BUCKETS.find {|bucket| bucket.is_a?(String) || bucket >= entry.time }
+      aggregated[time_bucket][entry.value] << entry
     end
+    aggregated
+  end
+end
+
+module HTMLRenderer
+  def self.stylesheet
+    <<~CSS
+      body {
+        font-family: sans-serif;
+      }
+
+      ul {
+        list-style: none;
+        padding: 0;
+      }
+
+      table.board {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      table.board th, table.board td {
+        border: 1px solid silver;
+        vertical-align: top;
+      }
+
+      ul.board--card-list {
+        margin: 0;
+        padding: 5px;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+
+      ul.board--card-list > li {
+        flex: 1 1 200px;
+        box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.3), 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+        margin: 10px;
+
+        padding: 3px;
+      }
+
+      ul.card-rows > li:not(:last-child) {
+        margin-bottom: 5px;
+      }
+
+      ul.card-header {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        color: silver;
+      }
+    CSS
+  end
+  def self.render_site(table)
+    <<~HTML
+      <html>
+        <head>
+          <title>Irgendwann Vieleicht</title>
+          <style>
+            #{stylesheet}
+          </style>
+        </head>
+        <body>
+          #{render_table(table)}
+        </body
+      </html>
+    HTML
+  end
+
+  def self.render_table(table)
+    <<~HTML
+      <table class="board">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Richtig Cool</th>
+            <th>Ganz Nett</th>
+            <th>Meh</th>
+          </tr>
+        </thead>
+        <tbody>
+          #{table.map {|row| render_row(*row) }.join}
+        </tbody>
+      </table>
+    HTML
+  end
+
+  def self.render_row(title, columns)
+    <<~HTML
+      <tr>
+        <th>#{title}</th>
+        #{columns.map {|_, items| render_cell(items) }.join}
+      </tr>
+    HTML
+  end
+
+  def self.render_cell(items)
+    <<~HTML
+      <td>
+        <ul class="board--card-list">
+          #{items.map {|item| render_item(item) }.join}
+        </ul>
+      </td>
+    HTML
+  end
+
+  def self.render_item(item)
+    <<~HTML
+      <li>
+        <ul class="card-rows">
+          <li>
+            <ul class="card-header">
+              <li>##{item.line}</li>
+              <li>#{item.time}h</li>
+            </ul>
+          </li>
+          <li>
+            #{item.text}
+          </li>
+        </ul>
+      </li>
+    HTML
   end
 end
 
 
 entries = FileParser.parse_maybe_file(File.read(INPUT_PATH))
+aggregated = DataAggregator.aggregate(entries)
+pp aggregated
 
-#OUTPUT_PATH = 'maybe-matrix.html'
-#
-#File.open(OUTPUT_PATH, 'w') do |output|
-#  output.puts 'hello'
-#end
+OUTPUT_PATH = 'maybe-matrix.html'
+
+File.open(OUTPUT_PATH, 'w') do |output|
+  output.puts HTMLRenderer.render_site(aggregated)
+end
