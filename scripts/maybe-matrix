@@ -98,13 +98,11 @@ module HTMLRenderer
       ul.board--card-list {
         margin: 0;
         padding: 4px;
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
+        display: grid;
+        grid-template-columns: 50% 50%;
       }
 
       ul.board--card-list > li {
-        flex: 1 1 200px;
         box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.3), 0 4px 8px 0 rgba(0, 0, 0, 0.1);
         background-color: white;
         margin: 8px;
@@ -125,10 +123,15 @@ module HTMLRenderer
       }
 
       ul.card-header > li {
+        flex: none;
         margin: 0 2px;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+      }
+
+      ul.card-header > li:not(:first-child):not(:last-child) {
+        flex-shrink: 1;
       }
     CSS
   end
