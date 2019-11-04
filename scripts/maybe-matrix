@@ -4,26 +4,54 @@ INPUT_PATH = '/home/simon/Notes/Irgendwann-Vielleicht.md'
 
 Entry = Struct.new(
   :line,
+  :section,
   :text,
   :time,
   :value,
   keyword_init: true,
 )
 
+class SectionHierarchy
+  attr_reader :titles
+
+  def initialize(titles = [])
+    @titles = titles.freeze
+  end
+
+  def next(level:, title:)
+    new_titles = @titles[0...level]
+    new_titles[level] = title
+    self.class.new(new_titles.freeze)
+  end
+end
+
 module FileParser
   def self.parse_maybe_file(data)
+    current_section = SectionHierarchy.new
     data.split("\n").each_with_index.map do |line, line_number|
       line = line.strip
-      time_match = /t:([0-9]+)/.match(line)
-      value_match = /v:([0-9]+)/.match(line)
-      next unless time_match && value_match
 
-      Entry.new(
-        line: line_number,
-        text: line.strip.gsub(/\A-/, '').gsub(/[tv]:[0-9]+/, '').strip,
-        time: Integer(time_match[1]),
-        value: Integer(value_match[1]),
-      )
+      section_match = /\A([#]+) (.*)/.match(line)
+      if section_match
+        section_level = section_match[1].length - 1
+        section_title = section_match[2].strip
+        current_section = current_section.next(level: section_level, title: section_title)
+        next
+      else
+        next unless line.start_with?('- ')
+
+        time_match = /t:([0-9]+)/.match(line)
+        value_match = /v:([0-9]+)/.match(line)
+        next unless time_match && value_match
+
+        Entry.new(
+          line: line_number,
+          section: current_section,
+          text: line.strip.gsub(/\A-/, '').gsub(/[tv]:[0-9]+/, '').strip,
+          time: Integer(time_match[1]),
+          value: Integer(value_match[1]),
+        )
+      end
     end.compact
   end
 end
@@ -93,6 +121,14 @@ module HTMLRenderer
         flex-direction: row;
         justify-content: space-between;
         color: silver;
+        margin: 0 -2px;
+      }
+
+      ul.card-header > li {
+        margin: 0 2px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
     CSS
   end
@@ -156,6 +192,7 @@ module HTMLRenderer
           <li>
             <ul class="card-header">
               <li>##{item.line}</li>
+              <li>#{item.section.titles.join(" / ")}</li>
               <li>#{item.time}h</li>
             </ul>
           </li>
@@ -170,8 +207,9 @@ end
 
 
 entries = FileParser.parse_maybe_file(File.read(INPUT_PATH))
+pp entries
 aggregated = DataAggregator.aggregate(entries)
-pp aggregated
+#pp aggregated
 
 OUTPUT_PATH = 'maybe-matrix.html'
 
