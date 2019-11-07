@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 
-INPUT_PATH = '/home/simon/Notes/Irgendwann-Vielleicht.md'
+#INPUT_PATH = '/home/simon/Notes/Irgendwann-Vielleicht.md'
+INPUT_PATH = 'Test.md'
 
 Entry = Struct.new(
   :line,
@@ -45,7 +46,7 @@ module FileParser
         next unless time_match && value_match
 
         Entry.new(
-          line: line_number,
+          line: line_number + 1,
           section: current_section,
           text: line.strip.gsub(/\A-/, '').gsub(/[tv]:[0-9]+/, '').strip,
           time: Integer(time_match[1]),
@@ -87,6 +88,7 @@ module HTMLRenderer
 
       table.board {
         width: 100%;
+        table-layout: fixed;
         border-collapse: collapse;
       }
 
@@ -95,11 +97,16 @@ module HTMLRenderer
         vertical-align: top;
       }
 
+      table.board th[scope=row] {
+        width: 50px;
+      }
+
       ul.board--card-list {
         margin: 0;
         padding: 4px;
         display: grid;
-        grid-template-columns: 50% 50%;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        align-items: start;
       }
 
       ul.board--card-list > li {
@@ -156,7 +163,7 @@ module HTMLRenderer
       <table class="board">
         <thead>
           <tr>
-            <th></th>
+            <th scope="row"></th>
             <th>Richtig Cool</th>
             <th>Ganz Nett</th>
             <th>Meh</th>
@@ -172,7 +179,7 @@ module HTMLRenderer
   def self.render_row(title, columns)
     <<~HTML
       <tr>
-        <th>#{title}</th>
+        <th scope="row">#{title}</th>
         #{columns.map {|_, items| render_cell(items) }.join}
       </tr>
     HTML
