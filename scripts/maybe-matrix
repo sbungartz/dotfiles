@@ -43,14 +43,13 @@ module FileParser
 
         time_match = /t:([0-9]+)/.match(line)
         value_match = /v:([0-9]+)/.match(line)
-        next unless time_match && value_match
 
         Entry.new(
           line: line_number + 1,
           section: current_section,
           text: line.strip.gsub(/\A-/, '').gsub(/[tv]:[0-9]+/, '').strip,
-          time: Integer(time_match[1]),
-          value: Integer(value_match[1]),
+          time: time_match ? Integer(time_match[1]) : nil,
+          value: value_match ? Integer(value_match[1]) : nil,
         )
       end
     end.compact
@@ -64,12 +63,16 @@ module DataAggregator
 
   def self.aggregate(entries)
     aggregated = TIME_BUCKETS.map {|bucket| [bucket, VALUE_VALUES.map {|value| [value, []] }.to_h] }.to_h
+    unmatched = []
     entries.each do |entry|
-      next unless VALUE_VALUES.include?(entry.value)
-      time_bucket = TIME_BUCKETS.find {|bucket| bucket.is_a?(String) || bucket >= entry.time }
-      aggregated[time_bucket][entry.value] << entry
+      if entry.time != nil && VALUE_VALUES.include?(entry.value)
+        time_bucket = TIME_BUCKETS.find {|bucket| bucket.is_a?(String) || bucket >= entry.time }
+        aggregated[time_bucket][entry.value] << entry
+      else
+        unmatched << entry
+      end
     end
-    aggregated
+    [aggregated, unmatched]
   end
 end
 
@@ -145,7 +148,7 @@ module HTMLRenderer
       }
     CSS
   end
-  def self.render_site(table)
+  def self.render_site(table, unmatched)
     <<~HTML
       <html>
         <head>
@@ -156,7 +159,8 @@ module HTMLRenderer
         </head>
         <body>
           #{render_table(table)}
-        </body
+          #{render_card_list(unmatched)}
+        </body>
       </html>
     HTML
   end
@@ -191,10 +195,16 @@ module HTMLRenderer
   def self.render_cell(items)
     <<~HTML
       <td>
-        <ul class="board--card-list">
-          #{items.map {|item| render_item(item) }.join}
-        </ul>
+        #{render_card_list(items)}
       </td>
+    HTML
+  end
+
+  def self.render_card_list(items)
+    <<~HTML
+      <ul class="board--card-list">
+        #{items.map {|item| render_item(item) }.join}
+      </ul>
     HTML
   end
 
@@ -221,11 +231,11 @@ end
 
 entries = FileParser.parse_maybe_file(File.read(INPUT_PATH))
 pp entries
-aggregated = DataAggregator.aggregate(entries)
+aggregated, unmatched = DataAggregator.aggregate(entries)
 #pp aggregated
 
 OUTPUT_PATH = 'maybe-matrix.html'
 
 File.open(OUTPUT_PATH, 'w') do |output|
-  output.puts HTMLRenderer.render_site(aggregated)
+  output.puts HTMLRenderer.render_site(aggregated, unmatched)
 end
