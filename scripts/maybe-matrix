@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
-#INPUT_PATH = '/home/simon/Notes/Irgendwann-Vielleicht.md'
-INPUT_PATH = 'Test.md'
+INPUT_PATH = '/home/simon/Notes/Irgendwann-Vielleicht.md'
+#INPUT_PATH = 'Test.md'
 
 Entry = Struct.new(
   :line,
@@ -88,13 +88,17 @@ module HTMLRenderer
 
       table.board {
         width: 100%;
-        table-layout: fixed;
         border-collapse: collapse;
       }
 
       table.board th, table.board td {
         border: 1px solid silver;
         vertical-align: top;
+      }
+
+      table.board td {
+        width: min-content;
+        width: min-intrinsic;
       }
 
       table.board th[scope=row] {
@@ -106,7 +110,6 @@ module HTMLRenderer
         padding: 4px;
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-        align-items: start;
       }
 
       ul.board--card-list > li {
