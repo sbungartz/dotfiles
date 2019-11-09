@@ -30,7 +30,7 @@ module FileParser
   def self.parse_maybe_file(data)
     current_section = SectionHierarchy.new
     data.split("\n").each_with_index.map do |line, line_number|
-      line = line.strip
+      line = line.rstrip
 
       section_match = /\A([#]+) (.*)/.match(line)
       if section_match
