@@ -85,21 +85,27 @@ module HTMLRenderer
         margin: 0;
       }
 
-      main {
-        display: block;
-        margin: 8px;
-      }
-
       ul {
         list-style: none;
         padding: 0;
         margin: 0;
       }
 
+      main {
+        margin: 8px;
+      }
+
+      main > section {
+        margin-bottom: 16px;
+      }
+
+      .scrollbox {
+        overflow-x: auto;
+      }
+
       table.board {
         width: 100%;
         border-collapse: collapse;
-        margin-bottom: 16px;
       }
 
       table.board th, table.board td {
@@ -166,8 +172,14 @@ module HTMLRenderer
         </head>
         <body>
           <main>
-            #{render_table(table)}
-            #{render_card_list(unmatched)}
+            <section>
+              <div class="scrollbox">
+                #{render_table(table)}
+              </div>
+            </section>
+            <section>
+              #{render_card_list(unmatched)}
+            </section>
           </main>
         </body>
       </html>
