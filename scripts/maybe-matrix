@@ -106,11 +106,48 @@ module HTMLRenderer
       table.board {
         width: 100%;
         border-collapse: collapse;
+        --grid-definition: 1px solid silver;
       }
 
       table.board th, table.board td {
-        border: 1px solid silver;
         vertical-align: top;
+      }
+
+      table.board td {
+        border: var(--grid-definition);
+      }
+
+      table.board th {
+        position: relative;
+      }
+
+      table.board th.both::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        height: 0.5em;
+        width: 0.5em;
+        border-right: var(--grid-definition);
+        border-bottom: var(--grid-definition);
+      }
+
+      table.board th[scope=col]::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        height: 0.5em;
+        border-left: var(--grid-definition);
+      }
+
+      table.board th[scope=row]::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 0.5em;
+        border-bottom: var(--grid-definition);
       }
 
       table.board td {
@@ -191,10 +228,10 @@ module HTMLRenderer
       <table class="board">
         <thead>
           <tr>
-            <th scope="row"></th>
-            <th>Richtig Cool</th>
-            <th>Ganz Nett</th>
-            <th>Meh</th>
+            <th class="both"></th>
+            <th scope="col">Richtig Cool</th>
+            <th scope="col">Ganz Nett</th>
+            <th scope="col">Meh</th>
           </tr>
         </thead>
         <tbody>
