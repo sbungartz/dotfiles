@@ -106,7 +106,7 @@ tt() { t ls ${TODO_CONTEXT:-$(tcr)} $@ }
 tta() { t a $@ ${TODO_CONTEXT:-$(tcr)} }
 
 # Generate and open maybe-matrix
-alias mm="$HOME/.dotfiles/scripts/maybe-matrix && xdg-open $HOME/.cache/maybe-matrix.html"
+alias mm="xdg-open $HOME/.cache/maybe-matrix.html && ls $HOME/Notes/Irgendwann-Vielleicht.md | entr $HOME/.dotfiles/scripts/maybe-matrix"
 
 # udisksctl mounting and unmounting
 function udls {

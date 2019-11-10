@@ -11,6 +11,7 @@ Entry = Struct.new(
   :text,
   :time,
   :value,
+  :status,
   keyword_init: true,
 )
 
@@ -45,13 +46,15 @@ module FileParser
 
         time_match = /t:([0-9]+)/.match(line)
         value_match = /v:([0-9]+)/.match(line)
+        status_match = /s:([^ ]+)/.match(line)
 
-        Entry.new(
+          Entry.new(
           line: line_number + 1,
           section: current_section,
-          text: line.strip.gsub(/\A-/, '').gsub(/[tv]:[0-9]+/, '').strip,
+          text: line.strip.gsub(/\A-/, '').gsub(/[tvs]:[^ ]+/, '').strip,
           time: time_match ? Integer(time_match[1]) : nil,
           value: value_match ? Integer(value_match[1]) : nil,
+          status: status_match ? status_match[1] : nil,
         )
       end
     end.compact
@@ -59,7 +62,7 @@ module FileParser
 end
 
 module DataAggregator
-  TIME_BUCKETS = [0, 1, 2, 3, 5, 8, 13, 21, '∞']
+  TIME_BUCKETS = [1, 2, 3, 5, 8, 13, 21, '∞']
 
   VALUE_VALUES = [1, 2, 3]
 
@@ -117,6 +120,9 @@ module HTMLRenderer
 
       table.board td {
         border: var(--grid-definition);
+        width: min-content;
+        width: min-intrinsic;
+        padding: 16px;
       }
 
       table.board th {
@@ -152,19 +158,13 @@ module HTMLRenderer
         border-bottom: var(--grid-definition);
       }
 
-      table.board td {
-        width: min-content;
-        width: min-intrinsic;
-        padding: 8px;
-      }
-
       table.board th[scope=row] {
         width: 50px;
       }
 
       ul.board--card-list {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
         grid-gap: 16px;
       }
 
@@ -173,6 +173,10 @@ module HTMLRenderer
         background-color: white;
 
         padding: 3px;
+      }
+
+      ul.board--card-list > li.on-hold {
+        opacity: 0.4;
       }
 
       ul.card-rows > li:not(:last-child) {
@@ -231,9 +235,9 @@ module HTMLRenderer
         <thead>
           <tr>
             <th class="both"></th>
-            <th scope="col">Richtig Cool</th>
-            <th scope="col">Ganz Nett</th>
-            <th scope="col">Meh</th>
+            <th scope="col">Must Have</th>
+            <th scope="col">Should Have</th>
+            <th scope="col">Nice to Have</th>
           </tr>
         </thead>
         <tbody>
@@ -270,7 +274,7 @@ module HTMLRenderer
 
   def self.render_item(item)
     <<~HTML
-      <li>
+      <li class="#{item.status}">
         <ul class="card-rows">
           <li>
             <ul class="card-header">
