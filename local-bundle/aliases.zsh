@@ -105,6 +105,9 @@ think() { echo -e -n "\n- $@" >> "$THOUGHT_INBOX" }
 tt() { t ls ${TODO_CONTEXT:-$(tcr)} $@ }
 tta() { t a $@ ${TODO_CONTEXT:-$(tcr)} }
 
+# Generate and open maybe-matrix
+alias mm="$HOME/.dotfiles/scripts/maybe-matrix && xdg-open $HOME/.cache/maybe-matrix.html"
+
 # udisksctl mounting and unmounting
 function udls {
     udisksctl status
