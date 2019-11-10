@@ -1,7 +1,9 @@
 #!/usr/bin/env ruby
 
-INPUT_PATH = '/home/simon/Notes/Irgendwann-Vielleicht.md'
+INPUT_PATH = "#{ENV['HOME']}/Notes/Irgendwann-Vielleicht.md"
 #INPUT_PATH = 'Test.md'
+
+OUTPUT_PATH = "#{ENV['HOME']}/.cache/maybe-matrix.html"
 
 Entry = Struct.new(
   :line,
@@ -288,11 +290,7 @@ end
 
 
 entries = FileParser.parse_maybe_file(File.read(INPUT_PATH))
-pp entries
 aggregated, unmatched = DataAggregator.aggregate(entries)
-#pp aggregated
-
-OUTPUT_PATH = 'maybe-matrix.html'
 
 File.open(OUTPUT_PATH, 'w') do |output|
   output.puts HTMLRenderer.render_site(aggregated, unmatched)
