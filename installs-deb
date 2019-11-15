@@ -74,6 +74,20 @@ sudo apt install okular
 # Advanced screenshots (annotate on screen)
 sudo apt install flameshot
 
+# Hibiscus
+sudo apt install default-jre
+## https://www.willuhn.de/products/hibiscus/download.php
+cd ~/.manual-builds
+unzip ~/Downloads/jameica-linux64.zip
+
+cat << FILE > ~/.local/share/applications/hibiscus.desktop
+[Desktop Entry]
+Name=Hibiscus
+Exec=$HOME/.manual-builds/jameica/jameica.sh
+Terminal=false
+Type=Application
+FILE
+
 #########################
 # Dev: General
 
