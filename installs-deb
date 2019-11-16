@@ -210,6 +210,20 @@ Section "InputClass"
 EndSection
 EOF
 
+# Touchpad fix on Lenovo Yoga 13
+sudo tee /etc/systemd/system/touchpad-reload.service <<EOF
+[Unit]
+Description=Reload psmouse after boot since touchpad does not work otherwise on Lenovo Yoga 13
+
+[Service]
+Type=oneshot
+ExecStart=/bin/bash -c "rmmod psmouse && modprobe psmouse"
+
+[Install]
+WantedBy=graphical.target
+EOF
+sudo systemctl enable touchpad-reload.service
+
 ### Manual Setup:
 # Configure these settings using lxappearance:
 # Window-theme: Ambience, Symbols: Ubuntu-Mono-Dark
