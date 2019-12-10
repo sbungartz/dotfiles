@@ -56,6 +56,7 @@ autocmd FileType ruby setlocal sw=2 sts=2
 autocmd FileType html setlocal sw=2 sts=2
 autocmd FileType css setlocal sw=2 sts=2
 autocmd FileType javascript setlocal sw=2 sts=2
+autocmd FileType typescript setlocal sw=2 sts=2
 autocmd FileType coffee setlocal sw=2 sts=2
 autocmd FileType yaml setlocal sw=2 sts=2
 autocmd FileType markdown setlocal sw=2 sts=2
