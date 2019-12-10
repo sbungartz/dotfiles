@@ -1,7 +1,9 @@
 #!/usr/bin/env ruby
 
-INPUT_PATH = '/home/simon/Notes/Irgendwann-Vielleicht.md'
+INPUT_PATH = "#{ENV['HOME']}/Notes/Irgendwann-Vielleicht.md"
 #INPUT_PATH = 'Test.md'
+
+OUTPUT_PATH = "#{ENV['HOME']}/.cache/maybe-matrix.html"
 
 Entry = Struct.new(
   :line,
@@ -9,6 +11,7 @@ Entry = Struct.new(
   :text,
   :time,
   :value,
+  :status,
   keyword_init: true,
 )
 
@@ -30,7 +33,7 @@ module FileParser
   def self.parse_maybe_file(data)
     current_section = SectionHierarchy.new
     data.split("\n").each_with_index.map do |line, line_number|
-      line = line.strip
+      line = line.rstrip
 
       section_match = /\A([#]+) (.*)/.match(line)
       if section_match
@@ -43,13 +46,15 @@ module FileParser
 
         time_match = /t:([0-9]+)/.match(line)
         value_match = /v:([0-9]+)/.match(line)
+        status_match = /s:([^ ]+)/.match(line)
 
-        Entry.new(
+          Entry.new(
           line: line_number + 1,
           section: current_section,
-          text: line.strip.gsub(/\A-/, '').gsub(/[tv]:[0-9]+/, '').strip,
+          text: line.strip.gsub(/\A-/, '').gsub(/[tvs]:[^ ]+/, '').strip,
           time: time_match ? Integer(time_match[1]) : nil,
           value: value_match ? Integer(value_match[1]) : nil,
+          status: status_match ? status_match[1] : nil,
         )
       end
     end.compact
@@ -57,7 +62,7 @@ module FileParser
 end
 
 module DataAggregator
-  TIME_BUCKETS = [0, 1, 2, 3, 5, 8, 13, 21, '∞']
+  TIME_BUCKETS = [1, 2, 3, 5, 8, 13, 21, '∞']
 
   VALUE_VALUES = [1, 2, 3]
 
@@ -82,26 +87,75 @@ module HTMLRenderer
       body {
         font-family: sans-serif;
         background-color: #f7f7fa;
+        margin: 0;
       }
 
       ul {
         list-style: none;
         padding: 0;
+        margin: 0;
+      }
+
+      main {
+        margin: 8px;
+      }
+
+      main > section {
+        margin-bottom: 16px;
+      }
+
+      .scrollbox {
+        overflow-x: auto;
       }
 
       table.board {
         width: 100%;
         border-collapse: collapse;
+        --grid-definition: 1px solid silver;
       }
 
       table.board th, table.board td {
-        border: 1px solid silver;
         vertical-align: top;
       }
 
       table.board td {
+        border: var(--grid-definition);
         width: min-content;
         width: min-intrinsic;
+        padding: 16px;
+      }
+
+      table.board th {
+        position: relative;
+      }
+
+      table.board th.both::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        height: 0.5em;
+        width: 0.5em;
+        border-right: var(--grid-definition);
+        border-bottom: var(--grid-definition);
+      }
+
+      table.board th[scope=col]::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        height: 0.5em;
+        border-left: var(--grid-definition);
+      }
+
+      table.board th[scope=row]::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 0.5em;
+        border-bottom: var(--grid-definition);
       }
 
       table.board th[scope=row] {
@@ -109,18 +163,20 @@ module HTMLRenderer
       }
 
       ul.board--card-list {
-        margin: 0;
-        padding: 4px;
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        grid-gap: 16px;
       }
 
       ul.board--card-list > li {
         box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.3), 0 4px 8px 0 rgba(0, 0, 0, 0.1);
         background-color: white;
-        margin: 8px;
 
         padding: 3px;
+      }
+
+      ul.board--card-list > li.on-hold {
+        opacity: 0.4;
       }
 
       ul.card-rows > li:not(:last-child) {
@@ -158,8 +214,16 @@ module HTMLRenderer
           </style>
         </head>
         <body>
-          #{render_table(table)}
-          #{render_card_list(unmatched)}
+          <main>
+            <section>
+              <div class="scrollbox">
+                #{render_table(table)}
+              </div>
+            </section>
+            <section>
+              #{render_card_list(unmatched)}
+            </section>
+          </main>
         </body>
       </html>
     HTML
@@ -170,10 +234,10 @@ module HTMLRenderer
       <table class="board">
         <thead>
           <tr>
-            <th scope="row"></th>
-            <th>Richtig Cool</th>
-            <th>Ganz Nett</th>
-            <th>Meh</th>
+            <th class="both"></th>
+            <th scope="col">Must Have</th>
+            <th scope="col">Should Have</th>
+            <th scope="col">Nice to Have</th>
           </tr>
         </thead>
         <tbody>
@@ -210,13 +274,13 @@ module HTMLRenderer
 
   def self.render_item(item)
     <<~HTML
-      <li>
+      <li class="#{item.status}">
         <ul class="card-rows">
           <li>
             <ul class="card-header">
               <li>##{item.line}</li>
               <li>#{item.section.titles.join(" / ")}</li>
-              <li>#{item.time}h</li>
+              <li>#{"#{item.time}h" if item.time}</li>
             </ul>
           </li>
           <li>
@@ -230,11 +294,7 @@ end
 
 
 entries = FileParser.parse_maybe_file(File.read(INPUT_PATH))
-pp entries
 aggregated, unmatched = DataAggregator.aggregate(entries)
-#pp aggregated
-
-OUTPUT_PATH = 'maybe-matrix.html'
 
 File.open(OUTPUT_PATH, 'w') do |output|
   output.puts HTMLRenderer.render_site(aggregated, unmatched)
