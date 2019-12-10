@@ -104,6 +104,12 @@ npm install -g wscat
 sudo apt install shellcheck
 
 #########################
+# Dev: Basics
+# Auto-Formatting
+sudo -H pip3 install sqlparse
+sudo apt install tidy
+
+#########################
 # Dev: Ruby
 
 # Install global ruby version
