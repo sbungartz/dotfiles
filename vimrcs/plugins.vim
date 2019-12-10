@@ -18,6 +18,7 @@ Plugin 'jamessan/vim-gnupg'
 " Editing
 Plugin 'tpope/vim-surround'
 Plugin 'junegunn/vim-easy-align'
+Plugin 'Chiel92/vim-autoformat'
 
 " Languages: Meta
 Plugin 'vim-syntastic/syntastic'
@@ -33,6 +34,8 @@ Plugin 'freitass/todo.txt-vim'
 Plugin 'ekalinin/Dockerfile.vim'
 Plugin 'fatih/vim-go'
 Plugin 'JuliaLang/julia-vim'
+Plugin 'elixir-editors/vim-elixir'
+Plugin 'leafgarland/typescript-vim'
 
 " Languages: Ruby/Rails
 Plugin 'vim-ruby/vim-ruby'
