@@ -9,35 +9,46 @@ from syncthing import Syncthing, SyncthingError
 
 logging.getLogger('syncthing').setLevel(logging.CRITICAL)
 
-def load_api_key(config_path):
-    return XML.parse(config_path).find('./gui/apikey').text
+class Configuration:
+    def load_from_env(self):
+        self.st_api_key = self.load_api_key()
+        self.local_icon = os.getenv('ST_BLOCKLET_LOCAL_ICON', '')
+        self.separator = os.getenv('ST_BLOCKLET_SEPARATOR', '  ')
+        self.load_block_instance_config()
+        return self
 
-CONFIG_PATH = os.getenv('ST_BLOCKLET_ST_CONF', os.path.expandvars('$HOME/.config/syncthing/config.xml'))
-API_KEY = load_api_key(CONFIG_PATH)
+    @staticmethod
+    def load_api_key():
+        config_path = os.getenv('ST_BLOCKLET_ST_CONF', os.path.expandvars('$HOME/.config/syncthing/config.xml'))
+        return XML.parse(config_path).find('./gui/apikey').text
 
-st = Syncthing(API_KEY)
 
-local_icon = os.getenv('ST_BLOCKLET_LOCAL_ICON', '')
-separator = os.getenv('ST_BLOCKLET_SEPARATOR', '  ')
+    def load_block_instance_config(self):
+        if os.getenv('BLOCK_INSTANCE', '') != '':
+            split_instance = os.getenv('BLOCK_INSTANCE').split('!')
+            env_important_devices = split_instance[0]
+            env_device_display_names = split_instance[1]
+        else:
+            env_important_devices = os.getenv('ST_BLOCKLET_IMPORTANT_DEVICES', '')
+            env_device_display_names = os.getenv('ST_BLOCKLET_DEVICE_DISPLAY_NAMES', '')
 
-if os.getenv('BLOCK_INSTANCE', '') != '':
-    split_instance = os.getenv('BLOCK_INSTANCE').split('!')
-    env_important_devices = split_instance[0]
-    env_device_display_names = split_instance[1]
-else:
-    env_important_devices = os.getenv('ST_BLOCKLET_IMPORTANT_DEVICES', '')
-    env_device_display_names = os.getenv('ST_BLOCKLET_DEVICE_DISPLAY_NAMES', '')
+        self.important_devices = [x for x in env_important_devices.split(';') if x != '']
+        self.device_display_names = dict([x.split(':') for x in env_device_display_names.split(';') if x != ''])
 
-important_devices = [x for x in env_important_devices.split(';') if x != '']
-device_display_names = dict([x.split(':') for x in env_device_display_names.split(';') if x != ''])
 
-my_id = None
-devices = {}
-folders = {}
+class State:
+    def __init__(self):
+        self.reset()
 
-def debug(msg):
-    #print(msg)
-    return
+    def reset(self):
+        self.my_id = None
+        self.devices = {}
+        self.folders = {}
+
+
+config = Configuration().load_from_env()
+st = Syncthing(config.st_api_key)
+state = State()
 
 def state_color(connection_state, sync_state):
     if sync_state == 'complete':
@@ -58,26 +69,26 @@ def colored_text(color, text):
 def on_change():
     status_strings = []
 
-    local_connection = 'disconnected' if my_id is None else 'connected'
+    local_connection = 'disconnected' if state.my_id is None else 'connected'
 
     local_state = 'complete'
-    for folder in folders.values():
+    for folder in state.folders.values():
         if folder['my_completion'] < 100:
             local_state = 'incomplete'
             break
 
-    status_strings.append(colored_text(state_color(local_connection, local_state), local_icon))
+    status_strings.append(colored_text(state_color(local_connection, local_state), config.local_icon))
 
-    for device_id, device in devices.items():
-        if device_id == my_id:
+    for device_id, device in state.devices.items():
+        if device_id == state.my_id:
             continue
-        if device['name'] not in important_devices and device['connected'] == False:
+        if device['name'] not in config.important_devices and device['connected'] == False:
             continue
 
         connection = 'connected' if device['connected'] else 'disconnected'
 
         sync_state = 'complete'
-        for folder in folders.values():
+        for folder in state.folders.values():
             if device_id in folder['completions'] and folder['completions'][device_id] < 100:
                 sync_state = 'incomplete'
                 break
@@ -87,11 +98,11 @@ def on_change():
 
         status_strings.append(colored_text(color, text))
 
-    for folder_id, folder in folders.items():
+    for folder_id, folder in state.folders.items():
         if glob.glob(os.path.join(folder['path'], '**/*sync-conflict*'), recursive=True):
             status_strings.append(colored_text('#FFFF00', folder['label']))
 
-    print(separator.join(status_strings), flush=True)
+    print(config.separator.join(status_strings), flush=True)
 
 def calculate_my_completion(data):
     if data['globalBytes'] == 0:
@@ -107,16 +118,14 @@ def calculate_completion(data):
     return completion
 
 def load_initial_state():
-    global my_id
-
     status = st.system.status()
-    my_id = status['myID']
+    state.my_id = status['myID']
 
-    config = st.system.config()
+    st_config = st.system.config()
 
-    for folder in config['folders']:
+    for folder in st_config['folders']:
         folder_id = folder['id']
-        folders[folder_id] = {
+        state.folders[folder_id] = {
             'id': folder_id,
             'label':  folder['label'],
             'path': folder['path'],
@@ -126,27 +135,19 @@ def load_initial_state():
             },
         }
 
-    for device in config['devices']:
+    for device in st_config['devices']:
         device_id = device['deviceID']
 
-        devices[device_id] = {
+        state.devices[device_id] = {
             'id': device_id,
             'name': device['name'],
-            'display_name': device_display_names.get(device['name'], device['name']),
+            'display_name': config.device_display_names.get(device['name'], device['name']),
             'connected': False,
         }
 
-        debug(device['name'])
-        for folder_id, folder in folders.items():
-            if device_id in folder['completions']:
-                debug('  {:15} {:6.2f}%'.format(
-                    folder['label'],
-                    folder['completions'][device_id],
-                ))
-
     connections = st.system.connections()['connections']
     for device_id, info in connections.items():
-        devices[device_id]['connected'] = info['connected']
+        state.devices[device_id]['connected'] = info['connected']
 
     on_change()
 
@@ -160,27 +161,24 @@ def follow_event_stream():
         changed = True
         if event_type == 'DeviceConnected':
             device_id = data['id']
-            devices[device_id]['connected'] = True
+            state.devices[device_id]['connected'] = True
         elif event_type == 'DeviceDisconnected':
             device_id = data['id']
-            devices[device_id]['connected'] = False
+            state.devices[device_id]['connected'] = False
         elif event_type == 'FolderSummary':
             folder_id = data['folder']
             summary = data['summary']
             new_completion = calculate_my_completion(summary)
-            debug('FS {}: {}'.format(folder_id, new_completion))
-            folders[folder_id]['my_completion'] = new_completion
+            state.folders[folder_id]['my_completion'] = new_completion
         elif event_type == 'FolderCompletion':
             folder_id = data['folder']
             device_id = data['device']
             new_completion = calculate_completion(data)
-            debug('FC {}@{}: {}'.format(folder_id, device_id, new_completion))
-            folders[folder_id]['completions'][device_id] = new_completion
+            state.folders[folder_id]['completions'][device_id] = new_completion
         elif event_type == 'LocalChangeDetected':
             folder_id = data['folderID']
-            debug('LC {} -- {}'.format(folder_id, data['path']))
-            for device_id in folders[folder_id]['completions']:
-                folders[folder_id]['completions'][device_id] = 99
+            for device_id in state.folders[folder_id]['completions']:
+                state.folders[folder_id]['completions'][device_id] = 99
         else:
             changed = False
 
@@ -192,9 +190,7 @@ while True:
         load_initial_state()
         follow_event_stream()
     except (SyncthingError):
-        my_id = None
-        devices = {}
-        folders= {}
+        state.reset()
         on_change()
 
         time.sleep(5)
