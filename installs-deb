@@ -70,6 +70,8 @@ sudo ufw allow syncthing
 
 # PDF Viewer with annotation support
 sudo apt install okular
+# Install extra backends to support EPUB as well
+sudo apt install okular-extra-backends
 
 # Advanced screenshots (annotate on screen)
 sudo apt install flameshot
