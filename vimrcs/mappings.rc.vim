@@ -54,4 +54,6 @@ autocmd FileType bib nmap <C-w> 0[{lv/,<CR>h"ty:silent! exec "!xdg-open /home/si
 
 " Align GitHub-flavored Markdown tables
 autocmd FileType markdown vmap ,<Bslash> :EasyAlign*<Bar><Enter>
-
+" Insert new Checkbox item in GitHub-flavored Markdown
+autocmd FileType markdown nmap ,o o- [ ] 
+autocmd FileType markdown nmap ,O O- [ ] 
