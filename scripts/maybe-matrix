@@ -273,13 +273,14 @@ module HTMLRenderer
   end
 
   def self.render_item(item)
+    section_title = item.section.titles.join(" / ")
     <<~HTML
       <li class="#{item.status}">
         <ul class="card-rows">
           <li>
             <ul class="card-header">
               <li>##{item.line}</li>
-              <li>#{item.section.titles.join(" / ")}</li>
+              <li title="#{section_title}">#{section_title}</li>
               <li>#{"#{item.time}h" if item.time}</li>
             </ul>
           </li>
