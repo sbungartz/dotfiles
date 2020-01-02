@@ -45,12 +45,26 @@ class State:
         self.devices = {}
         self.folders = {}
 
+    def syncthing_connected(self):
+        return self.my_id is not None
+
+    def local_sync_state(self):
+        for folder in self.folders.values():
+            if folder['my_completion'] < 100:
+                return 'incomplete'
+        return 'complete'
+
+    def device_sync_state(self, device_id):
+        for folder in state.folders.values():
+            if device_id in folder['completions'] and folder['completions'][device_id] < 100:
+                return 'incomplete'
+        return 'complete'
 
 config = Configuration().load_from_env()
 st = Syncthing(config.st_api_key)
 state = State()
 
-def state_color(connection_state, sync_state):
+def state_color(connected, sync_state):
     if sync_state == 'complete':
         color = '#FFFFFF'
     elif sync_state == 'incomplete':
@@ -58,7 +72,7 @@ def state_color(connection_state, sync_state):
     else:
         raise 'Unkown state: {}'.format(sync_state)
 
-    if connection_state == 'disconnected':
+    if not connected:
         color = color.replace('FF', 'A0')
 
     return color
@@ -66,18 +80,18 @@ def state_color(connection_state, sync_state):
 def colored_text(color, text):
     return "<span foreground=\"{}\">{}</span>".format(color, text)
 
+def local_status_string():
+    color = state_color(state.syncthing_connected(), state.local_sync_state())
+    return colored_text(color, config.local_icon)
+
+def device_status_string(device):
+    color = state_color(device['connected'], state.device_sync_state(device['id']))
+    return colored_text(color, device['display_name'])
+
 def on_change():
     status_strings = []
 
-    local_connection = 'disconnected' if state.my_id is None else 'connected'
-
-    local_state = 'complete'
-    for folder in state.folders.values():
-        if folder['my_completion'] < 100:
-            local_state = 'incomplete'
-            break
-
-    status_strings.append(colored_text(state_color(local_connection, local_state), config.local_icon))
+    status_strings.append(local_status_string())
 
     for device_id, device in state.devices.items():
         if device_id == state.my_id:
@@ -85,18 +99,7 @@ def on_change():
         if device['name'] not in config.important_devices and device['connected'] == False:
             continue
 
-        connection = 'connected' if device['connected'] else 'disconnected'
-
-        sync_state = 'complete'
-        for folder in state.folders.values():
-            if device_id in folder['completions'] and folder['completions'][device_id] < 100:
-                sync_state = 'incomplete'
-                break
-
-        color = state_color(connection, sync_state)
-        text = device['display_name']
-
-        status_strings.append(colored_text(color, text))
+        status_strings.append(device_status_string(device))
 
     for folder_id, folder in state.folders.items():
         if glob.glob(os.path.join(folder['path'], '**/*sync-conflict*'), recursive=True):
