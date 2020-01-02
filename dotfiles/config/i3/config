@@ -293,6 +293,7 @@ for_window [class="Spotify"] move to workspace $ws10
 
 # Selenium Chrome
 assign [instance="/tmp/\.com\.google\.Chrome\."] $ws6
+assign [instance="Cypress"] $ws6
 
 # Launch workspace contents
 bindsym $mod+Mod1+1 exec $BROWSER --new-window
