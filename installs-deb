@@ -26,6 +26,8 @@ sudo apt install duply python-pexpect
 
 # todo list
 sudo apt install todotxt-cli
+## Dependencies for ice_recur plugin
+sudo gem install ice_cube optimist
 
 # Password manager
 sudo apt install pass
