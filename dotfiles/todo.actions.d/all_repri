@@ -1,0 +1,21 @@
+#!/bin/bash
+
+action=$1
+flag=$2
+shift
+
+addon=$(basename $0)
+
+[ "$action" = "usage" ] && {
+  echo "  Change priority on all prioritized tasks:"
+  echo "    $addon"
+  echo "      changes the priority level by one of all prioritized tasks."
+  echo "      Optional argument integer indicating number of level chaneges"
+  echo "      and direction of change."
+  echo ""
+  exit
+}
+
+[ "$action" = "$addon" ] && {
+    python3 $(dirname $(readlink -f "$0"))/all_repri.py "$TODO_DIR" $flag
+}
