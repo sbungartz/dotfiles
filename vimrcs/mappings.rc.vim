@@ -18,7 +18,9 @@ nmap gw :Ack <cword> -w<CR>
 
 " Open frequently used configurations
 command GTDHome execute "normal! :edit QuickNote.md<CR>:vsplit Projekte.md<CR>:split todo/todo.txt<CR><C-W>h:split Irgendwann-Vielleicht.md<CR><C-W>k"
+command GTIHome execute "normal! :edit QuickNote.md<CR>:vsplit Projekte.md<CR>"
 command GTDWork execute "normal! :edit QuickNote.md<CR>:vsplit Work/Projekte.md<CR>:split todo/todo.txt<CR><C-W>h:split Work/Irgendwann-Vielleicht.md<CR><C-W>k"
+command GTIWork execute "normal! :edit QuickNote.md<CR>:vsplit Work/Projekte.md<CR>"
 
 " Alignment using EasyAlign plugin
 xmap ga <Plug>(EasyAlign)
