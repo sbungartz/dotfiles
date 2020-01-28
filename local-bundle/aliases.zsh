@@ -105,6 +105,9 @@ think() { echo -e -n "\n- $@" >> "$THOUGHT_INBOX" }
 tt() { t ls ${TODO_CONTEXT:-$(tcr)} $@ }
 tta() { t a $@ ${TODO_CONTEXT:-$(tcr)} }
 
+# List recurring tasks by next scheduled date
+trs() { t ice_recur -s | awk '{split($0,a," -- "); printf "%s   %-50s   %s\n", a[3],a[4],a[2]}' | sort }
+
 # Generate and open maybe-matrix
 alias mm="xdg-open $HOME/.cache/maybe-matrix.html && ls $HOME/Notes/Irgendwann-Vielleicht.md | entr $HOME/.dotfiles/scripts/maybe-matrix"
 
