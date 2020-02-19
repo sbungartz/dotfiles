@@ -36,6 +36,7 @@ Plugin 'fatih/vim-go'
 Plugin 'JuliaLang/julia-vim'
 Plugin 'elixir-editors/vim-elixir'
 Plugin 'leafgarland/typescript-vim'
+Plugin 'posva/vim-vue'
 
 " Languages: Ruby/Rails
 Plugin 'vim-ruby/vim-ruby'
