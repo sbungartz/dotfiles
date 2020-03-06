@@ -136,3 +136,4 @@ set tags+=.ctags
 
 " Enable mouse support for [a]ll modes
 set mouse=a
+set ttymouse=sgr
