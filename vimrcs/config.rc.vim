@@ -76,6 +76,9 @@ augroup auto_go
     autocmd BufWritePost *_test.go :GoTest
 augroup end
 
+" Ruby
+let g:rufo_auto_formatting = 1
+
 " Arduino files
 autocmd BufNewFile,BufReadPost *.ino,*.pde set filetype=cpp sw=2 sts=2
 " Markdown files
