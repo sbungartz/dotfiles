@@ -60,12 +60,16 @@ dotfiles:
   f_gpg-agent.conf:
     src: gnupg/gpg-agent.conf
     dst: ~/.gnupg/gpg-agent.conf
+  d_after:
+    src: vim/after
+    dst: ~/.vim/after
+    link: link
 profiles:
   simon-xps13:
     dotfiles:
     - ALL
     variables:
-      display_scale: 2
+      display_scale: 1
   simonlx:
     dotfiles:
     - ALL
