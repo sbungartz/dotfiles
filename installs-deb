@@ -188,8 +188,28 @@ sudo apt install xfce4-notifyd
 sudo apt install blueman
 
 # required tools
-sudo apt install fonts-roboto fonts-font-awesome
+sudo apt install fonts-roboto fonts-font-awesome fonts-noto-color-emoji
 sudo apt install i3lock nitrogen lxappearance compton i3blocks rofi pavucontrol kbdd xfce4-power-manager xdotool
+
+# Font-Awesome 5
+cd ~/.manual-builds
+wget -O fontawesome.zip https://use.fontawesome.com/releases/v5.12.0/fontawesome-free-5.12.0-desktop.zip
+unzip fontawesome.zip
+rm fontawesome.zip
+cd fontawesome-free-5.12.0-desktop/otfs
+sudo mkdir /usr/share/fonts/opentype/fontawesome
+sudo cp ./*.otf /usr/share/fonts/opentype/fontawesome
+sudo fc-cache -f -v
+
+# Noto non-color Emoji
+cd ~/.manual-builds
+take font-noto-emoji
+wget -O noto-emoji.zip https://noto-website-2.storage.googleapis.com/pkgs/NotoEmoji-unhinted.zip
+unzip noto-emoji.zip
+rm noto-emoji.zip
+sudo cp NotoEmoji-Regular.ttf /usr/share/fonts/truetype/noto
+sudo chmod 644 /usr/share/fonts/truetype/noto/NotoEmoji-Regular.ttf
+sudo fc-cache -f -v
 
 # aptitude for apt blocklet
 sudo apt-get install aptitude
