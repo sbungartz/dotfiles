@@ -55,8 +55,11 @@ autocmd FileType cpp setlocal cindent cinoptions=g0
 autocmd FileType ruby setlocal sw=2 sts=2
 autocmd FileType html setlocal sw=2 sts=2
 autocmd FileType css setlocal sw=2 sts=2
+autocmd FileType sass setlocal sw=2 sts=2
+autocmd FileType scss setlocal sw=2 sts=2
 autocmd FileType javascript setlocal sw=2 sts=2
 autocmd FileType typescript setlocal sw=2 sts=2
+autocmd FileType vue setlocal sw=2 sts=2
 autocmd FileType coffee setlocal sw=2 sts=2
 autocmd FileType yaml setlocal sw=2 sts=2
 autocmd FileType markdown setlocal sw=2 sts=2
@@ -75,6 +78,9 @@ augroup auto_go
     autocmd BufWritePost *.go :GoBuild
     autocmd BufWritePost *_test.go :GoTest
 augroup end
+
+" Ruby
+let g:rufo_auto_formatting = 1
 
 " Arduino files
 autocmd BufNewFile,BufReadPost *.ino,*.pde set filetype=cpp sw=2 sts=2
@@ -130,3 +136,4 @@ set tags+=.ctags
 
 " Enable mouse support for [a]ll modes
 set mouse=a
+set ttymouse=sgr

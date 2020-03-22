@@ -6,8 +6,10 @@ set $BLOCKET_DIR ~/.config/i3blocks/blocklets
 
 {%@@ if profile == 'simon-xps13' @@%}
 set $BROWSER google-chrome-stable
+set $CHATAPP slack
 {%@@ else @@%}
 set $BROWSER firefox
+set $CHATAPP discord
 {%@@ endif @@%}
 
 # Set mod key (Mod1=<Alt>, Mod4=<Super>)
@@ -286,6 +288,7 @@ for_window [title=".*Zweitag.*Kalender.* - Google Chrome"] move to workspace $ws
 for_window [title=".*WhatsApp - Google Chrome"] move to workspace $ws9
 assign [class="Signal"] $ws9
 assign [class="Slack"] $ws91
+assign [class="discord"] $ws91
 assign [class="Spotify"] $ws10
 # Spotify seems to set this too late, so always force to corrent workspace https://community.spotify.com/t5/Desktop-Linux-Windows-Web-Player/WM-CLASS-window-property-on-Linux/m-p/1315693#M153640
 for_window [class="Spotify"] move to workspace $ws10
@@ -305,7 +308,7 @@ bindsym $mod+Mod1+8 exec thunderbird
 {%@@ endif @@%}
 bindsym $mod+Mod1+i exec $BROWSER --new-window https://calendar.google.com;
 bindsym $mod+Mod1+9 exec $BROWSER --new-window https://web.whatsapp.com; exec signal-desktop;
-bindsym $mod+Mod1+o exec slack
+bindsym $mod+Mod1+o exec $CHATAPP
 bindsym $mod+Mod1+0 exec spotify --force-device-scale-factor={{@@ display_scale @@}}
 
 ########################################
