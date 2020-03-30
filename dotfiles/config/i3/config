@@ -6,8 +6,10 @@ set $BLOCKET_DIR ~/.config/i3blocks/blocklets
 
 {%@@ if profile == 'simon-xps13' @@%}
 set $BROWSER google-chrome-stable
+set $CHATAPP slack
 {%@@ else @@%}
 set $BROWSER firefox
+set $CHATAPP discord
 {%@@ endif @@%}
 
 # Set mod key (Mod1=<Alt>, Mod4=<Super>)
@@ -61,7 +63,6 @@ bindsym $mod+Ctrl+d exec --no-startup-id "rofi -modi window -show window"
 #exec --no-startup-id volumeicon
 #bindsym $mod+Ctrl+m exec terminal -e 'alsamixer'
 exec --no-startup-id pulseaudio
-exec --no-startup-id pa-applet
 bindsym $mod+Ctrl+m exec pavucontrol
 
 ################################################################################################
@@ -287,6 +288,7 @@ for_window [title=".*Zweitag.*Kalender.* - Google Chrome"] move to workspace $ws
 for_window [title=".*WhatsApp - Google Chrome"] move to workspace $ws9
 assign [class="Signal"] $ws9
 assign [class="Slack"] $ws91
+assign [class="discord"] $ws91
 assign [class="Spotify"] $ws10
 # Spotify seems to set this too late, so always force to corrent workspace https://community.spotify.com/t5/Desktop-Linux-Windows-Web-Player/WM-CLASS-window-property-on-Linux/m-p/1315693#M153640
 for_window [class="Spotify"] move to workspace $ws10
@@ -306,7 +308,7 @@ bindsym $mod+Mod1+8 exec thunderbird
 {%@@ endif @@%}
 bindsym $mod+Mod1+i exec $BROWSER --new-window https://calendar.google.com;
 bindsym $mod+Mod1+9 exec $BROWSER --new-window https://web.whatsapp.com; exec signal-desktop;
-bindsym $mod+Mod1+o exec slack
+bindsym $mod+Mod1+o exec $CHATAPP
 bindsym $mod+Mod1+0 exec spotify --force-device-scale-factor={{@@ display_scale @@}}
 
 ########################################
@@ -318,7 +320,7 @@ for_window [instance="scratch-calculator"] move scratchpad; scratchpad show
 bindsym $mod+c [instance="scratch-calculator"] scratchpad show
 
 # Use english keyboard for some applications
-for_window [class="Gnome-terminal"] exec "dbus-send --dest=ru.gentoo.KbddService /ru/gentoo/KbddService ru.gentoo.kbdd.set_layout uint32:1"
+for_window [class="Gnome-terminal"] exec --no-startup-id "dbus-send --dest=ru.gentoo.KbddService /ru/gentoo/KbddService ru.gentoo.kbdd.set_layout uint32:1"
 
 # Open specific applications in floating mode
 for_window [window_role="i3CustomFloatingTerminal"] floating enable
@@ -394,7 +396,7 @@ bindsym Control+Mod1+Delete exec $BLOCKET_DIR/shutdown_menu -c
 bindcode $mod+47 exec --no-startup-id $SCRIPTS/lock-screen
 
 # Switch keyboard layout (relies on i3bar keyboard layout script to start kbdd
-bindsym Mod1+Shift+Return exec "dbus-send --dest=ru.gentoo.KbddService /ru/gentoo/KbddService ru.gentoo.kbdd.next_layout"
+bindsym Mod1+Shift+Return exec --no-startup-id "dbus-send --dest=ru.gentoo.KbddService /ru/gentoo/KbddService ru.gentoo.kbdd.next_layout"
 
 # Volume Control (Prior/Next = Page Up/Down)
 set $cmdVolUp amixer -q -D pulse sset Master 5%+ unmute && pkill -RTMIN+1 i3blocks
@@ -456,7 +458,7 @@ exec --no-startup-id xfce4-power-manager
 exec_always --no-startup-id "setxkbmap -layout de,us; killall kbdd; kbdd"
 
 # Set highdpi scaling factor...
-exec_always gsettings set org.gnome.desktop.interface scaling-factor {{@@ display_scale @@}}
+exec_always --no-startup-id gsettings set org.gnome.desktop.interface scaling-factor {{@@ display_scale @@}}
 
 # Start i3bar to display a workspace bar (plus the system information i3status if available)
 bar {

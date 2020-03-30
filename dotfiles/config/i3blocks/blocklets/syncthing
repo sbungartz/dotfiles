@@ -15,6 +15,14 @@ class Configuration:
         self.local_icon = os.getenv('ST_BLOCKLET_LOCAL_ICON', '')
         self.separator = os.getenv('ST_BLOCKLET_SEPARATOR', '  ')
         self.load_block_instance_config()
+        self.important_devices = ['Phone', 'Raspberry Pi']
+        self.device_display_names = {
+            'Phone': '',
+            'Raspberry Pi': '',
+            'Laptop': '',
+            'PC': '',
+            'Milena Laptop': 'M',
+        }
         return self
 
     @staticmethod
