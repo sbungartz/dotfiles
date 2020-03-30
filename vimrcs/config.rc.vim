@@ -81,6 +81,7 @@ augroup end
 
 " Ruby
 let g:rufo_auto_formatting = 1
+let g:rufo_silence_errors = 1
 
 " Arduino files
 autocmd BufNewFile,BufReadPost *.ino,*.pde set filetype=cpp sw=2 sts=2
