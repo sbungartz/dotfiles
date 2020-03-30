@@ -33,6 +33,13 @@ alias socker='sudo -E docker'
 alias sop='sudo -E docker-compose'
 alias dod='sudo -E docker-compose -f .docker-dev/docker-compose.yml'
 
+# kubectl with named config
+kube() {
+    config_name="$1"
+    shift
+    kubectl --kubeconfig "$HOME/.kube/config-$config_name" "$@"
+}
+
 # open last capybara screenshot
 capshot() { xdg-open tmp/capybara/*.png([${1:--1}]) }
 
