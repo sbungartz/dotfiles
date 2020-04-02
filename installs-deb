@@ -151,6 +151,24 @@ latest_nodejs=10.15.3
 asdf install nodejs $latest_nodejs
 asdf global nodejs $latest_nodejs
 
+###############################
+# Dev: Android
+# Download Android studio tar file from website and extract to /opt
+
+tee ~/.local/share/applications/android-studio.desktop << DESKTOP
+[Desktop Entry]
+Version=1.0
+Terminal=false
+Type=Application
+Name=Android Studio
+Exec=/opt/android-studio/bin/studio.sh
+Icon=/opt/android-studio/bin/studio.svg
+DESKTOP
+
+# For accelerated emulation using KVM:
+sudo apt install qemu-kvm
+sudo adduser simon kvm
+
 #####################
 # VIM
 # vim YouCompleteMe dependencies
