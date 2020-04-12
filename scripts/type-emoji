@@ -1,6 +1,6 @@
 #!/bin/bash
 
-EMOJI_FILE="$HOME/.config/i3/scripts/emojis.txt"
+EMOJI_FILE="$HOME/.dotfiles/scripts/emojis.txt"
 
 # default option(s)
 PASTE_COMMAND="ctrl+v"

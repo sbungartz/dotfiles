@@ -3,7 +3,7 @@ set -e -u
 
 IMAGE="$HOME/.config/background"
 OUTPUT="$HOME/.cache/lock_screen.png"
-LOCK_ICON="$HOME/.config/i3/icons/lock.png"
+LOCK_ICON="$HOME/.dotfiles/scripts/icons/lock.png"
 
 SCREEN_SIZE='1920x1980'
 PARAMS_DISPLAY_BACKGROUNDS=()
