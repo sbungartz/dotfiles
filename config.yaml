@@ -30,6 +30,9 @@ dotfiles:
   f_default-gems:
     dst: ~/.default-gems
     src: default-gems
+  f_dotdrop_variables.sh:
+    dst: ~/.config/dotdrop_variables.sh
+    src: config/dotdrop_variables.sh
   f_fonts.conf:
     dst: ~/.fonts.conf
     src: fonts.conf
