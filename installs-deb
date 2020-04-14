@@ -169,6 +169,10 @@ DESKTOP
 sudo apt install qemu-kvm
 sudo adduser simon kvm
 
+# Install udev rules to allow adb debugging
+sudo apt install android-sdk-platform-tools-common
+sudo udevadm control --reload-rules
+
 #####################
 # VIM
 # vim YouCompleteMe dependencies
