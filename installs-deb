@@ -78,6 +78,11 @@ sudo apt install okular-extra-backends
 # Advanced screenshots (annotate on screen)
 sudo apt install flameshot
 
+# Record screen videos
+sudo apt install simplescreenrecorder
+# Show pressed keys on screen
+sudo apt install screenkey
+
 # Hibiscus
 sudo apt install default-jre
 ## https://www.willuhn.de/products/hibiscus/download.php
@@ -91,6 +96,15 @@ Exec=$HOME/.manual-builds/jameica/jameica.sh
 Terminal=false
 Type=Application
 FILE
+
+#########################
+# Config Changes
+
+# Increase Priority of Headset Mic over internal Laptop Mic:
+pactl list sources
+# Find symbolic name of the correct PORT for your headset. analog-input-headset-mic in this case.
+# Then edit the file named accordingly and adjust the priority to the highest (value from file is multiplied by 100):
+vim /usr/share/pulseaudio/alsa-mixer/paths/analog-input-headset-mic.conf
 
 #########################
 # Dev: General
