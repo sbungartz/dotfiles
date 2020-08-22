@@ -28,7 +28,6 @@ Plugin 'rdnetto/YCM-Generator'
 
 " Languages: Single
 Plugin 'chrisbra/csv.vim'
-Plugin 'JamshedVesuna/vim-markdown-preview'
 Plugin 'pedrohdz/vim-yaml-folds'
 Plugin 'freitass/todo.txt-vim'
 Plugin 'ekalinin/Dockerfile.vim'
@@ -45,3 +44,7 @@ Plugin 'tpope/vim-bundler'
 Plugin 'tpope/vim-rbenv'
 Plugin 'tpope/vim-rails'
 Plugin 'kchmck/vim-coffee-script'
+
+" Languages: Markdown
+Plugin 'JamshedVesuna/vim-markdown-preview'
+Plugin 'masukomi/vim-markdown-folding'
