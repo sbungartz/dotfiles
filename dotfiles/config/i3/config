@@ -186,7 +186,7 @@ set $ws1 10:
 set $ws2 20:
 set $ws3 30:
 set $ws4 40:
-set $ws5 50:5
+set $ws5 50:
 set $ws6 60:
 set $ws7 70:
 set $ws71 71:
