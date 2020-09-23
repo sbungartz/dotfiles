@@ -1,5 +1,5 @@
 " Write as root
-command Ws w !sudo tee > /dev/null %
+command W :execute ':silent w !sudo tee % > /dev/null' | :edit!
 
 " Open current commit in github repository
 command Github !xdg-open "https://github.com/zweitag/$(basename $PWD)/blob/$(git rev-parse HEAD)/%"
