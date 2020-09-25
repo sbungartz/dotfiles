@@ -118,6 +118,12 @@ trs() { t ice_recur -s | awk '{split($0,a," -- "); printf "%s   %-50s   %s\n", a
 
 # Generate and open maybe-matrix
 alias mm="xdg-open $HOME/.cache/maybe-matrix.html && ls $HOME/Notes/Irgendwann-Vielleicht.md | entr $HOME/.dotfiles/scripts/maybe-matrix"
+#
+# Frequently used clearmodes
+alias cmo='clearmode on'
+alias cmoff='clearmode off'
+alias cmt='clearmode with tt'
+alias cmth='clearmode with th'
 
 # udisksctl mounting and unmounting
 function udls {

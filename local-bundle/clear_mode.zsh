@@ -4,6 +4,7 @@ function clearmode {
   case "$1" in
     on)
       CLEAR_MODE_ENABLED=true
+      preexec "$0 $*"
       unset CLEAR_MODE_COMMAND
       echo "Clearmode enabled"
       ;;
@@ -14,6 +15,7 @@ function clearmode {
       ;;
     with)
       CLEAR_MODE_ENABLED=true
+      preexec "$0 $*"
       shift;
       CLEAR_MODE_COMMAND=$@
       echo "Clearmode enabled. Running $CLEAR_MODE_COMMAND as default screen"
