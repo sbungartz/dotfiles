@@ -1,4 +1,6 @@
 # git
+alias gsta='git stash push'
+
 alias gsi='git submodule init'
 alias gsir='git submodule update --init --recursive'
 alias gsu='git submodule update'
@@ -124,6 +126,8 @@ alias cmo='clearmode on'
 alias cmoff='clearmode off'
 alias cmt='clearmode with tt'
 alias cmth='clearmode with th'
+alias cma='clearmode with ta'
+alias cmw='clearmode with twa'
 
 # udisksctl mounting and unmounting
 function udls {
