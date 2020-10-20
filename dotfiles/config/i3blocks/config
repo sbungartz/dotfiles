@@ -79,6 +79,10 @@ interval=10
 interval=5
 markup=pango
 
+# Abuse i3blocks to just run background service without any block output
+[wacom_remap]
+interval=persist
+
 # Show time for current task tracked using the 'Project Hamster' time tracker.
 [hamster]
 interval=5

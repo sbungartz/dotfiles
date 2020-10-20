@@ -1,0 +1,11 @@
+#!/usr/bin/env ruby
+
+require "i3ipc"
+
+i3 = I3Ipc::Connection.new
+thread = i3.subscribe("workspace", Proc.new do |event|
+  if event.change == "focus"
+    `xsetwacom set "Wacom Intuos S Pen stylus" MapToOutput #{event.current.output}`
+  end
+end)
+thread.join()

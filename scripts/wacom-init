@@ -1,0 +1,9 @@
+#!/bin/bash
+
+STYLUS="Wacom Intuos S Pen stylus"
+PAD="Wacom Intuos S Pad pad"
+
+xsetwacom set "$STYLUS" Button 2 pan
+xsetwacom set "$STYLUS" PanScrollThreshold 100
+xsetwacom set "$PAD" Button 1 "button +2"
+xsetwacom set "$PAD" Button 2 "key super ctrl f12"
