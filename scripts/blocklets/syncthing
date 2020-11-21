@@ -2,7 +2,7 @@
 
 import os
 import time
-import glob
+import pathlib
 import logging
 import xml.etree.ElementTree as XML
 from syncthing import Syncthing, SyncthingError
@@ -110,7 +110,9 @@ def on_change():
         status_strings.append(device_status_string(device))
 
     for folder_id, folder in state.folders.items():
-        if glob.glob(os.path.join(folder['path'], '**/*sync-conflict*'), recursive=True):
+        # Glob for sync-conflict files within folder using pathlib instead of glob module
+        # since pathlib includes dotfiles (and dot-directories) which we obviously want here.
+        if any(pathlib.Path(folder['path']).glob('**/*sync-conflict*')):
             status_strings.append(colored_text('#FFFF00', folder['label']))
 
     print(config.separator.join(status_strings), flush=True)
