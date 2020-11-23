@@ -51,11 +51,11 @@ alias t='TODOTXT_FINAL_FILTER=~/.dotfiles/scripts/todo-txt/filter/hideFutureTask
 alias tvim='vim ~/.todo-txt/todo.txt'
 alias tvd='vim ~/.todo-txt/done.txt'
 alias tx='t xp 5'
-ta() { t ls @Agenda $@ | grep -e ' [^ ]*: ' }
-tap() { t ls @Agenda $@ | perl -n -e '/ ([^ ]+): / && print "$1\n"' | sort -u }
+ta() { t ls @Agenda $@ | grep -e ' [^ ]*: ' | perl -n -e '/(^[0-9]+ )([0-9-]+ |\+Work )*([^:]+)(: .*)$/ && print "$1$2\e[1m\e[94m$3\e[0m$4\n"' }
+tap() { t ls @Agenda $@ | perl -n -e '/^[0-9]+ ([0-9-]+ |\+Work )*([^:]+): / && print "$2\n"' | sort -u }
 taa() { t a $@ @Agenda }
-twa() { t ls @Warten $@ | grep -e ' [^ ]*: ' }
-twap() { t ls @Warten $@ | perl -n -e '/ ([^ ]+): / && print "$1\n"' | sort -u }
+twa() { t ls @Warten $@ | grep -e ' [^ ]*: ' | perl -n -e '/(^[0-9]+ )([0-9-]+ |\+Work )*([^:]+)(: .*)$/ && print "$1$2\e[1m\e[94m$3\e[0m$4\n"' }
+twap() { t ls @Warten $@ | perl -n -e '/^[0-9]+ ([0-9-]+ |\+Work )*([^:]+): / && print "$2\n"' | sort -u }
 twaa() { t -t a $@ @Warten }
 
 tp() { twa $@; echo -e '\e[90m-------------------------\e[0m'; ta $@ }
