@@ -406,8 +406,8 @@ bindcode $mod+47 exec --no-startup-id $SCRIPTS/lock-screen
 bindsym Mod1+Shift+Return exec --no-startup-id "dbus-send --dest=ru.gentoo.KbddService /ru/gentoo/KbddService ru.gentoo.kbdd.next_layout"
 
 # Volume Control (Prior/Next = Page Up/Down)
-set $cmdVolUp pactl set-sink-volume @DEFAULT_SINK@ +5% && pkill -RTMIN+1 i3blocks
-set $cmdVolDown pactl set-sink-volume @DEFAULT_SINK@ -5% && pkill -RTMIN+1 i3blocks
+set $cmdVolUp pactl set-sink-volume @DEFAULT_SINK@ +1% && pkill -RTMIN+1 i3blocks
+set $cmdVolDown pactl set-sink-volume @DEFAULT_SINK@ -1% && pkill -RTMIN+1 i3blocks
 set $cmdVolToggleMute pactl set-sink-mute @DEFAULT_SINK@ toggle && pkill -RTMIN+1 i3blocks
 bindsym $mod+Prior exec --no-startup-id $cmdVolUp
 bindsym $mod+Next exec --no-startup-id $cmdVolDown
