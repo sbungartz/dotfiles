@@ -1,0 +1,50 @@
+#!/usr/bin/env python
+
+"""
+this is intended to be used as TODOTXT_SORT_COMMAND
+"""
+
+import sys
+import re
+
+donePattern = re.compile(r"^[0-9]+ x ")
+pattern = re.compile(r"\+(\S+)\s+s:(\d+)")
+
+def main(args=None):
+  lines = sys.stdin.readlines()
+
+  # Pass through lines once to find the minimal not-done step for each sequential project.
+  currentProjectStep = {}
+  for line in lines:
+    done = donePattern.search(line)
+    match = pattern.search(line)
+    if done or not match:
+      continue
+    
+    project = match.group(1)
+    step = int(match.group(2))
+
+    if project not in currentProjectStep:
+      currentProjectStep[project] = step
+
+    if step < currentProjectStep[project]:
+      currentProjectStep[project] = step
+
+  # Pass through lines again, now removing all actions from sequential projects that still have an uncompleted dependency.
+  for line in lines:
+    keep = True
+
+    done = donePattern.search(line)
+    match = pattern.search(line)
+
+    if not done and match:
+      project = match.group(1)
+      step = int(match.group(2))
+      keep = step == currentProjectStep[project]
+
+    if keep:
+      sys.stdout.write(line)
+
+if __name__ == "__main__":
+  status = not main(sys.argv)
+  sys.exit(status)

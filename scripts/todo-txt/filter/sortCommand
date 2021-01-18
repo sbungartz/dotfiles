@@ -1,0 +1,6 @@
+#!/bin/bash
+
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
+"$SCRIPT_DIR/hideBlockedTasks" |
+  env LC_COLLATE=C sort -f -k2
