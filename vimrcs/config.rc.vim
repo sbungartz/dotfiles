@@ -18,6 +18,9 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-h> <C-w>h
 nnoremap <C-l> <C-w>l
 
+" Set leader key
+let mapleader=","
+
 " Persistent undo
 set undofile
 set undodir=$HOME/.vim/undo

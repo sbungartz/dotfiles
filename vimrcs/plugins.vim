@@ -23,8 +23,8 @@ Plugin 'Chiel92/vim-autoformat'
 " Languages: Meta
 Plugin 'vim-syntastic/syntastic'
 Plugin 'ludovicchabant/vim-gutentags'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'rdnetto/YCM-Generator'
+"Plugin 'Valloric/YouCompleteMe'
+"Plugin 'rdnetto/YCM-Generator'
 
 " Languages: Single
 Plugin 'chrisbra/csv.vim'
@@ -48,3 +48,4 @@ Plugin 'kchmck/vim-coffee-script'
 " Languages: Markdown
 Plugin 'JamshedVesuna/vim-markdown-preview'
 Plugin 'masukomi/vim-markdown-folding'
+Plugin 'dkarter/bullets.vim'
