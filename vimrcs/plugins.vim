@@ -16,6 +16,7 @@ Plugin 'tpope/vim-rhubarb'
 Plugin 'jamessan/vim-gnupg'
 
 " Editing
+Plugin 'tpope/vim-abolish'
 Plugin 'tpope/vim-surround'
 Plugin 'junegunn/vim-easy-align'
 Plugin 'Chiel92/vim-autoformat'
