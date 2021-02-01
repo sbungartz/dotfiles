@@ -5,6 +5,9 @@
 	pager = (diff-so-fancy || cat) | less --tabs=4 -R
 [push]
 	default = simple
+[rerere]
+	enabled = true
+	autoupdate = true
 [color]
 	ui = auto
 [diff]
