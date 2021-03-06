@@ -2,7 +2,7 @@
 set -e -u
 
 IMAGE="$HOME/.config/background"
-OUTPUT="$HOME/.cache/lock_screen.png"
+TARGET="$HOME/.cache/lock_screen.png"
 LOCK_ICON="$HOME/.dotfiles/scripts/icons/lock.png"
 
 SCREEN_SIZE='1920x1980'
@@ -13,7 +13,7 @@ PARAMS_DISPLAY_OVERLAYS=()
 RE_SCREEN_SIZE='current ([0-9]+) x ([0-9]+)'
 RE_DISPLAY_SIZE='([0-9]+)x([0-9]+)\+([0-9]+)\+([0-9]+)'
 
-while read LINE
+while read -r LINE
 do
     if [[ $LINE =~ $RE_SCREEN_SIZE ]]
     then
@@ -39,9 +39,17 @@ do
     fi
 done <<<"$(xrandr)"
 
-convert -size "$SCREEN_SIZE" xc:none \
-    "${PARAMS_DISPLAY_BACKGROUNDS[@]}" \
-    -font Roboto-Thin -pointsize 32 -fill white -gravity center \
-    "${PARAMS_DISPLAY_OVERLAYS[@]}" \
-    "$OUTPUT"
+SOURCE_IMAGE_HASH=$(sha256sum "$IMAGE" | cut -d ' ' -f 1)
+PARAMS_HASH=$(echo "$SOURCE_IMAGE_HASH//$SCREEN_SIZE//${PARAMS_DISPLAY_BACKGROUNDS[*]}//${PARAMS_DISPLAY_OVERLAYS[*]}" | sha256sum | cut -d ' ' -f 1)
+OUTPUT="$HOME/.cache/lock_screen-$PARAMS_HASH.png"
 
+if [ ! -f "$OUTPUT" ]
+then
+  convert -size "$SCREEN_SIZE" xc:none \
+      "${PARAMS_DISPLAY_BACKGROUNDS[@]}" \
+      -font Roboto-Thin -pointsize 32 -fill white -gravity center \
+      "${PARAMS_DISPLAY_OVERLAYS[@]}" \
+      "$OUTPUT"
+fi
+
+ln -fs "$OUTPUT" "$TARGET"
