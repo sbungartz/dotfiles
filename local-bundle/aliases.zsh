@@ -42,8 +42,8 @@ kube() {
     kubectl --kubeconfig "$HOME/.kube/config-$config_name" "$@"
 }
 
-# open last capybara screenshot
-capshot() { xdg-open tmp/capybara/*.png([${1:--1}]) }
+# open latest capybara screenshot
+capshot() { xdg-open tmp/screenshots/*.png(om[1]) }
 
 # todo.txt
 alias media='todo-txt -d ~/.todo-txt/config_media'
