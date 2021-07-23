@@ -138,6 +138,8 @@ def load_initial_state():
 
     for folder in st_config['folders']:
         folder_id = folder['id']
+        if folder['paused']:
+            continue
         state.folders[folder_id] = {
             'id': folder_id,
             'label':  folder['label'],
@@ -165,38 +167,44 @@ def load_initial_state():
     on_change()
 
 def follow_event_stream():
-    event_stream = st.events(filters=['DeviceConnected', 'DeviceDisconnected', 'FolderSummary', 'FolderCompletion', 'LocalChangeDetected'])
+    event_stream = st.events(filters=['ConfigSaved', 'DeviceConnected', 'DeviceDisconnected', 'FolderSummary', 'FolderCompletion', 'LocalChangeDetected'])
 
-    for event in event_stream:
-        event_type = event['type']
-        data = event['data']
+    try:
+        for event in event_stream:
+            event_type = event['type']
+            data = event['data']
 
-        changed = True
-        if event_type == 'DeviceConnected':
-            device_id = data['id']
-            state.devices[device_id]['connected'] = True
-        elif event_type == 'DeviceDisconnected':
-            device_id = data['id']
-            state.devices[device_id]['connected'] = False
-        elif event_type == 'FolderSummary':
-            folder_id = data['folder']
-            summary = data['summary']
-            new_completion = calculate_my_completion(summary)
-            state.folders[folder_id]['my_completion'] = new_completion
-        elif event_type == 'FolderCompletion':
-            folder_id = data['folder']
-            device_id = data['device']
-            new_completion = calculate_completion(data)
-            state.folders[folder_id]['completions'][device_id] = new_completion
-        elif event_type == 'LocalChangeDetected':
-            folder_id = data['folderID']
-            for device_id in state.folders[folder_id]['completions']:
-                state.folders[folder_id]['completions'][device_id] = 99
-        else:
-            changed = False
+            changed = True
+            if event_type == 'ConfigSaved':
+                state.reset()
+                load_initial_state()
+            elif event_type == 'DeviceConnected':
+                device_id = data['id']
+                state.devices[device_id]['connected'] = True
+            elif event_type == 'DeviceDisconnected':
+                device_id = data['id']
+                state.devices[device_id]['connected'] = False
+            elif event_type == 'FolderSummary':
+                folder_id = data['folder']
+                summary = data['summary']
+                new_completion = calculate_my_completion(summary)
+                state.folders[folder_id]['my_completion'] = new_completion
+            elif event_type == 'FolderCompletion':
+                folder_id = data['folder']
+                device_id = data['device']
+                new_completion = calculate_completion(data)
+                state.folders[folder_id]['completions'][device_id] = new_completion
+            elif event_type == 'LocalChangeDetected':
+                folder_id = data['folderID']
+                for device_id in state.folders[folder_id]['completions']:
+                    state.folders[folder_id]['completions'][device_id] = 99
+            else:
+                changed = False
 
-        if changed:
-            on_change()
+            if changed:
+                on_change()
+    finally:
+        event_stream.stop()
 
 while True:
     try:
