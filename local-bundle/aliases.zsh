@@ -122,6 +122,7 @@ trs() { t ice_recur -s | awk '{split($0,a," -- "); printf "%s   %-50s   %s\n", a
 alias mm="xdg-open $HOME/.cache/maybe-matrix.html && ls $HOME/Notes/Irgendwann-Vielleicht.md | entr $HOME/.dotfiles/scripts/maybe-matrix"
 #
 # Frequently used clearmodes
+alias cm='clearmode with'
 alias cmo='clearmode on'
 alias cmoff='clearmode off'
 alias cmt='clearmode with tt'
