@@ -134,7 +134,7 @@ alias cmw='clearmode with twa'
 function udls {
     udisksctl status
     echo '============================================'
-    lsblk | grep -v 'loop /snap'
+    lsblk | grep -E -v 'loop +/snap'
 }
 function udmount {
     udisksctl mount -b "/dev/$1"
