@@ -8,6 +8,7 @@
 from subprocess import check_output
 
 status = check_output(['acpi'], universal_newlines=True)
+ac_status = check_output(['acpi', '--ac-adapter'], universal_newlines=True)
 
 PERCENT_CRITICAL = 5
 
@@ -66,15 +67,17 @@ else:
             return FA_BATTERY_3
         return FA_BATTERY_4
 
-    if state == "Discharging":
+    if state == "Discharging" or state == "Unknown":
         time = commasplitstatus[-1].split()[0]
-        time = ":".join(time.split(":")[0:2])
-        timeleft = " ({})".format(time)
-        fulltext = battery_icon(percentleft) + " "
+        if ":" in time:
+            time = ":".join(time.split(":")[0:2])
+            timeleft = " ({})".format(time)
+        icon = battery_icon(percentleft)
+        if ac_status and "on-line" in ac_status:
+            icon = FA_PLUG + " " + icon
+        fulltext = icon + " "
     elif state == "Full":
         fulltext = FA_PLUG + " "
-    elif state == "Unknown":
-        fulltext = FA_QUESTION + " " + FA_BATTERY + " "
     else:
         fulltext = FA_LIGHTNING + " " + FA_PLUG + " "
 
