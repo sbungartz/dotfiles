@@ -8,48 +8,51 @@ from hamster.configuration import runtime
 from hamster.lib.stuff import format_duration, Fact
 from datetime import datetime, timedelta
 
-facts = runtime.storage.get_facts(datetime.now() - timedelta(days=365), datetime.now())
-latest_fact = facts[-1]
+try:
+    facts = runtime.storage.get_facts(datetime.now() - timedelta(days=365), datetime.now())
+    latest_fact = facts[-1]
 
-def fact_duration(fact):
-    start_time = fact.start_time
-    end_time = fact.end_time or datetime.now()
-    return end_time - start_time
+    def fact_duration(fact):
+        start_time = fact.start_time
+        end_time = fact.end_time or datetime.now()
+        return end_time - start_time
 
-with open(expanduser('~/.config/hamster-scripting/projects.json'), 'r') as f:
-    counting_projects = json.load(f).keys()
+    with open(expanduser('~/.config/hamster-scripting/projects.json'), 'r') as f:
+        counting_projects = json.load(f).keys()
 
-report = {
-    'current_fact_duration': fact_duration(latest_fact),
-    'today_fact_duration': timedelta(0),
-    'total_fact_duration': timedelta(0),
-    
-    'today_total_counting_duration': timedelta(0),
-    'today_total_duration': timedelta(0),
-}
+    report = {
+        'current_fact_duration': fact_duration(latest_fact),
+        'today_fact_duration': timedelta(0),
+        'total_fact_duration': timedelta(0),
+        
+        'today_total_counting_duration': timedelta(0),
+        'today_total_duration': timedelta(0),
+    }
 
-for fact in facts:
-    if fact.activity_id == latest_fact.activity_id:
-        report['total_fact_duration'] += fact_duration(fact)
+    for fact in facts:
+        if fact.activity_id == latest_fact.activity_id:
+            report['total_fact_duration'] += fact_duration(fact)
 
-for fact in runtime.storage.get_todays_facts():
-    fd = fact_duration(fact)
+    for fact in runtime.storage.get_todays_facts():
+        fd = fact_duration(fact)
 
-    report['today_total_duration'] += fd
-    if fact.category in counting_projects:
-        report['today_total_counting_duration'] += fd
+        report['today_total_duration'] += fd
+        if fact.category in counting_projects:
+            report['today_total_counting_duration'] += fd
 
-    if fact.activity_id == latest_fact.activity_id:
-        report['today_fact_duration'] += fd
+        if fact.activity_id == latest_fact.activity_id:
+            report['today_fact_duration'] += fd
 
-title = 'Since {:%H:%M}: {}@{}'.format(latest_fact.start_time, latest_fact.activity, latest_fact.category)
-report_text = 'Current duration: {}\nWorked on this today for {}\nWorked on this in total for {}\n\nWorked today for: {}\nLogged today: {}'.format(
-    report['current_fact_duration'],
-    report['today_fact_duration'],
-    report['total_fact_duration'],
+    title = 'Since {:%H:%M}: {}@{}'.format(latest_fact.start_time, latest_fact.activity, latest_fact.category)
+    report_text = 'Current duration: {}\nWorked on this today for {}\nWorked on this in total for {}\n\nWorked today for: {}\nLogged today: {}'.format(
+        report['current_fact_duration'],
+        report['today_fact_duration'],
+        report['total_fact_duration'],
 
-    report['today_total_counting_duration'],
-    report['today_total_duration'],
-)
+        report['today_total_counting_duration'],
+        report['today_total_duration'],
+    )
 
-subprocess.call(['notify-send', title, report_text])
+    subprocess.call(['notify-send', title, report_text])
+except Exception as e:
+    subprocess.call(['notify-send', "Error", str(e)])

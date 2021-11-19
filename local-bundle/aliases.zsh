@@ -32,8 +32,8 @@ alias ctagsr='ctags -f .ctags -R --extra=f .docker-dev'
 
 # docker as root
 alias socker='sudo -E docker'
-alias sop='sudo -E docker-compose'
-alias dod='sudo -E docker-compose -f .docker-dev/docker-compose.yml'
+alias sop='sudo -E docker compose'
+alias dod='sudo -E docker compose -f .docker-dev/docker-compose.yml'
 
 # kubectl with named config
 kube() {
@@ -44,6 +44,7 @@ kube() {
 
 # open latest capybara screenshot
 capshot() { xdg-open tmp/screenshots/*.png(om[1]) }
+capshotold() { xdg-open tmp/capybara/*.png(om[1]) }
 
 # todo.txt
 alias media='todo-txt -d ~/.todo-txt/config_media'

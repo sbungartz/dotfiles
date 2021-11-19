@@ -21,4 +21,4 @@ Setup pre and post hook files in the config directory for the backup with the fo
 ```
 
 Add a file `~/.config/backup_status/my-backup-name` with the number of seconds after which the backup is considered old.
-For example 423000 for 5 days.
+For example 432000 for 5 days.

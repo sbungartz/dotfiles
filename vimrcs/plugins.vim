@@ -40,7 +40,8 @@ Plugin 'posva/vim-vue'
 
 " Languages: Ruby/Rails
 Plugin 'vim-ruby/vim-ruby'
-Plugin 'ruby-formatter/rufo-vim'
+"Plugin 'ruby-formatter/rufo-vim'
+Plugin 'sbungartz/rufo-vim'
 Plugin 'tpope/vim-bundler'
 Plugin 'tpope/vim-rbenv'
 Plugin 'tpope/vim-rails'

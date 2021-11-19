@@ -250,7 +250,7 @@ bindsym $mod+Shift+0 move container to workspace $ws10; workspace $ws10
 
 # Assign some workspaces to specific screens
 {%@@ if profile == 'simon-xps13' @@%}
-set $DISPL_PRIMARY DP1
+set $DISPL_PRIMARY DP1-3
 set $DISPL_SECONDARY eDP1
 set $DISPL_TV eDP1
 {%@@ elif profile == 'simonlx' @@%}
