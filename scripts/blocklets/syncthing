@@ -4,7 +4,6 @@ import traceback
 import os
 import time
 import pathlib
-import logging
 import xml.etree.ElementTree as XML
 import requests
 from requests.exceptions import Timeout
@@ -141,6 +140,7 @@ class SyncthingApiEventStream:
             if results:
                 for event in results:
                     yield event
+                yield {'type': '__bulk_done__', 'data': None}
                 self.since = results[-1]['id']
 
 
@@ -186,9 +186,7 @@ def on_change():
         status_strings.append(device_status_string(device))
 
     for folder_id, folder in state.folders.items():
-        # Glob for sync-conflict files within folder using pathlib instead of glob module
-        # since pathlib includes dotfiles (and dot-directories) which we obviously want here.
-        if any(pathlib.Path(folder['path']).glob('**/*sync-conflict*')):
+        if folder['has_conflicts']:
             status_strings.append(colored_text('#FFFF00', folder['label']))
 
     print(config.separator.join(status_strings), flush=True)
@@ -220,6 +218,7 @@ def load_initial_state():
             'id': folder_id,
             'label':  folder['label'],
             'path': folder['path'],
+            'has_conflicts': False,
             'my_completion': calculate_my_completion(st2.folder_status(folder_id)),
             'completions': {
                 d['deviceID']: calculate_completion(st2.folder_completion(folder_id, d['deviceID'])) for d in folder['devices']
@@ -274,11 +273,14 @@ def follow_event_stream():
                 folder_id = data['folderID']
                 for device_id in state.folders[folder_id]['completions']:
                     state.folders[folder_id]['completions'][device_id] = 99
+            elif event_type == '__bulk_done__':
+                for folder_id, folder in state.folders.items():
+                    # Glob for sync-conflict files within folder using pathlib instead of glob module
+                    # since pathlib includes dotfiles (and dot-directories) which we obviously want here.
+                    folder['has_conflicts'] = any(pathlib.Path(folder['path']).glob('**/*sync-conflict*'))
+                on_change()
             else:
                 changed = False
-
-            if changed:
-                on_change()
     finally:
         event_stream.stop()
 
