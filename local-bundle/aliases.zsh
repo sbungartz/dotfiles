@@ -132,8 +132,12 @@ alias cmt='clearmode with tt'
 alias cmte='clearmode with tte'
 alias cmts='clearmode with tts'
 alias cmth='clearmode with th'
+alias cmc='cm t ls @Creation'
 alias cma='clearmode with ta'
 alias cmw='clearmode with twa'
+
+tcsd() { tcs @Desk; cmt }
+tcsc() { tcs @Creation; cmt }
 
 # udisksctl mounting and unmounting
 function udls {
