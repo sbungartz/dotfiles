@@ -441,6 +441,7 @@ bindsym $mod+Shift+b exec --no-startup-id $SCRIPTS/toggle-window-always-bright
 # Misc key bindings
 bindsym $mod+period exec $SCRIPTS/type-emoji
 bindcode $mod+Shift+60 exec $SCRIPTS/type-emoji --paste-command 'ctrl+shift+v'
+bindsym $mod+Scroll_Lock exec $SCRIPTS/meme-video
 
 # Pass user and password pasting mode
 bindsym $mod+x exec $SCRIPTS/rofi-pass

@@ -1,0 +1,5 @@
+#!/bin/bash
+
+FOLDER="$HOME/Videos/memes"
+FILENAME="$(find "$FOLDER" -maxdepth 1 -type f -printf "%f\n" | rofi -dmenu -i -p "Select Meme Video")"
+mplayer -fs "$FOLDER/$FILENAME"
