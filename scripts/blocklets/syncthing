@@ -123,6 +123,9 @@ class SyncthingApiEventStream:
         self.running = False
         self.since = 0
 
+    def stop(self):
+        self.running = False
+
     def __iter__(self):
         self.running = True
 
@@ -293,3 +296,6 @@ while True:
         on_change()
 
         time.sleep(5)
+    except:
+        print("CRASHED", flush=True)
+        raise
