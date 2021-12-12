@@ -296,3 +296,6 @@ while True:
         on_change()
 
         time.sleep(5)
+    except:
+        print("CRASHED", flush=True)
+        raise
