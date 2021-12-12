@@ -123,6 +123,9 @@ class SyncthingApiEventStream:
         self.running = False
         self.since = 0
 
+    def stop(self):
+        self.running = False
+
     def __iter__(self):
         self.running = True
 
