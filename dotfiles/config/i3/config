@@ -75,7 +75,6 @@ bindsym $mod+Ctrl+m exec pavucontrol
 
 # Start Applications
 bindsym $mod+Ctrl+b exec terminal -e 'bmenu'
-bindsym $mod+F2 exec $BROWSER
 bindsym $mod+F3 exec nautilus --no-desktop --new-window
 bindsym $mod+F12 exec XDG_CURRENT_DESKTOP=Unity unity-control-center
 # bindsym $mod+F3 exec ranger
@@ -189,11 +188,14 @@ set $ws1 10:
 {%@@ else @@%}
 set $ws1 10:
 {%@@ endif @@%}
+set $ws11 11:
 set $ws2 20:
 set $ws3 30:
 set $ws4 40:
 set $ws5 50:
 set $ws6 60:
+#  
+set $ws61 61:
 set $ws7 70:
 set $ws71 71:
 # alternative icon for sprint planning tools: 
@@ -205,11 +207,14 @@ set $ws10 100:
 
 # switch to workspace
 bindsym $mod+1 workspace $ws1
+bindsym $mod+F2 workspace $ws11
 bindsym $mod+2 workspace $ws2
 bindsym $mod+3 workspace $ws3
 bindsym $mod+4 workspace $ws4
 bindsym $mod+5 workspace $ws5
 bindsym $mod+6 workspace $ws6
+# Keycode 29: y in english layout
+bindcode $mod+29 workspace $ws61
 bindsym $mod+7 workspace $ws7
 bindsym $mod+u workspace $ws71
 bindsym $mod+8 workspace $ws8
@@ -220,11 +225,13 @@ bindsym $mod+0 workspace $ws10
 
 # Move focused container to workspace
 bindsym $mod+Ctrl+1 move container to workspace $ws1
+bindsym $mod+Ctrl+F2 move container to workspace $ws11
 bindsym $mod+Ctrl+2 move container to workspace $ws2
 bindsym $mod+Ctrl+3 move container to workspace $ws3
 bindsym $mod+Ctrl+4 move container to workspace $ws4
 bindsym $mod+Ctrl+5 move container to workspace $ws5
 bindsym $mod+Ctrl+6 move container to workspace $ws6
+bindcode $mod+Ctrl+29 move container to workspace $ws61
 bindsym $mod+Ctrl+7 move container to workspace $ws7
 bindsym $mod+Ctrl+u move container to workspace $ws71
 bindsym $mod+Ctrl+8 move container to workspace $ws8
@@ -235,11 +242,13 @@ bindsym $mod+Ctrl+0 move container to workspace $ws10
 
 # Move to workspace with focused container
 bindsym $mod+Shift+1 move container to workspace $ws1; workspace $ws1
+bindsym $mod+Shift+F2 move container to workspace $ws11; workspace $ws11
 bindsym $mod+Shift+2 move container to workspace $ws2; workspace $ws2
 bindsym $mod+Shift+3 move container to workspace $ws3; workspace $ws3
 bindsym $mod+Shift+4 move container to workspace $ws4; workspace $ws4
 bindsym $mod+Shift+5 move container to workspace $ws5; workspace $ws5
 bindsym $mod+Shift+6 move container to workspace $ws6; workspace $ws6
+bindcode $mod+Shift+61 move container to workspace $ws61; workspace $ws61
 bindsym $mod+Shift+7 move container to workspace $ws7; workspace $ws7
 bindsym $mod+Shift+u move container to workspace $ws71; workspace $ws71
 bindsym $mod+Shift+8 move container to workspace $ws8; workspace $ws8
@@ -265,6 +274,7 @@ set $DISPL_TV HDUMMY3
 {%@@ endif @@%}
 
 workspace "$ws1" output $DISPL_PRIMARY
+workspace "$ws11" output $DISPL_SECONDARY
 workspace "$ws2" output $DISPL_PRIMARY
 workspace "$ws3" output $DISPL_PRIMARY
 workspace "$ws4" output $DISPL_PRIMARY
