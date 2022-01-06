@@ -117,7 +117,8 @@ think() { echo -e -n "\n- $@" >> "$THOUGHT_INBOX" }
 # Either global todo context or via $TODO_CONTEXT
 tt() { t ls ${TODO_CONTEXT:-$(tcr)} $@ }
 tte() { t lsp A-B ${TODO_CONTEXT:-$(tcr)} $@ }
-tts() { t lsp C ${TODO_CONTEXT:-$(tcr)} $@ }
+tts() { t lsp C-Z ${TODO_CONTEXT:-$(tcr)} $@ }
+ttp() { t lsp ${TODO_CONTEXT:-$(tcr)} $@ }
 tta() { t a $@ ${TODO_CONTEXT:-$(tcr)} }
 
 # List recurring tasks by next scheduled date
@@ -135,6 +136,7 @@ alias cme='clearmode with te'
 alias cms='clearmode with ts'
 alias cmte='clearmode with tte'
 alias cmts='clearmode with tts'
+alias cmtp='clearmode with ttp'
 alias cmth='clearmode with th'
 alias cmc='cm t ls @Creation'
 alias cma='clearmode with ta'
