@@ -493,7 +493,7 @@ bar {
 
 	bindsym button4 nop
 	bindsym button5 nop
-        font pango: Noto Sans, Font Awesome 5, Font Awesome 5 Brands 10
+        font pango: Ubuntu, Font Awesome, Font Awesome 5 Brands 11
 	strip_workspace_numbers yes
 
 	colors {
