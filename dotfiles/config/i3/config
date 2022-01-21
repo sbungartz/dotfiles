@@ -370,6 +370,9 @@ for_window [class="Android Emulator*"] floating enable
 for_window [class="SimpleScreenRecorder"] floating enable
 # 3CX Chrome extension:
 for_window [instance="crx_baipgmmeifmofkcilhccccoipmjccehn"] floating enable
+# Bespoke plugin modals
+for_window [class="BespokeSynth"] floating enable
+for_window [class="BespokeSynth" title="^bespoke synth"] floating disable
 
 # switch to workspace with urgent window automatically
 #for_window [urgent=latest] focus
