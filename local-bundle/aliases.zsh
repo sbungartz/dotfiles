@@ -97,7 +97,7 @@ alias tppw='tpp +Work'
 alias tpph='tpp -+Work'
 
 alias te='t lsp A-B -+Work'
-alias ts='t lsp C-Z -+Work'
+alias ts='t lsp -+Work'
 alias tw='t ls +Work'
 alias tb='t ls @Besorgungen'
 alias to='t ls @Office'
@@ -117,7 +117,7 @@ think() { echo -e -n "\n- $@" >> "$THOUGHT_INBOX" }
 # Either global todo context or via $TODO_CONTEXT
 tt() { t ls ${TODO_CONTEXT:-$(tcr)} $@ }
 tte() { t lsp A-B ${TODO_CONTEXT:-$(tcr)} $@ }
-tts() { t lsp C-Z ${TODO_CONTEXT:-$(tcr)} $@ }
+tts() { t lsp ${TODO_CONTEXT:-$(tcr)} $@ }
 ttp() { t lsp ${TODO_CONTEXT:-$(tcr)} $@ }
 tta() { t a $@ ${TODO_CONTEXT:-$(tcr)} }
 
