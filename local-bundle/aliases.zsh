@@ -46,6 +46,9 @@ kube() {
 capshot() { xdg-open tmp/screenshots/*.png(om[1]) }
 capshotold() { xdg-open tmp/capybara/*.png(om[1]) }
 
+# Open vim in Notes folder
+alias nv='cd ~/Notes && vim'
+
 # todo.txt
 alias media='todo-txt -d ~/.todo-txt/config_media'
 alias t='TODOTXT_SORT_COMMAND=~/.dotfiles/scripts/todo-txt/filter/sortCommand TODOTXT_FINAL_FILTER=~/.dotfiles/scripts/todo-txt/filter/finalFilter todo-txt $TODOTXT_FLAGS'
