@@ -482,6 +482,7 @@ exec_always --no-startup-id $SCRIPTS/wacom-init
 exec --no-startup-id xfce4-power-manager
 # Set keyboard layout and (re-)start kbdd for blocklet and keybindings/autolayout
 exec_always --no-startup-id "setxkbmap -layout de,us; killall kbdd; kbdd"
+exec_always --no-startup-id "sleep 0.5; $SCRIPTS/keyboard-remap"
 
 # Set highdpi scaling factor...
 exec_always --no-startup-id gsettings set org.gnome.desktop.interface scaling-factor {{@@ display_scale @@}}

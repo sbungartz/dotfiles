@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# Map Capslock Key to Return
+#xmodmap -e "clear lock"
+#xmodmap -e "keycode 0x42 = Return"
+
+# Map Menu Key to Super
+xmodmap -e "keysym Menu = Super_R"
