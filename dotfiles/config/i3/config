@@ -97,7 +97,8 @@ bindsym $mod+Ctrl+t exec $SCRIPTS/hamster-current-activity-report
 bindsym $mod+Print exec flameshot gui
 bindsym Print exec XDG_CURRENT_DESKTOP=Unity gnome-screenshot
 bindsym $mod+Shift+Print exec XDG_CURRENT_DESKTOP=Unity gnome-screenshot -w
-bindsym Shift+Print exec pkill compton && compton -b --no-fading-openclose && XDG_CURRENT_DESKTOP=Unity gnome-screenshot -a && pkill compton && compton -b
+#bindsym Shift+Print exec pkill compton && compton -b --no-fading-openclose && XDG_CURRENT_DESKTOP=Unity gnome-screenshot -a && pkill compton && compton -b
+bindsym Shift+Print exec XDG_CURRENT_DESKTOP=Unity gnome-screenshot -a
 
 # focus_follows_mouse no
 
@@ -472,7 +473,7 @@ mode "pass" {
 #exec --no-startup-id nitrogen --restore; sleep 1; compton -bf
 exec --no-startup-id /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id nitrogen --restore
-exec --no-startup-id $SCRIPTS/restart-compton
+#exec --no-startup-id $SCRIPTS/restart-compton
 exec --no-startup-id nm-applet
 exec_always --no-startup-id $SCRIPTS/wacom-init
 ####exec --no-startup-id start_conky_maia

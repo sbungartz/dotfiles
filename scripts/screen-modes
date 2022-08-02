@@ -49,7 +49,7 @@ else
             ["09: Use only $OTHER"]="xrandr --output $OTHER --primary --output $PRIMARY --off"
             ["10: Make $OTHER the primary display"]="xrandr --output $OTHER --primary"
             ["11: Place $OTHER right of $PRIMARY at half scale"]="xrandr --output $OTHER --right-of $PRIMARY --scale 2x2"
-            ["90: Use Preset 'Work 1080'"]="xrandr --output eDP1 --mode 1920x1080 --output DP1 --mode 1920x1080 --above eDP1 --primary"
+            ["90: Use Preset 'Work 1080'"]="xrandr --output eDP1 --mode 1920x1080 --output DP1-3 --mode 1920x1080 --right-of eDP1 --primary"
         )
     else
         menu=(
@@ -62,7 +62,8 @@ else
             ["07: Dupliate screens at resolution of $OTHER"]="duplicate_screens $OTHER $PRIMARY"
             ["08: Use only $OTHER"]="xrandr --output $OTHER --auto --primary --output $PRIMARY --off"
             ["09: Place $OTHER right of $PRIMARY at half scale"]="xrandr --output $OTHER --auto --right-of $PRIMARY --scale 2x2"
-            ["90: Use Preset 'Work 1080'"]="xrandr --output eDP1 --mode 1920x1080 --output DP1 --mode 1920x1080 --above eDP1 --primary"
+            ["90: Use Preset 'Work 1080'"]="xrandr --output eDP1 --mode 1920x1080 --output DP1-3 --mode 1920x1080 --right-of eDP1 --primary"
+            #["90: Use Preset 'Work 1080'"]="xrandr --output eDP1 --mode 1920x1080; sleep 1; xrandr --output DP1-3 --mode 1920x1080; sleep 1; xrandr --output DP1-3 --above eDP1 --primary"
         )
     fi
 
