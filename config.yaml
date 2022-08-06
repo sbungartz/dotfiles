@@ -68,6 +68,10 @@ dotfiles:
     src: vim/after
     dst: ~/.vim/after
     link: absolute
+  d_talon_user_mystuff:
+    src: talon/user/mystuff
+    dst: ~/.talon/user/mystuff
+    link: absolute
 profiles:
   simon-xps13:
     dotfiles:
