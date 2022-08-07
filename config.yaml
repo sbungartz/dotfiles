@@ -72,6 +72,10 @@ dotfiles:
     src: talon/user/mystuff
     dst: ~/.talon/user/mystuff
     link: absolute
+  d_talon_knausj_settings:
+    src: talon/user/knausj_talon/settings
+    dst: ~/.talon/user/knausj_talon/settings
+    link: absolute
 profiles:
   simon-xps13:
     dotfiles:
