@@ -10,6 +10,7 @@ config:
   longkey: false
   showdiff: false
   workdir: ~/.config/dotdrop
+  minversion: 1.10.3
 dotfiles:
   d_i3:
     dst: ~/.config/i3
@@ -20,7 +21,7 @@ dotfiles:
   d_todo.actions.d:
     dst: ~/.todo.actions.d
     src: todo.actions.d
-    link: link
+    link: absolute
   f_asdfrc:
     dst: ~/.asdfrc
     src: asdfrc
@@ -66,7 +67,15 @@ dotfiles:
   d_after:
     src: vim/after
     dst: ~/.vim/after
-    link: link
+    link: absolute
+  d_talon_user_mystuff:
+    src: talon/user/mystuff
+    dst: ~/.talon/user/mystuff
+    link: absolute
+  d_talon_knausj_settings:
+    src: talon/user/knausj_talon/settings
+    dst: ~/.talon/user/knausj_talon/settings
+    link: absolute
 profiles:
   simon-xps13:
     dotfiles:

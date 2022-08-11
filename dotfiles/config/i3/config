@@ -97,7 +97,8 @@ bindsym $mod+Ctrl+t exec $SCRIPTS/hamster-current-activity-report
 bindsym $mod+Print exec flameshot gui
 bindsym Print exec XDG_CURRENT_DESKTOP=Unity gnome-screenshot
 bindsym $mod+Shift+Print exec XDG_CURRENT_DESKTOP=Unity gnome-screenshot -w
-bindsym Shift+Print exec pkill compton && compton -b --no-fading-openclose && XDG_CURRENT_DESKTOP=Unity gnome-screenshot -a && pkill compton && compton -b
+#bindsym Shift+Print exec pkill compton && compton -b --no-fading-openclose && XDG_CURRENT_DESKTOP=Unity gnome-screenshot -a && pkill compton && compton -b
+bindsym Shift+Print exec XDG_CURRENT_DESKTOP=Unity gnome-screenshot -a
 
 # focus_follows_mouse no
 
@@ -336,7 +337,7 @@ for_window [instance="scratch-calculator"] move scratchpad; scratchpad show
 bindsym $mod+c [instance="scratch-calculator"] scratchpad show
 
 # Use english keyboard for some applications
-for_window [class="Gnome-terminal"] exec --no-startup-id "dbus-send --dest=ru.gentoo.KbddService /ru/gentoo/KbddService ru.gentoo.kbdd.set_layout uint32:1"
+#for_window [class="Gnome-terminal"] exec --no-startup-id "dbus-send --dest=ru.gentoo.KbddService /ru/gentoo/KbddService ru.gentoo.kbdd.set_layout uint32:1"
 
 # Open specific applications in floating mode
 for_window [window_role="i3CustomFloatingTerminal"] floating enable
@@ -473,7 +474,7 @@ mode "pass" {
 #exec --no-startup-id nitrogen --restore; sleep 1; compton -bf
 exec --no-startup-id /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id nitrogen --restore
-exec --no-startup-id $SCRIPTS/restart-compton
+#exec --no-startup-id $SCRIPTS/restart-compton
 exec --no-startup-id nm-applet
 exec_always --no-startup-id $SCRIPTS/wacom-init
 ####exec --no-startup-id start_conky_maia
