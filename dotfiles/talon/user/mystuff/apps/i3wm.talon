@@ -12,3 +12,6 @@ port tick: key(super-u)
 port mail: key(super-8)
 port plan: key(super-i)
 port slack: key(super-o)
+
+take port right: key(super-ctrl-l)
+take port left: key(super-ctrl-h)
