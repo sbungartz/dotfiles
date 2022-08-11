@@ -8,3 +8,6 @@ what will change:
 
 git status:
   insert("gss\n")
+
+git push new branch:
+  insert("gpsup\n")

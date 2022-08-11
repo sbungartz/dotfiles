@@ -2,6 +2,9 @@
 syntax on
 colorscheme default
 
+" Show file name in window title
+set title
+
 " Adjust some highlighting colors and methods where
 " the defaults produce poor contrast
 highlight Search ctermbg=Gray
