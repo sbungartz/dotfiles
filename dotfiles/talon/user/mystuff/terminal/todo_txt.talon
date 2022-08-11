@@ -1,0 +1,32 @@
+tag: terminal
+-
+
+clear mode off: "cmoff\n"
+
+think: "think "
+
+task add: "t a "
+task add work: "t a +Work "
+task add work friends: "t a +Work +Pfreundt "
+
+task (remove|delete): "t rm "
+task sort: "t p "
+task do: "t do "
+
+task all: "cmt\n"
+task today: "cmte\n"
+task next: "cmts\n"
+
+task external work: "cm tpw\n"
+task external home: "cm tph\n"
+
+at office: "@Office"
+at home: "@Home"
+at desk: "@Desk"
+at errands: "@Besorgungen"
+at creation: "@Creation"
+at agenda: "@Agenda"
+at waiting: "@Warten"
+
+plus work: "+Work"
+plus friends: "+Pfreundt"
