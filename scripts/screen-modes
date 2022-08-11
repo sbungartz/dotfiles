@@ -21,7 +21,7 @@ then
     # Get the connected output name
     CONNECTED=$(echo "$XRANDR" | grep -e '\bconnected' | cut -d ' ' -f 1)
     # Configure all outputs automatically and the connected output as primary display with it's preferred mode and no scale
-    xrandr --auto --output $CONNECTED --primary --auto --scale '1x1'
+    xrandr --auto --output $CONNECTED --primary $([[ $(hostname) = 'simon-xps13' ]] && echo '--mode 1920x1080' || echo '--auto') --scale '1x1'
     # Now call the post-display change hooks
     "$SCRIPT_DIR/after-screen-change"
 else
@@ -50,6 +50,7 @@ else
             ["10: Make $OTHER the primary display"]="xrandr --output $OTHER --primary"
             ["11: Place $OTHER right of $PRIMARY at half scale"]="xrandr --output $OTHER --right-of $PRIMARY --scale 2x2"
             ["90: Use Preset 'Work 1080'"]="xrandr --output eDP1 --mode 1920x1080 --output DP1-3 --mode 1920x1080 --right-of eDP1 --primary"
+            ["91: Use Preset 'Office'"]="xrandr --output eDP1 --mode 1920x1080 --output DP1 --mode 1920x1080 --above eDP1 --primary"
         )
     else
         menu=(
@@ -63,6 +64,8 @@ else
             ["08: Use only $OTHER"]="xrandr --output $OTHER --auto --primary --output $PRIMARY --off"
             ["09: Place $OTHER right of $PRIMARY at half scale"]="xrandr --output $OTHER --auto --right-of $PRIMARY --scale 2x2"
             ["90: Use Preset 'Work 1080'"]="xrandr --output eDP1 --mode 1920x1080 --output DP1-3 --mode 1920x1080 --right-of eDP1 --primary"
+            ["91: Use Preset 'Office'"]="xrandr --output eDP1 --mode 1920x1080 --output DP1 --mode 1920x1080 --above eDP1 --primary"
+            #["91: Use Preset 'Office'"]="xrandr --output eDP1 --auto --output DP1 --auto --above eDP1 --primary"
             #["90: Use Preset 'Work 1080'"]="xrandr --output eDP1 --mode 1920x1080; sleep 1; xrandr --output DP1-3 --mode 1920x1080; sleep 1; xrandr --output DP1-3 --above eDP1 --primary"
         )
     fi

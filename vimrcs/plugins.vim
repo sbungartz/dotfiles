@@ -7,6 +7,7 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'mileszs/ack.vim'
+Plugin 'tpope/vim-unimpaired'
 
 " Integration
 Plugin 'christoomey/vim-tmux-navigator'
