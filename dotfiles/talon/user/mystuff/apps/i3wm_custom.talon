@@ -15,3 +15,5 @@ port slack: key(super-o)
 
 take port right: key(super-ctrl-l)
 take port left: key(super-ctrl-h)
+
+floating koopa: key(super-shift-enter)
