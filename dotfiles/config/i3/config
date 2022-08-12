@@ -100,7 +100,7 @@ bindsym $mod+Shift+Print exec XDG_CURRENT_DESKTOP=Unity gnome-screenshot -w
 #bindsym Shift+Print exec pkill compton && compton -b --no-fading-openclose && XDG_CURRENT_DESKTOP=Unity gnome-screenshot -a && pkill compton && compton -b
 bindsym Shift+Print exec XDG_CURRENT_DESKTOP=Unity gnome-screenshot -a
 
-# focus_follows_mouse no
+focus_follows_mouse no
 
 # change focus
 bindsym $mod+h focus left
