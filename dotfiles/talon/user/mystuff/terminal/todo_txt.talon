@@ -3,7 +3,10 @@ tag: terminal
 
 clear mode off: "cmoff\n"
 
-think: "think "
+open notes work: "cd ~/Notes && vim -c GTDWork\n"
+
+think <user.prose>:
+  insert("think '{user.prose}'")
 
 task add: "t a "
 task add work: "t a +Work "

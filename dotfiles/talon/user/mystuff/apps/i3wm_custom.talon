@@ -2,6 +2,7 @@ mode: command
 -
 
 port web: key(super-1)
+port notes: key(super-f2)
 port term: key(super-2)
 port code: key(super-3)
 port screen: key(super-4)
@@ -13,7 +14,7 @@ port mail: key(super-8)
 port plan: key(super-i)
 port slack: key(super-o)
 
-take port right: key(super-ctrl-l)
-take port left: key(super-ctrl-h)
+port take right: key(super-ctrl-l)
+port take left: key(super-ctrl-h)
 
 floating koopa: key(super-shift-enter)
