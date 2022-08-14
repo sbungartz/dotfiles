@@ -1,0 +1,15 @@
+Python 3.8.10 (default, Jun 22 2022, 20:18:18) 
+[GCC 9.4.0] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import pulsectl
+>>> pulse = pulsectl.Pulse()
+>>> pulse.source_output_list()
+>>> pulse.source_output_list()[0]
+<PulseSourceOutputInfo at 7f7d5af02d60 - index=0, mute=0, name='noise recognition'>
+>>> stream = pulse.source_output_list()[0]
+>>> stream
+<PulseSourceOutputInfo at 7f7d49ef4f40 - index=0, mute=0, name='noise recognition'>
+>>> pulse.mute(stream)
+>>> pulse.mute(stream)
+>>> pulse.mute(stream, 1)
+>>> pulse.mute(stream, 0)
