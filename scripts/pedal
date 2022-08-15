@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
+# Required packages:
+# sudo apt install python3-mido python3-rtmidi
 
 import mido
 import os
 
 print(mido.get_input_names())
 
-input_name = 'MPK mini 3:MPK mini 3 MIDI 1 32:0'
+input_name = 'MPK mini 3:MPK mini 3 MIDI 1'
 
 with mido.open_input(input_name) as port:
     for message in port:
