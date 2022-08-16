@@ -34,5 +34,5 @@ handler = build_handler()
 
 for stream in pulse.source_output_list():
     should_mute = handler.should_mute(stream)
-    print(should_mute)
+    print(stream.name + ': ' + str(should_mute))
     pulse.mute(stream, 1 if should_mute else 0)
