@@ -9,3 +9,5 @@ change owner: "chown "
 multiplex: "tmux "
 
 manual: "man "
+
+root dock: "socker "
