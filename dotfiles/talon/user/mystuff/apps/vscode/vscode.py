@@ -19,9 +19,13 @@ class Actions:
 
   def vscode_terminal_split():
     """Create new terminal split by default shortcut"""
-    actions.user.vscoat_terminal_focus()
+    actions.user.vscode_terminal_focus()
     actions.key('ctrl-shift-5')
     actions.user.vscode_terminal_entered()
+
+  def vscode_terminal_zoom():
+    """Toggle maximize of terminal panel by custom shortcut"""
+    actions.key('ctrl-alt-shift-1')
 
   def vscode_terminal_leave():
     """Leave terminal by custom shortcut, and end forcing terminal tag"""
