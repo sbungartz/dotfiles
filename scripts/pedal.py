@@ -2,12 +2,52 @@
 # Required packages:
 # sudo apt install python3-mido python3-rtmidi
 
+import signal
+import time
 import mido
 import os
 
 print(mido.get_input_names())
 
 input_name = 'MPK mini 3:MPK mini 3 MIDI 1'
+
+class PIDLock:
+    def __init__(self):
+        self.pid_file = os.path.expanduser('~/.config/pedal_actions.pid')
+
+    def __enter__(self):
+        # If another instance is already running, kill at first and wait for it to stop.
+        while self.other_instance_running():
+            self.interrupt_other()
+            time.sleep(0.3)
+        self.write_own_pid_file()
+        return self
+
+    def __exit__(self, type, value, traceback):
+        self.clear_pid_file()
+
+    def other_instance_running(self):
+        return os.path.exists(self.pid_file)
+
+    def interrupt_other(self):
+        try:
+            other_pid = self.load_other_pid()
+            os.kill(other_pid, signal.SIGINT)
+        except ProcessLookupError:
+            # If the process is no longer running, just delete the file.
+            self.clear_pid_file()
+
+    def load_other_pid(self):
+        with open(self.pid_file, 'r') as file:
+            return int(file.read())
+    
+    def write_own_pid_file(self):
+        with open(self.pid_file, 'x') as file:
+            file.write(str(os.getpid()))
+
+    def clear_pid_file(self):
+        os.remove(self.pid_file)
+    
 
 class Mode:
     def __init__(self):
@@ -18,20 +58,21 @@ class Mode:
 
 mode = Mode()
 
-print('running on_launch command')
-os.system(mode.on_launch)
+with PIDLock():
+    print('running on_launch command')
+    os.system(mode.on_launch)
 
-try:
-    with mido.open_input(input_name) as port:
-        for message in port:
-            print(message)
-            if message.type == 'control_change' and message.control == 64:
-                if message.value > 63:
-                    print('pedal down')
-                    os.system(mode.on_down)
-                else:
-                    print('pedal up')
-                    os.system(mode.on_up)
-finally:
-    print('running on_exit command')
-    os.system(mode.on_exit)
+    try:
+        with mido.open_input(input_name) as port:
+            for message in port:
+                print(message)
+                if message.type == 'control_change' and message.control == 64:
+                    if message.value > 63:
+                        print('pedal down')
+                        os.system(mode.on_down)
+                    else:
+                        print('pedal up')
+                        os.system(mode.on_up)
+    finally:
+        print('running on_exit command')
+        os.system(mode.on_exit)
