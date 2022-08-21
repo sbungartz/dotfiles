@@ -1,6 +1,8 @@
 from talon import Context, Module, actions
 import re
 
+# Maybe check out https://github.com/ekiefl/dotfiles/blob/master/.talon/user/vim.py
+
 ctx = Context = Context()
 
 mod = Module()
