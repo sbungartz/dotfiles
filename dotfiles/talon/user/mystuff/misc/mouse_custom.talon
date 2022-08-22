@@ -7,3 +7,5 @@ mouse stop:
 mouse park:
     user.mouse_toggle_control_mouse(0)
     mouse_move(100, 0)
+
+(mid|middle) drag: user.mouse_drag(2)
