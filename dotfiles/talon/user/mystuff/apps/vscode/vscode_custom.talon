@@ -5,6 +5,8 @@ line delete: key(ctrl-shift-k)
 line below: key(ctrl-enter)
 line above: key(ctrl-shift-enter)
 
+notifications clear: key(ctrl-shift-escape)
+
 # user.vscode currently times out when trying to send commands to vscode code plugin
 # therefore we just use keyboard commands here.
 # Also we work around the inability do to detect whether we are in terminal right now,
