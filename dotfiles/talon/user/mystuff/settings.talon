@@ -1,4 +1,5 @@
 mode: command
+mode: dictation
 mode: sleep
 -
 tag(): user.i3wm

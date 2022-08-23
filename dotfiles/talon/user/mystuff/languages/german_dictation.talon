@@ -1,8 +1,5 @@
 mode: dictation
 language: de_DE
 -
-Befehlsmodus:
-    mode.disable("dictation")
-    mode.disable("user.german")
-    mode.enable("command")
+Befehlsmodus: user.german_mode_deactivate()
 <phrase>: insert("{phrase} ")
