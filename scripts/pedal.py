@@ -2,10 +2,12 @@
 # Required packages:
 # sudo apt install python3-mido python3-rtmidi
 
+from typing import NamedTuple
 import signal
 import time
 import mido
 import os
+import sys
 
 print(mido.get_input_names())
 
@@ -49,16 +51,36 @@ class PIDLock:
         os.remove(self.pid_file)
     
 
-class Mode:
-    def __init__(self):
-        self.on_launch = r"./toggle-pulseaudio-recording-streams.py mute-only 'voice activity' 'noise recognition'"
-        self.on_down = r"./toggle-pulseaudio-recording-streams.py mute-all-except 'voice activity' 'noise recognition'"
-        self.on_up = r"./toggle-pulseaudio-recording-streams.py mute-only 'voice activity' 'noise recognition'"
-        self.on_exit = r"./toggle-pulseaudio-recording-streams.py mute-only"
+class Mode(NamedTuple):
+    on_launch: str = ''
+    on_down: str = ''
+    on_up: str = ''
+    on_exit: str = ''
 
-mode = Mode()
+def get_mode_by_name(name):
+    if name == 'off':
+        return Mode()
+    elif name == 'mute':
+        return Mode(
+            on_launch = r"./toggle-pulseaudio-recording-streams.py mute-only 'voice activity' 'noise recognition'",
+            on_down = r"./toggle-pulseaudio-recording-streams.py mute-all-except 'voice activity' 'noise recognition'",
+            on_up = r"./toggle-pulseaudio-recording-streams.py mute-only 'voice activity' 'noise recognition'",
+            on_exit = r"./toggle-pulseaudio-recording-streams.py mute-only",
+        )
+    else:
+        raise "Unknown mode " + name
+
+if len(sys.argv) < 2:
+    print("Missing mode name.")
+    exit(1)
+
+mode_name = sys.argv[1]
+mode = get_mode_by_name(mode_name)
 
 with PIDLock():
+    if mode_name == 'off':
+        exit(0)
+
     print('running on_launch command')
     os.system(mode.on_launch)
 
