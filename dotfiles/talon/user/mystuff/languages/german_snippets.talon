@@ -1,0 +1,11 @@
+kraut yes: "ja"
+kraut yes please: "Ja, gerne."
+kraut no: "nein"
+kraut right now: "jetzt direkt"
+kraut minutes: "Minuten"
+kraut shall we talk: "Moin, gleich mal quatschen?"
+kraut need coffee: "Ich brauche noch Kaffee."
+kraut here: "hier"
+kraut unstable connection: "Verbindung ist instabil..."
+
+kraut quality control: "Qualitätssicherung"
