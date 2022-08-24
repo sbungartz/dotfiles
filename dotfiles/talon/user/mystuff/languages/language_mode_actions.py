@@ -6,7 +6,7 @@ mod = Module()
 def gui_german_mode_active(gui: imgui.GUI):
     gui.text(f"German mode active")
     gui.line()
-    if gui.button("Command mode"):
+    if gui.button("Befehlsmodus"):
         actions.user.german_mode_deactivate()
 
 @mod.action_class

@@ -1,6 +1,7 @@
 kraut yes: "ja"
 kraut yes please: "Ja, gerne."
 kraut no: "nein"
+kraut thank you: "Vielen Dank!"
 kraut right now: "jetzt direkt"
 kraut minutes: "Minuten"
 kraut shall we talk: "Moin, gleich mal quatschen?"
