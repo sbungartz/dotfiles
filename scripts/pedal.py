@@ -80,6 +80,13 @@ def get_mode_by_name(name):
             on_up = f"{scripts_folder}/toggle-pulseaudio-recording-streams.py mute-only 'voice activity' 'noise recognition'",
             on_exit = f"{scripts_folder}/toggle-pulseaudio-recording-streams.py mute-only",
         )
+    elif name == 'mouse':
+        return Mode(
+            on_launch = f"echo none",
+            on_down = f"xdotool mousedown 1",
+            on_up = f"xdotool mouseup 1",
+            on_exit = f"echo none",
+        )
     else:
         raise AttributeError(f"Unknown mode {name}")
 
