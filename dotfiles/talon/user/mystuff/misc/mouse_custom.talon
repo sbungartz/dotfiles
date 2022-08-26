@@ -12,16 +12,19 @@ mouse park:
 drop: user.mouse_drag_end()
 
 <user.modifiers> (left drag | drag):
-	user.mouse_drag(0, "{modifiers}")
+	keys("{modifiers}")
+	user.mouse_drag(0)
 	# close the mouse grid
 	user.grid_close()
 
 <user.modifiers> (right drag | righty drag):
-	user.mouse_drag(1, "{modifiers}")
+	keys("{modifiers}")
+	user.mouse_drag(1)
 	# close the mouse grid
 	user.grid_close()
 
 <user.modifiers> (mid|middle) drag:
-	user.mouse_drag(2, "{modifiers}")
+	keys("{modifiers}")
+	user.mouse_drag(2)
 	# close the mouse grid
 	user.grid_close()
