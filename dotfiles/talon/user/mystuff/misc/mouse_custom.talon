@@ -9,3 +9,4 @@ mouse park:
     mouse_move(100, 0)
 
 (mid|middle) drag: user.mouse_drag(2)
+drop: user.mouse_drag_end()
