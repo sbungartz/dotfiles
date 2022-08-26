@@ -1,0 +1,9 @@
+Spoken form, Cursorless identifier
+bounds, excludeInterior
+head, extendThroughStartOf
+inside, interiorOnly
+just, toRawSelection
+leading, leading
+slice, verticalRange
+tail, extendThroughEndOf
+trailing, trailing
