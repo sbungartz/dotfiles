@@ -268,7 +268,7 @@ set $DISPL_PRIMARY HDMI-1
 set $DISPL_SECONDARY HDMI-1
 set $DISPL_TV HDMI-3
 {%@@ else @@%}
-# Assign non-existing screens as defaults to get NO-OP 
+# Assign non-existing screens as defaults to get NO-OP
 set $DISPL_PRIMARY HDUMMY1
 set $DISPL_SECONDARY HDUMMY2
 set $DISPL_TV HDUMMY3
@@ -544,7 +544,7 @@ gaps outer -4
 # Smart gaps (gaps used if only more than one container on the workspace)
 smart_gaps on
 
-# Smart borders (draw borders around container only if it is not the only container on this workspace) 
+# Smart borders (draw borders around container only if it is not the only container on this workspace)
 # on|no_gaps (on=always activate and no_gaps=only activate if the gap size to the edge of the screen is 0)
 smart_borders on
 
