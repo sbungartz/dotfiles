@@ -76,10 +76,15 @@ dotfiles:
     src: talon/user/knausj_talon/settings
     dst: ~/.talon/user/knausj_talon/settings
     link: absolute
+  d_cursorless-settings:
+    src: talon/user/cursorless-settings
+    dst: ~/.talon/user/cursorless-settings
+    link: absolute
 profiles:
   simon-xps13:
     dotfiles:
     - ALL
+    - d_cursorless-settings
     variables:
       display_scale: 1
   simonlx:
