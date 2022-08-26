@@ -1,0 +1,23 @@
+tag: terminal
+-
+versions: "asdf "
+versions reach him: "asdf reshim "
+versions plugin: "asdf plugin "
+versions plugin list: "asdf plugin list "
+versions plugin list all: "asdf plugin list all "
+versions plugin remove: "asdf plugin remove "
+versions plugin update: "asdf plugin update "
+versions plugin update: "asdf plugin update "
+versions install: "asdf install "
+versions uninstall: "asdf uninstall "
+versions current: "asdf current "
+versions which: "asdf which "
+versions local: "asdf local "
+versions global: "asdf global "
+versions latest: "asdf latest "
+versions list: "asdf list "
+versions list all: "asdf list all "
+versions help: "asdf help "
+versions update: "asdf update "
+
+node js: "nodejs"
