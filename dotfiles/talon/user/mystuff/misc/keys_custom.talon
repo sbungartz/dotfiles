@@ -1,0 +1,5 @@
+hold <user.key>: user.hold_key(key)
+hold <user.modifiers>: user.hold_key(modifiers)
+release <user.key>: user.release_key(key)
+release <user.modifiers>: user.release_key(modifiers)
+release all: user.release_keys()
