@@ -1,3 +1,4 @@
+mode: command
 app: vscode
 -
 
@@ -16,3 +17,7 @@ terminal new: user.vscode_terminal_new()
 terminal split: user.vscode_terminal_split()
 terminal zoom: user.vscode_terminal_zoom()
 terminal leave: user.vscode_terminal_leave()
+terminal zoom leave:
+  user.vscode_terminal_zoom()
+  user.vscode_terminal_leave()
+terminal <number_small>: user.vscode_terminal(number_small)
