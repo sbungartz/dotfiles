@@ -8,6 +8,11 @@ line above: key(ctrl-shift-enter)
 
 notifications clear: key(ctrl-shift-escape)
 
+# result next: user.vscode("search.action.focusNextSearchResult")
+# result last: user.vscode("search.action.focusPreviousSearchResult")
+result next: key(f4)
+result last: key(shift-f4)
+
 # user.vscode currently times out when trying to send commands to vscode code plugin
 # therefore we just use keyboard commands here.
 # Also we work around the inability do to detect whether we are in terminal right now,
