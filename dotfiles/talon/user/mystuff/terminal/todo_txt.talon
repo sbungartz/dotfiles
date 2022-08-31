@@ -13,8 +13,10 @@ task add work: "t a +Work "
 task add work friends: "t a +Work +Pfreundt "
 
 task (remove|delete): "t rm "
-task sort: "t p "
 task do: "t do "
+
+task sort: "t p "
+task schedule: "t schedule "
 
 task all: "cmt\n"
 task today: "cmte\n"
