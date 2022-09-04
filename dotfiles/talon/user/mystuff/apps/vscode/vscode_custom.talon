@@ -19,10 +19,20 @@ result last: key(shift-f4)
 # by forcing the tag on and off when entering or leaving the terminal by voice command.
 panel terminal: user.vscode_terminal_focus()
 terminal new: user.vscode_terminal_new()
+terminal <number_small>: user.vscode_terminal(number_small)
+terminal zoom <number_small>:
+  user.vscode_terminal(number_small)
+  user.vscode_terminal_zoom()
 terminal split: user.vscode_terminal_split()
 terminal zoom: user.vscode_terminal_zoom()
 terminal leave: user.vscode_terminal_leave()
 terminal zoom leave:
   user.vscode_terminal_zoom()
   user.vscode_terminal_leave()
-terminal <number_small>: user.vscode_terminal(number_small)
+terminal close:
+  user.vscode_terminal_leave()
+  user.vscode("workbench.action.togglePanel")
+terminal zoom close:
+  user.vscode_terminal_zoom()
+  user.vscode_terminal_leave()
+  user.vscode("workbench.action.togglePanel")
