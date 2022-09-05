@@ -17,6 +17,7 @@ rails server: "bin/rails s"
 rails delayed job: "bin/rails jobs:work"
 rails clockwork: "bundle exec clockwork config/clock.rb"
 rails console: "bin/rails c"
+rails migrate: "bin/rails db:migrate"
 rails tests: "bin/rspec "
 ruby police: "rubocop"
 ruby police fix: "rubocop -a"
@@ -29,6 +30,8 @@ dot drop install: "./dotdrop.sh install -f"
 manual: "man "
 
 root dock: "socker "
+root compose: "sop "
+root compose up: "sop up"
 
 time log token:
   insert(" export NOKO_TOKEN=''")

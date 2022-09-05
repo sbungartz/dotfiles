@@ -1,5 +1,6 @@
 kraut yes: "ja"
 kraut yes please: "Ja, gerne."
+kraut yes fits: "Ja, passt."
 kraut no: "nein"
 kraut thank you: "Vielen Dank!"
 kraut right now: "jetzt direkt"
