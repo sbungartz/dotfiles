@@ -16,6 +16,7 @@ task (remove|delete): "t rm "
 task do: "t do "
 
 task sort: "t p "
+task unsort: "t depri "
 task schedule: "t schedule "
 
 task all: "cmt\n"
