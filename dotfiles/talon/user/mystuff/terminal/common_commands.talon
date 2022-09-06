@@ -30,8 +30,12 @@ dot drop install: "./dotdrop.sh install -f"
 manual: "man "
 
 root dock: "socker "
+root dock build: "socker build "
+root dock run: "socker run "
+root dock execute: "socker exec "
 root compose: "sop "
 root compose up: "sop up"
+root compose build: "sop build"
 
 time log token:
   insert(" export NOKO_TOKEN=''")
