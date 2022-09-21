@@ -6,6 +6,9 @@ make directory: "mkdir "
 change mode: "chmod "
 change owner: "chown "
 
+code here: "code ."
+nautilus here: "nautilus ."
+
 bundle: "bundle "
 gem: "gem "
 npm: "npm "
