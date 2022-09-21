@@ -297,6 +297,8 @@ assign [class="jetbrains-pycharm-ce"] $ws3
 assign [class="TeXstudio"] $ws3
 assign [class="org-contikios-cooja-Cooja"] $ws4
 # Standard workspaces:
+for_window [title=".* - Notes - Visual Studio Code"] move to workspace $ws11
+for_window [title=".* - .dotfiles - Visual Studio Code"] move to workspace $ws7
 for_window [title=".*Targetprocess - Google Chrome"] move to workspace $ws71
 assign [class="Thunderbird" instance="Mail"] $ws8
 #assign [class="Thunderbird" instance="Calendar"] $ws81
@@ -316,8 +318,8 @@ assign [instance="Cypress"] $ws6
 
 # Launch workspace contents
 bindsym $mod+Mod1+1 exec $BROWSER --new-window
-#bindsym $mod+Mod1+u exec $BROWSER --new-window https://zweitag.tpondemand.com;
-bindsym $mod+Mod1+u exec firefox --new-window https://zweitag.tpondemand.com;
+bindsym $mod+Mod1+u exec $BROWSER --new-window https://zweitag.tpondemand.com;
+# bindsym $mod+Mod1+u exec firefox --new-window https://zweitag.tpondemand.com;
 {%@@ if profile == 'simon-xps13' @@%}
 bindsym $mod+Mod1+8 exec $BROWSER --new-window https://mail.google.com;
 {%@@ else @@%}
