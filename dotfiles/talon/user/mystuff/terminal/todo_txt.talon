@@ -27,6 +27,9 @@ task all: "cmt\n"
 task today: "cmte\n"
 task next: "cmts\n"
 
+task list home: "cm th\n"
+task list errands: "cm tb\n"
+
 task external work: "cm tpw\n"
 task external home: "cm tph\n"
 
