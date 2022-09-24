@@ -5,17 +5,22 @@ clear mode off: "cmoff\n"
 
 open notes work: "cd ~/Notes && vim -c GTDWork\n"
 
+think:
+  insert("think ''")
+  key(left)
+
 think <user.prose>:
   insert("think '{user.prose}'")
+  key(left)
 
 task add: "t a "
 task add work: "t a +Work "
-task add work friends: "t a +Work +Pfreundt "
 
 task (remove|delete): "t rm "
 task do: "t do "
 
 task sort: "t p "
+task unsort: "t depri "
 task schedule: "t schedule "
 
 task all: "cmt\n"
@@ -34,4 +39,3 @@ at agenda: "@Agenda"
 at waiting: "@Warten"
 
 plus work: "+Work"
-plus friends: "+Pfreundt"

@@ -11,3 +11,4 @@
 .docker-data/
 .duplicity-ignore
 *.launch
+.vscode/settings.json

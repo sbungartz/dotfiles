@@ -8,6 +8,11 @@ line above: key(ctrl-shift-enter)
 
 notifications clear: key(ctrl-shift-escape)
 
+run all specs: user.vscode("extension.runAllFileSpecs")
+run file specs: user.vscode("extension.runFileSpecs")
+run last specs: user.vscode("extension.runLastSpec")
+run line specs: user.vscode("extension.runsSpecLine")
+
 # result next: user.vscode("search.action.focusNextSearchResult")
 # result last: user.vscode("search.action.focusPreviousSearchResult")
 result next: key(f4)
