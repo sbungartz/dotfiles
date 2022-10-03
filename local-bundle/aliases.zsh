@@ -146,6 +146,7 @@ alias cma='clearmode with ta'
 alias cmw='clearmode with twa'
 
 tcsd() { tcs @Desk; cmt }
+tcsh() { tcs @Home; cmt }
 tcsc() { tcs @Creation; cmt }
 
 # udisksctl mounting and unmounting
