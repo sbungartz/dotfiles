@@ -49,14 +49,14 @@ class PIDLock:
     def load_other_pid(self):
         with open(self.pid_file, 'r') as file:
             return int(file.read())
-    
+
     def write_own_pid_file(self):
         with open(self.pid_file, 'x') as file:
             file.write(str(os.getpid()))
 
     def clear_pid_file(self):
         os.remove(self.pid_file)
-    
+
 class Mode(NamedTuple):
     on_launch: str = ''
     on_down: str = ''
@@ -71,6 +71,13 @@ def get_mode_by_name(name):
             on_launch = f"{scripts_folder}/toggle-pulseaudio-recording-streams.py mute-only 'voice activity' 'noise recognition'",
             on_down = f"{scripts_folder}/toggle-pulseaudio-recording-streams.py mute-all-except 'voice activity' 'noise recognition'",
             on_up = f"{scripts_folder}/toggle-pulseaudio-recording-streams.py mute-only 'voice activity' 'noise recognition'",
+            on_exit = f"{scripts_folder}/toggle-pulseaudio-recording-streams.py mute-only",
+        )
+    elif name == 'mute-toggle-reverse':
+        return Mode(
+            on_launch = f"{scripts_folder}/toggle-pulseaudio-recording-streams.py mute-all-except 'voice activity' 'noise recognition'",
+            on_down = f"{scripts_folder}/toggle-pulseaudio-recording-streams.py mute-only 'voice activity' 'noise recognition'",
+            on_up = f"{scripts_folder}/toggle-pulseaudio-recording-streams.py mute-all-except 'voice activity' 'noise recognition'",
             on_exit = f"{scripts_folder}/toggle-pulseaudio-recording-streams.py mute-only",
         )
     elif name == 'mute-talon':
