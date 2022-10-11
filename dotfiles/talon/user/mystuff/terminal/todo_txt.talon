@@ -32,6 +32,7 @@ task context desk: "tcs @Desk\n"
 task context home: "tcs @Home\n"
 task context errands: "tcs @Besorgungen\n"
 task context creation: "tcs @Creation\n"
+task context office: "tcs @Office\n"
 
 task list home: "cm th\n"
 task list errands: "cm tb\n"
