@@ -33,7 +33,6 @@ alias ctagsr='ctags -f .ctags -R --extra=f .docker-dev'
 # docker as root
 alias socker='sudo -E docker'
 alias sop='sudo -E docker compose'
-alias dod='sudo -E docker compose -f .docker-dev/docker-compose.yml'
 
 # kubectl with named config
 kube() {

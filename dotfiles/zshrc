@@ -38,7 +38,7 @@ stty -ixon
 export PASSWORD_STORE_ENABLE_EXTENSIONS='true'
 
 # paths
-export PATH="$PATH:$HOME/.bin"
+export PATH="$HOME/.bin:$PATH"
 export PATH="$PATH:/usr/local/bin"
 
 export GOPATH=$HOME/go-work
@@ -78,10 +78,10 @@ setopt HIST_IGNORE_SPACE
 #else
     # If there is no cache available do load and execute antigen
     source $DOTFILES/antigen/antigen.zsh
-    
+
     # Load the oh-my-zsh's library.
     antigen use oh-my-zsh
-    
+
     # Bundles from the default repo (robbyrussell's oh-my-zsh).
     antigen bundle command-not-found
     antigen bundle wd
@@ -96,16 +96,16 @@ setopt HIST_IGNORE_SPACE
     antigen bundle ruby
 
 #    antigen bundle zsh-users/zsh-completions
-    
+
     # Syntax highlighting bundle.
     #antigen bundle zsh-users/zsh-syntax-highlighting
-    
+
     # Custom scripts to be sourced from this repo
     antigen bundle "$DOTFILES/local-bundle" --no-local-clone
-    
+
     # Load the theme.
     antigen theme robbyrussell
-    
+
     # Tell antigen that you're done.
     antigen apply
 #fi
