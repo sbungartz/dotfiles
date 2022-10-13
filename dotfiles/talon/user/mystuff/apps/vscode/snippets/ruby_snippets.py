@@ -11,6 +11,7 @@ ctx.lists["user.snippets"] = {
   "begin": "begin",
   "class": "class",
   "do": "do",
+  "funky": "def",
   "if else": "if else",
   "if": "if",
   "try": "try",
@@ -22,5 +23,8 @@ ctx.lists["user.snippets"] = {
   "context": "context",
   "describe": "describe",
   "expect": "expect",
+  "expect block": "expect block",
   "it does": "it do",
+  "let": "let",
+  "let bang": "let!",
 }
