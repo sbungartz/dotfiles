@@ -11,6 +11,7 @@ nautilus here: "nautilus ."
 
 bundle: "bundle "
 bundle exec: "bundle exec "
+bundle update: "bundle update "
 gem: "gem "
 gem install: "gem install "
 
