@@ -12,6 +12,7 @@ run all specs: user.vscode("extension.runAllFileSpecs")
 run file specs: user.vscode("extension.runFileSpecs")
 run last specs: user.vscode("extension.runLastSpec")
 run line specs: user.vscode("extension.runSpecLine")
+go to spec: user.vscode("extension.goToSpec")
 
 git stage selection: user.vscode("git.stageSelectedRanges")
 git unstage selection: user.vscode("git.unstageSelectedRanges")

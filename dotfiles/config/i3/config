@@ -299,7 +299,7 @@ assign [class="org-contikios-cooja-Cooja"] $ws4
 # Standard workspaces:
 for_window [title=".* - Notes - Visual Studio Code"] move to workspace $ws11
 for_window [title=".* - .dotfiles - Visual Studio Code"] move to workspace $ws7
-for_window [title=".*Targetprocess - Google Chrome"] move to workspace $ws71
+# for_window [title=".*Targetprocess - Google Chrome"] move to workspace $ws71
 assign [class="Thunderbird" instance="Mail"] $ws8
 #assign [class="Thunderbird" instance="Calendar"] $ws81
 for_window [title=".*Zweitag-Mail - Google Chrome"] move to workspace $ws8

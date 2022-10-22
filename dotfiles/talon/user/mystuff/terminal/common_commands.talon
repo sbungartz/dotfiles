@@ -11,6 +11,7 @@ nautilus here: "nautilus ."
 
 bundle: "bundle "
 bundle exec: "bundle exec "
+bundle update: "bundle update "
 gem: "gem "
 gem install: "gem install "
 
@@ -52,6 +53,15 @@ root dock execute: "socker exec "
 root compose: "sop "
 root compose up: "sop up"
 root compose build: "sop build"
+
+docker: "docker "
+docker build: "docker build "
+docker run: "docker run "
+docker execute: "docker exec "
+docker compose: "docker compose "
+docker compose up: "docker compose up"
+docker compose down: "docker compose down"
+docker compose build: "docker compose build"
 
 time log token:
   insert(" export NOKO_TOKEN=''")
