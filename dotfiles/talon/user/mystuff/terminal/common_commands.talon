@@ -9,6 +9,8 @@ change owner: "chown "
 code here: "code ."
 nautilus here: "nautilus ."
 
+exorcism: "exercism "
+
 bundle: "bundle "
 bundle exec: "bundle exec "
 bundle update: "bundle update "
