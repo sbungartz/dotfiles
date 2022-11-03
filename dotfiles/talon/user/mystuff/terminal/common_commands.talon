@@ -1,6 +1,9 @@
 tag: terminal
 -
 
+opt <user.text>:
+  "--{user.formatted_text(text, 'DASH_SEPARATED')}"
+
 as root: "sudo "
 make directory: "mkdir "
 change mode: "chmod "

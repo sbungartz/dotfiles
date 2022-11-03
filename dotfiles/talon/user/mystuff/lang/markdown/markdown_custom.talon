@@ -2,6 +2,9 @@ tag: user.markdown
 -
 
 check: user.vscode("markdown.extension.checkTaskList")
+check next:
+  user.vscode("markdown.extension.checkTaskList")
+  key("down")
 
 preview split: user.vscode("markdown.showPreviewToSide")
 preview full: user.vscode("markdown.showPreview")

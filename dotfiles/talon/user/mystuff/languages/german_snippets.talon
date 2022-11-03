@@ -11,4 +11,6 @@ kraut need coffee: "Ich brauche noch Kaffee."
 kraut unstable connection: "Verbindung ist instabil..."
 kraut get well: "Gute Besserung!"
 
+kraut for example: "z.B."
+
 kraut quality control: "Qualitätssicherung"
