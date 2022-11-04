@@ -1,4 +1,5 @@
-from talon import Module, ctrl, actions
+from talon import Module, ctrl, actions, ui
+import inspect
 
 mod = Module()
 
@@ -28,3 +29,26 @@ class Actions:
 
     # Also release any held down keys
     actions.user.release_keys()
+
+  def mouse_move_relative_active_window(x: float, y: float):
+    """Moves the mouse cursor to a relative position inside the active window.
+       Values <= 1 are interpreted as fractions of the total width or height.
+       Values > 1 are interpreted as pixels from the left or top respectively.
+       Values < 0 are interpreted as pixels from the right or bottom respectively."""
+    rect = ui.active_window().rect
+    print( inspect.getmembers(rect))
+
+    new_x = relative_place_inside_range(rect.left, rect.right, x)
+    new_y = relative_place_inside_range(rect.top, rect.bot, y)
+
+    ctrl.mouse_move(new_x, new_y)
+
+def relative_place_inside_range(min: float, max: float, offset: float):
+  if offset < 0:
+    # Since offset is already negative, we add it to the max to subtract its absolute value
+    return max + offset
+  elif offset > 1:
+    return min + offset
+  else:
+    size_of_range = max - min
+    return min + (size_of_range * offset)
