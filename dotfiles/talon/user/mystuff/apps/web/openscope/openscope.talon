@@ -12,8 +12,23 @@ cleared for takeoff: "to "
 (climb|descend|maintain) <user.icao_altitude>:
   "a {icao_altitude} "
 
+descend via star <user.icao_altitude>:
+  "dvs {icao_altitude} "
+
+proceeded direct: "pd "
+
+fly present heading: "fph "
+
 fly heading <user.icao_heading>:
   "fh {icao_heading} "
 
+turn {user.icao_turn_direction} heading <user.icao_heading>:
+  "t {icao_turn_direction} {icao_heading} "
+
+speed: "sp "
+
+expect runway <user.icao_runway>:
+  "e {icao_runway} "
+
 cleared ils runway <user.icao_runway>:
-  "i {icao_runway}"
+  "i {icao_runway} "

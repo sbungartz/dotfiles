@@ -14,6 +14,12 @@ ctx.lists["user.icao_runway_modifier"] = {
   "center": "C",
 }
 
+mod.list("icao_turn_direction", desc="ICAO Turn Direction")
+ctx.lists["user.icao_turn_direction"] = {
+  "left": "l",
+  "right": "r",
+}
+
 @mod.capture(rule="{user.icao_digit} {user.icao_digit} [{user.icao_runway_modifier}]")
 def icao_runway(m) -> str:
     """
