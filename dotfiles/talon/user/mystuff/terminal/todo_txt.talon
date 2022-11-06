@@ -20,6 +20,7 @@ task (remove|delete): "t rm "
 task do: "t do "
 
 task sort: "t p "
+task sort <number_small> <user.letter>: "t p {number_small} {letter}"
 task unsort: "t depri "
 task schedule: "t schedule "
 
