@@ -9,6 +9,12 @@ make directory: "mkdir "
 change mode: "chmod "
 change owner: "chown "
 
+apt update: "apt update"
+apt upgrade: "apt upgrade"
+apt install: "apt install "
+apt remove: "apt remove "
+apt auto remove: "apt autoremove"
+
 code here: "code ."
 nautilus here: "nautilus ."
 
