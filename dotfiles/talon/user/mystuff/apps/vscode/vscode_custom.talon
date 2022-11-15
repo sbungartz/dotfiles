@@ -8,7 +8,8 @@ line delete: key(ctrl-shift-k)
 line below: key(ctrl-enter)
 line above: key(ctrl-shift-enter)
 
-notifications clear: key(ctrl-shift-escape)
+view smaller: user.vscode("workbench.action.decreaseViewSize")
+view bigger: user.vscode("workbench.action.increaseViewSize")
 
 run all specs: user.vscode("extension.runAllFileSpecs")
 run file specs: user.vscode("extension.runFileSpecs")
@@ -38,6 +39,7 @@ conflict accept selection: user.vscode("merge-conflict.accept.selection")
 # result last: user.vscode("search.action.focusPreviousSearchResult")
 result next: key(f4)
 result last: key(shift-f4)
+search clear: user.vscode("search.action.clearSearchResults")
 
 # user.vscode currently times out when trying to send commands to vscode code plugin
 # therefore we just use keyboard commands here.
