@@ -18,6 +18,7 @@ task add work: "t a +Work "
 
 task (remove|delete): "t rm "
 task do: "t do "
+task archive: "t archive"
 
 task sort: "t p "
 task sort <number> <user.letter>: "t p {number} {letter}"
