@@ -22,6 +22,7 @@ ctx.lists["user.snippets"] = {
   ## RSpec
   "context": "context",
   "describe": "describe",
+  "before": "before",
   "expect": "expect",
   "expect not": "expect not",
   "expect block": "expect block",
