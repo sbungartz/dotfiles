@@ -1,5 +1,6 @@
 app: vscode
-tag: user.vscode_terminal_active
+#tag: user.vscode_terminal_active
+title: /\[TERMINAL\]/
 -
 tag(): terminal
 tag(): user.generic_unix_shell
