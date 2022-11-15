@@ -1,4 +1,8 @@
 mode: command
 -
-select everything:
-  key(ctrl-a)
+
+clap: key("enter")
+drill: key("delete")
+# scratch: key("backspace")
+scrape: key("escape")
+void: key("space")
