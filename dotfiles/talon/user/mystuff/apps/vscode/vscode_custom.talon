@@ -10,11 +10,12 @@ line above: key(ctrl-shift-enter)
 
 view smaller: user.vscode("workbench.action.decreaseViewSize")
 view bigger: user.vscode("workbench.action.increaseViewSize")
+split max: user.vscode("workbench.action.toggleEditorWidths")
 
-run all specs: user.vscode("extension.runAllFileSpecs")
-run file specs: user.vscode("extension.runFileSpecs")
-run last specs: user.vscode("extension.runLastSpec")
-run line specs: user.vscode("extension.runSpecLine")
+run all (spec|specs): user.vscode("extension.runAllFileSpecs")
+run file (spec|specs): user.vscode("extension.runFileSpecs")
+run last (spec|specs): user.vscode("extension.runLastSpec")
+run line (spec|specs): user.vscode("extension.runSpecLine")
 go to spec: user.vscode("extension.goToSpec")
 
 source stage selection: user.vscode("git.stageSelectedRanges")
@@ -40,6 +41,16 @@ conflict accept selection: user.vscode("merge-conflict.accept.selection")
 result next: key(f4)
 result last: key(shift-f4)
 search clear: user.vscode("search.action.clearSearchResults")
+
+# Reveal current file in explorer and press up/down, space to open next/previous file
+file next:
+  user.vscode("workbench.files.action.showActiveFileInExplorer")
+  key("down")
+  key("space")
+file last:
+  user.vscode("workbench.files.action.showActiveFileInExplorer")
+  key("up")
+  key("space")
 
 # user.vscode currently times out when trying to send commands to vscode code plugin
 # therefore we just use keyboard commands here.
