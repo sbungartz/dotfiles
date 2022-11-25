@@ -11,6 +11,7 @@ ctx.lists["user.snippets"] = {
   "begin": "begin",
   "class": "class",
   "do": "do",
+  "dope": "dop", # Do block with params
   "funky": "def",
   "if else": "if else",
   "if": "if",
