@@ -76,16 +76,16 @@ terminal zoom close:
   user.vscode_terminal_leave()
   user.vscode("workbench.action.togglePanel")
 
-wheel downer bar:
+(scroll | school) downer bar:
   user.mouse_move_relative_active_window(140, 0.5)
   user.mouse_scroll_down_continuous()
-wheel upper bar:
+(scroll | school) upper bar:
   user.mouse_move_relative_active_window(140, 0.5)
   user.mouse_scroll_up_continuous()
 
-wheel downer panel:
+(scroll | school) downer panel:
   user.mouse_move_relative_active_window(0.5, -140)
   user.mouse_scroll_down_continuous()
-wheel upper panel:
+(scroll | school) upper panel:
   user.mouse_move_relative_active_window(0.5, -140)
   user.mouse_scroll_up_continuous()
