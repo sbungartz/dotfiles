@@ -4,6 +4,8 @@ app: vscode
 
 collapse folders: user.vscode("workbench.files.action.collapseExplorerFolders")
 
+bar tabs: user.vscode("workbench.files.action.focusOpenEditorsView")
+
 line delete: key(ctrl-shift-k)
 line below: key(ctrl-enter)
 line above: key(ctrl-shift-enter)
