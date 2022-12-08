@@ -1,0 +1,18 @@
+#!/bin/bash
+# Swap workspaces of between outputs
+# requires jq
+
+IFS='_'
+INITIAL_WORKSPACE=$(i3-msg -t get_workspaces \
+  | jq -r '.[] | select(.focused==true).name')
+
+i3-msg -t get_outputs | jq -r '.[]|"\(.name)_\(.current_workspace)"' | \
+while read -r name current_workspace; do
+  if [ "$name" != "null" ] && [ "$current_workspace" != "null" ]; then
+    i3-msg workspace "${current_workspace}"
+    # Moving both left and up to get to other of two screens regardless of setup
+    i3-msg move workspace to output left
+    i3-msg move workspace to output up
+  fi
+done
+i3-msg workspace "$INITIAL_WORKSPACE"

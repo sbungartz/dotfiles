@@ -5,6 +5,12 @@ mod = Module()
 
 @mod.action_class
 class Actions:
+  def mouse_swap_screen():
+    """Toggles the primary display and runs calibration"""
+    actions.user.system_command("~/.dotfiles/scripts/xrandr-swap-primary")
+    # actions.user.mouse_toggle_control_mouse(0) # Turn off mouse, to avoid distracting cursor above calibration view
+    actions.user.mouse_calibrate()
+
   def mouse_drag(button: int):
     """Press and hold/release a specific mouse button for dragging"""
     # Clear any existing drags

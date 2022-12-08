@@ -1,12 +1,15 @@
+mouse swap screen:
+	user.mouse_swap_screen()
+
 mouse go:
-    user.mouse_toggle_control_mouse(1)
+  user.mouse_toggle_control_mouse(1)
 
 mouse stop:
-    user.mouse_toggle_control_mouse(0)
+	user.mouse_toggle_control_mouse(0)
 
 mouse park:
-    user.mouse_toggle_control_mouse(0)
-    mouse_move(100, 0)
+  user.mouse_toggle_control_mouse(0)
+  mouse_move(100, 0)
 
 (mid|middle) drag: user.mouse_drag(2)
 drop: user.mouse_drag_end()
