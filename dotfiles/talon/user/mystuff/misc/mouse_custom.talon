@@ -1,5 +1,5 @@
-mouse swap screen:
-	user.mouse_swap_screen()
+mouse switch screen:
+	user.mouse_switch_screen()
 
 mouse go:
   user.mouse_toggle_control_mouse(1)
