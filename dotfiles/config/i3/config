@@ -275,7 +275,7 @@ set $DISPL_TV HDUMMY3
 {%@@ endif @@%}
 
 workspace "$ws1" output $DISPL_PRIMARY
-workspace "$ws11" output $DISPL_SECONDARY
+workspace "$ws11" output $DISPL_PRIMARY
 workspace "$ws2" output $DISPL_PRIMARY
 workspace "$ws3" output $DISPL_PRIMARY
 workspace "$ws4" output $DISPL_PRIMARY
@@ -299,6 +299,7 @@ assign [class="org-contikios-cooja-Cooja"] $ws4
 # Standard workspaces:
 for_window [title=".* - Notes - Visual Studio Code"] move to workspace $ws11
 for_window [title=".* - .dotfiles - Visual Studio Code"] move to workspace $ws7
+for_window [title=".* - knausj_talon - Visual Studio Code"] move to workspace $ws7
 # for_window [title=".*Targetprocess - Google Chrome"] move to workspace $ws71
 assign [class="Thunderbird" instance="Mail"] $ws8
 #assign [class="Thunderbird" instance="Calendar"] $ws81
