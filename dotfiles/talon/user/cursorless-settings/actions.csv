@@ -28,7 +28,7 @@ indent, indentLine
 inspect, showDebugHover
 move, moveToTarget
 paste, pasteFromClipboard
-phones, nextHomophone
+phony, nextHomophone
 post, setSelectionAfter
 pour, editNewLineAfter
 pre, setSelectionBefore
