@@ -2,6 +2,9 @@ tag: browser
 title: /openScope Air Traffic Control Simulator/
 -
 
+controls show: user.openscope_controls_show()
+controls hide: user.openscope_controls_hide()
+
 taxi runway <user.icao_runway>:
   "taxi {icao_runway} "
 
