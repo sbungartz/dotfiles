@@ -2,12 +2,12 @@
 # Open given workspace on other output and keep focus on current workspace
 # requires jq
 
-TARGET_WORKSPACE="$1"
+TARGET_WORKSPACE_NUMBER="$1"
 
 INITIAL_OUTPUT=$(i3-msg -t get_workspaces | jq -r ".[] | select(.focused==true).output")
-CURRENT_OUTPUT=$(i3-msg -t get_workspaces | jq -r ".[] | select(.name==\"$TARGET_WORKSPACE\").output")
+CURRENT_OUTPUT=$(i3-msg -t get_workspaces | jq -r ".[] | select(.num==$TARGET_WORKSPACE_NUMBER).output")
 
-i3-msg workspace "$TARGET_WORKSPACE"
+i3-msg workspace number "$TARGET_WORKSPACE_NUMBER"
 
 if [[ "${CURRENT_OUTPUT}" == "${INITIAL_OUTPUT}" ]] ; then
   # Moving both left and up to get to other of two screens regardless of setup

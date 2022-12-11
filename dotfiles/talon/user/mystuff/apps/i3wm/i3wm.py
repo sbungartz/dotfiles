@@ -3,33 +3,39 @@ from talon import actions, Module, Context
 mod = Module()
 ctx = Context()
 
-mod.list("i3wm_port", desc="Maps spoken port name to name (including icon) for i3-msg")
-ctx.lists["user.i3wm_port"] = {
-  "web": "10:",
-  "notes": "11:",
-  "term": "20:",
-  "code": "30:",
-  "screen": "40:",
-  "pause": "50:",
-  "telly": "60:",
-  "meta": "70:",
-  "tick": "71:",
-  "mail": "80:",
-  "plan": "81:",
-  "chat": "90:",
-  "slack": "91:",
-  "tunes": "100:",
+# Map for spoken name of i3 workspace to both workspace number and the associated key, split by colon
+i3_ports = {
+  "web": "10:1",
+  "notes": "11:f2",
+  "term": "20:2",
+  "code": "30:3",
+  "screen": "40:4",
+  "pause": "50:5",
+  "telly": "60:6",
+  "meta": "70:7",
+  "tick": "71:u",
+  "mail": "80:8",
+  "plan": "81:i",
+  "chat": "90:9",
+  "slack": "91:o",
+  "tunes": "100:0",
 }
+
+i3_port_numbers = { name: v.split(":")[0] for name, v in i3_ports.items()}
+i3_port_keys = { name: v.split(":")[1] for name, v in i3_ports.items()}
+
+mod.list("i3wm_port", desc="Spoken name for i3 workspaces")
+ctx.lists["user.i3wm_port"] = i3_ports.keys()
 
 @mod.action_class
 class Actions:
   def i3wm_focus_workspace(port: str):
     """Focus the given workspace"""
-    actions.user.system_command(f"i3-msg workspace {port}")
+    actions.key(f"super-{i3_port_keys[port]}")
 
   def i3wm_port_side(port: str):
     "Open given workspace on other screen but keep focus on current workspace"
-    actions.user.system_command(f"~/.dotfiles/scripts/i3-port-side {port}")
+    actions.user.system_command(f"~/.dotfiles/scripts/i3-port-side {i3_port_numbers[port]}")
 
   def i3wm_move_workspace_to_primary_output():
     """Move the current workspace to the primary output"""
