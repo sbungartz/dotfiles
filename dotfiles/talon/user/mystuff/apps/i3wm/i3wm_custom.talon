@@ -20,7 +20,7 @@ port {user.i3wm_port} swap:
 port mouse: user.i3wm_move_workspace_to_primary_output()
 port keys: user.i3wm_move_workspace_to_secondary_output()
 
-port park:
+port side:
   user.i3wm_move_workspace_to_other_output()
   user.i3wm_focus_other_output()
 
