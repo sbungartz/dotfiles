@@ -2,6 +2,9 @@ mode: command
 -
 
 port {user.i3wm_port}: user.i3wm_focus_workspace(i3wm_port)
+port {user.i3wm_port} launch:
+  user.i3wm_focus_workspace(i3wm_port)
+  user.i3wm_launch_apps_for_workspace(i3wm_port)
 
 port {user.i3wm_port} mouse:
   user.i3wm_focus_workspace(i3wm_port)

@@ -33,8 +33,12 @@ class Actions:
     """Focus the given workspace"""
     actions.key(f"super-{i3_port_keys[port]}")
 
+  def i3wm_launch_apps_for_workspace(port: str):
+    """Launch the default apps for the given workspace"""
+    actions.key(f"super-alt-{i3_port_keys[port]}")
+
   def i3wm_port_side(port: str):
-    "Open given workspace on other screen but keep focus on current workspace"
+    """Open given workspace on other screen but keep focus on current workspace"""
     actions.user.system_command(f"~/.dotfiles/scripts/i3-port-side {i3_port_numbers[port]}")
 
   def i3wm_move_workspace_to_primary_output():
