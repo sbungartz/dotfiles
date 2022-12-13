@@ -112,7 +112,7 @@ tcr() { cat "$TODO_CONTEXT_FILE" }
 tcc() { rm -f "$TODO_CONTEXT_FILE" }
 
 # Append thought to Inbox
-THOUGHT_INBOX="$HOME/Notes/QuickNote.md"
+THOUGHT_INBOX="$HOME/Notes/Inbox/QuickNote.md"
 think() { echo -e -n "\n- $@" >> "$THOUGHT_INBOX" }
 
 # List todos for current context

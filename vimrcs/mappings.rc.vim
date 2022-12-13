@@ -17,10 +17,10 @@ nmap yn :let @" = join([expand("%"), line(".")], ":")<CR>
 nmap gw :Ack <cword> -w<CR>
 
 " Open frequently used configurations
-command GTDHome execute "normal! :edit QuickNote.md<CR>:vsplit Projekte.md<CR>:split todo/todo.txt<CR><C-W>h:split Irgendwann-Vielleicht.md<CR><C-W>k"
-command GTIHome execute "normal! :edit QuickNote.md<CR>:vsplit Projekte.md<CR>"
-command GTDWork execute "normal! :edit QuickNote.md<CR>:vsplit Work/Projekte.md<CR>:split todo/todo.txt<CR><C-W>h:split Work/Irgendwann-Vielleicht.md<CR><C-W>k"
-command GTIWork execute "normal! :edit QuickNote.md<CR>:vsplit Work/Projekte.md<CR>"
+command GTDHome execute "normal! :edit Inbox/QuickNote.md<CR>:vsplit Projekte.md<CR>:split todo/todo.txt<CR><C-W>h:split Irgendwann-Vielleicht.md<CR><C-W>k"
+command GTIHome execute "normal! :edit Inbox/QuickNote.md<CR>:vsplit Projekte.md<CR>"
+command GTDWork execute "normal! :edit Inbox/QuickNote.md<CR>:vsplit Work/Projekte.md<CR>:split todo/todo.txt<CR><C-W>h:split Work/Irgendwann-Vielleicht.md<CR><C-W>k"
+command GTIWork execute "normal! :edit Inbox/QuickNote.md<CR>:vsplit Work/Projekte.md<CR>"
 
 command NotesWork execute "normal! :NERDTreeFind Work/Projekte<CR>"
 
@@ -59,5 +59,5 @@ autocmd FileType bib nmap <C-w> 0[{lv/,<CR>h"ty:silent! exec "!xdg-open /home/si
 " Align GitHub-flavored Markdown tables
 autocmd FileType markdown vmap ,<Bslash> :EasyAlign*<Bar><Enter>
 " Insert new Checkbox item in GitHub-flavored Markdown
-autocmd FileType markdown nmap ,o o- [ ] 
-autocmd FileType markdown nmap ,O O- [ ] 
+autocmd FileType markdown nmap ,o o- [ ]
+autocmd FileType markdown nmap ,O O- [ ]
