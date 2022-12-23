@@ -58,14 +58,20 @@ def gui_openscope_controls(gui: imgui.GUI):
     actions.insert("a 40\n")
   if gui.button("a 30"):
     actions.insert("a 30\n")
+  if gui.button("a 20"):
+    actions.insert("a 20\n")
   if gui.button("fh 360"):
     actions.insert("fh 360\n")
   if gui.button("fh 090"):
     actions.insert("fh 090\n")
+  if gui.button("fh 140"):
+    actions.insert("fh 140\n")
   if gui.button("fh 180"):
     actions.insert("fh 180\n")
   if gui.button("fh 270"):
     actions.insert("fh 270\n")
+  if gui.button("fh 320"):
+    actions.insert("fh 320\n")
   if gui.button("ils 23"):
     actions.insert("ils 23\n")
   if gui.button("Hide"):
