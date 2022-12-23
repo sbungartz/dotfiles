@@ -7,6 +7,10 @@ collapse folders: user.vscode("workbench.files.action.collapseExplorerFolders")
 bar files: user.vscode("workbench.view.explorer")
 bar tabs: user.vscode("workbench.files.action.focusOpenEditorsView")
 
+
+fold deep: user.vscode("editor.foldRecursively")
+unfold deep: user.vscode("editor.unfoldRecursively")
+
 line delete: key(ctrl-shift-k)
 line below: key(ctrl-enter)
 line above: key(ctrl-shift-enter)
