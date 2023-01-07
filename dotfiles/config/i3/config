@@ -159,8 +159,9 @@ bindsym $mod+space focus mode_toggle
 # toggle sticky
 bindsym $mod+s sticky toggle
 
-# focus the parent container
+# focus the parent/child container
 bindsym $mod+a focus parent
+bindsym $mod+Shift+a focus child
 
 # Scatchpad stuff should be key next to numbers (KeyCode 20, - in englisch, ß in german)
 # move the currently focused window to the scratchpad
