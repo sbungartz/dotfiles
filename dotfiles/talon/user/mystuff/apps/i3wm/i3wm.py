@@ -18,6 +18,7 @@ i3_ports = {
   "plan": "81:i",
   "chat": "90:9",
   "slack": "91:o",
+  "draft": "92:f11",
   "tunes": "100:0",
 }
 
