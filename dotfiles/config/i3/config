@@ -73,7 +73,7 @@ bindsym $mod+Ctrl+m exec pavucontrol
 # Start Applications
 bindsym $mod+Ctrl+b exec terminal -e 'bmenu'
 bindsym $mod+F3 exec nautilus --no-desktop --new-window
-bindsym $mod+F12 exec XDG_CURRENT_DESKTOP=Unity unity-control-center
+# bindsym $mod+F12 exec XDG_CURRENT_DESKTOP=Unity unity-control-center
 # bindsym $mod+F3 exec ranger
 bindsym $mod+Shift+F3 exec gksu pcmanfm
 bindsym $mod+F5 exec terminal -e 'mocp'
@@ -175,7 +175,7 @@ bindsym $mod+Ctrl+Right workspace next
 bindsym $mod+Ctrl+Left workspace prev
 
 # wacom
-bindsym $mod+Ctrl+F12 exec xsetwacom set "Wacom Intuos S Pen stylus" MapToOutput next
+# bindsym $mod+Ctrl+F12 exec xsetwacom set "Wacom Intuos S Pen stylus" MapToOutput next
 
 # Workspace names
 # to display names or symbols instead of plain workspace numbers you can use
@@ -202,6 +202,7 @@ set $ws81 81:
 set $ws9 90:
 set $ws91 91:
 set $ws92 92:
+set $ws99 99:
 set $ws10 100:
 
 # switch to workspace
@@ -221,6 +222,7 @@ bindsym $mod+i workspace $ws81
 bindsym $mod+9 workspace $ws9
 bindsym $mod+o workspace $ws91
 bindsym $mod+F11 workspace $ws92
+bindsym $mod+F12 workspace $ws99
 bindsym $mod+0 workspace $ws10
 
 # Move focused container to workspace
@@ -239,6 +241,7 @@ bindsym $mod+Ctrl+i move container to workspace $ws81
 bindsym $mod+Ctrl+9 move container to workspace $ws9
 bindsym $mod+Ctrl+o move container to workspace $ws91
 bindsym $mod+Ctrl+F11 move container to workspace $ws92
+bindsym $mod+Ctrl+F12 move container to workspace $ws99
 bindsym $mod+Ctrl+0 move container to workspace $ws10
 
 # Move to workspace with focused container
@@ -257,6 +260,7 @@ bindsym $mod+Shift+i move container to workspace $ws81; workspace $ws81
 bindsym $mod+Shift+9 move container to workspace $ws9; workspace $ws9
 bindsym $mod+Shift+o move container to workspace $ws91; workspace $ws91
 bindsym $mod+Shift+F11 move container to workspace $ws91; workspace $ws92
+bindsym $mod+Shift+F12 move container to workspace $ws91; workspace $ws99
 bindsym $mod+Shift+0 move container to workspace $ws10; workspace $ws10
 
 # Assign some workspaces to specific screens
@@ -289,6 +293,7 @@ workspace "$ws8" output $DISPL_SECONDARY
 workspace "$ws81" output $DISPL_SECONDARY
 workspace "$ws9" output $DISPL_SECONDARY
 workspace "$ws91" output $DISPL_SECONDARY
+workspace "$ws99" output $DISPL_SECONDARY
 workspace "$ws10" output $DISPL_SECONDARY
 
 # Open applications on specific workspaces
@@ -333,6 +338,8 @@ bindsym $mod+Mod1+i exec $BROWSER --new-window https://calendar.google.com;
 bindsym $mod+Mod1+9 exec $BROWSER --new-window https://web.whatsapp.com; exec signal-desktop;
 bindsym $mod+Mod1+o exec $CHATAPP
 bindsym $mod+Mod1+F11 exec code $HOME/Notes/Drafts
+# Talon WebSpeech Proxy:
+bindsym $mod+Mod1+F12 exec google-chrome-stable --new-window http://localhost:7419/
 bindsym $mod+Mod1+0 exec spotify --force-device-scale-factor={{@@ display_scale @@}}
 
 ########################################
