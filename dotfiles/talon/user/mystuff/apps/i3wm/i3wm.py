@@ -39,6 +39,14 @@ class Actions:
     """Launch the default apps for the given workspace"""
     actions.key(f"super-alt-{i3_port_keys[port]}")
 
+  def i3wm_take_window_to_workspace(port: str):
+    """Move the current window to the given work space and focus that workspace"""
+    actions.key(f"super-shift-{i3_port_keys[port]}")
+
+  def i3wm_send_window_to_workspace(port: str):
+    """Move the current window to the given work space"""
+    actions.key(f"super-ctrl-{i3_port_keys[port]}")
+
   def i3wm_port_side(port: str):
     """Open given workspace on other screen but keep focus on current workspace"""
     actions.user.system_command(f"~/.dotfiles/scripts/i3-port-side {i3_port_numbers[port]}")

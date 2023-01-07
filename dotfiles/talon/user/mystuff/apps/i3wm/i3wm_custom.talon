@@ -36,6 +36,9 @@ screen mouse: user.i3wm_focus_primary_output()
 screen keys: user.i3wm_focus_secondary_output()
 screen next: user.i3wm_focus_other_output()
 
+win take {user.i3wm_port}: user.i3wm_take_window_to_workspace(i3wm_port)
+win send {user.i3wm_port}: user.i3wm_send_window_to_workspace(i3wm_port)
+
 port take right: key(super-ctrl-)
 port take left: key(super-ctrl-h)
 port take up: key(super-ctrl-k)
