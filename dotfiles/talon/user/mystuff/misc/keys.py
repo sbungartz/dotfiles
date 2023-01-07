@@ -2,6 +2,7 @@ from talon import Module, actions, imgui
 
 mod = Module()
 
+# Holding and releasing keys:
 pressed_keys = set()
 
 @imgui.open(x=150, y=0)
