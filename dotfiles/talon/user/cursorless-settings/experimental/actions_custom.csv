@@ -1,2 +1,4 @@
 Spoken form, VSCode command
 check, markdown.extension.checkTaskList
+tab close, workbench.action.closeActiveEditor
+disk, workbench.action.files.save
