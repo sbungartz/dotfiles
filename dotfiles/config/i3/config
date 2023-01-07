@@ -338,7 +338,7 @@ bindsym $mod+Mod1+8 exec thunderbird
 bindsym $mod+Mod1+i exec $BROWSER --new-window https://calendar.google.com;
 bindsym $mod+Mod1+9 exec $BROWSER --new-window https://web.whatsapp.com; exec signal-desktop;
 bindsym $mod+Mod1+o exec $CHATAPP
-bindsym $mod+Mod1+F11 exec code $HOME/Notes/Drafts
+bindsym $mod+Mod1+F11 exec "mkdir -p $HOME/.cache/Drafts; touch $HOME/.cache/Drafts/Draft.md; code $HOME/.cache/Drafts"
 # Talon WebSpeech Proxy:
 bindsym $mod+Mod1+F12 exec google-chrome-stable --new-window http://localhost:7419/
 bindsym $mod+Mod1+0 exec spotify --force-device-scale-factor={{@@ display_scale @@}}
