@@ -2,4 +2,18 @@ mode: dictation
 language: de_DE
 -
 Befehlsmodus: user.german_mode_deactivate()
-<phrase>: insert("{phrase} ")
+#<phrase>: auto_insert("{phrase} ")
+<user.raw_prose>: auto_insert(raw_prose)
+
+^doch nicht$: user.clear_last_phrase()
+^alles löschen$:
+  edit.select_all()
+  edit.delete()
+
+^rückgängig machen$: edit.undo()
+^wiederherstellen$: edit.redo()
+
+^neue Zeile$: edit.line_insert_down()
+^neuer Absatz$:
+  edit.line_insert_down()
+  edit.line_insert_down()
