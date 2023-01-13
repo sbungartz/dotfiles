@@ -10,6 +10,11 @@ port {user.i3wm_port} mouse:
   user.i3wm_focus_workspace(i3wm_port)
   user.i3wm_move_workspace_to_primary_output()
 
+port {user.i3wm_port} mouse and go:
+  user.i3wm_focus_workspace(i3wm_port)
+  user.i3wm_move_workspace_to_primary_output()
+  user.mouse_toggle_control_mouse(1)
+
 port {user.i3wm_port} keys:
   user.i3wm_focus_workspace(i3wm_port)
   user.i3wm_move_workspace_to_secondary_output()
@@ -22,6 +27,7 @@ port {user.i3wm_port} swap:
 
 port mouse: user.i3wm_move_workspace_to_primary_output()
 port keys: user.i3wm_move_workspace_to_secondary_output()
+port next: user.i3wm_move_workspace_to_other_output()
 
 port side:
   user.i3wm_move_workspace_to_other_output()
