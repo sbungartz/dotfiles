@@ -37,6 +37,7 @@ source blame: user.vscode("gitlens.toggleFileBlame")
 source blame before: user.vscode("gitlens.openBlamePriorToChange")
 source diff last: user.vscode("gitlens.diffWithPrevious")
 source diff line last: user.vscode("gitlens.diffLineWithPrevious")
+source open commit on remote: user.vscode("gitlens.openCommitOnRemote")
 
 conflict next: user.vscode("merge-conflict.next")
 conflict last: user.vscode("merge-conflict.previous")
