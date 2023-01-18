@@ -33,8 +33,8 @@ port side:
   user.i3wm_move_workspace_to_other_output()
   user.i3wm_focus_other_output()
 
-screen swap: user.i3wm_swap_outputs()
-screen swap away:
+port swap: user.i3wm_swap_outputs()
+port swap away:
   user.i3wm_focus_other_output()
   user.i3wm_swap_outputs()
 
