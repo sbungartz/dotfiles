@@ -34,6 +34,7 @@ class Actions:
   def i3wm_focus_workspace(port: str):
     """Focus the given workspace"""
     actions.key(f"super-{i3_port_keys[port]}")
+    actions.sleep("100ms")
 
   def i3wm_launch_apps_for_workspace(port: str):
     """Launch the default apps for the given workspace"""
