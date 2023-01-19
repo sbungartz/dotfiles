@@ -2,8 +2,8 @@ mode: command
 app: vscode
 -
 
-terminate line: user.vscode("vs-code-slime.pasteLineToTerminal")
-terminate block: user.vscode("vs-code-slime.pasteBlockToTerminal")
+termilize line: user.vscode("vs-code-slime.pasteLineToTerminal")
+termilize block: user.vscode("vs-code-slime.pasteBlockToTerminal")
 
 collapse folders: user.vscode("workbench.files.action.collapseExplorerFolders")
 
