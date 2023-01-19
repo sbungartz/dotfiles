@@ -35,3 +35,14 @@ ctx.lists["self.punctuation"] = {
 #   "klein schreiben": "no_cap",
 #   "ohne Leerzeichen": "no_space",
 # }
+
+ctx.lists["user.prose_snippets"] = {
+    # "new line": "\n",
+    # "new paragraph": "\n\n",
+    # Curly quotes are used to obtain proper spacing for left and right quotes, but will later be straightened.
+    "Zitat Anfang": "“",
+    "Zitat Ende": "”",
+    # "smiley": ":-)",
+    # "winky": ";-)",
+    # "frowny": ":-(",
+}
