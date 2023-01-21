@@ -2,14 +2,6 @@ mode: dictation
 language: de_DE
 -
 
-port min launch:
-  user.i3wm_focus_workspace(i3wm_port)
-  user.i3wm_launch_apps_for_workspace(i3wm_port)
-
-^command mode$:
-  user.dictation_format_reset()
-  user.german_mode_deactivate()
-
 Befehlsmodus:
   user.dictation_format_reset()
   user.german_mode_deactivate()
