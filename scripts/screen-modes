@@ -53,6 +53,8 @@ else
             ["91: Use Preset 'Work 1080 Primary Small'"]="xrandr --output eDP1 --mode 1920x1080 --primary --output DP1-3 --mode 1920x1080 --right-of eDP1"
             ["95: Use Preset 'Office'"]="xrandr --output eDP1 --mode 1920x1080 --primary --output DP1 --mode 1920x1080 --above eDP1"
             ["96: Use Preset 'Office Primary Large'"]="xrandr --output eDP1 --primary --mode 1920x1080 --output DP1 --mode 1920x1080 --above eDP1"
+            ["97: Use Preset 'Office 4K'"]="xrandr --output eDP1 --auto --primary --output DP1 --auto --left-of eDP1"
+
         )
     else
         menu=(
@@ -69,6 +71,7 @@ else
             ["91: Use Preset 'Work 1080 Primary Small'"]="xrandr --output eDP1 --mode 1920x1080 --primary --output DP1-3 --mode 1920x1080 --right-of eDP1"
             ["95: Use Preset 'Office'"]="xrandr --output eDP1 --mode 1920x1080 --primary --output DP1 --mode 1920x1080 --above eDP1"
             ["96: Use Preset 'Office Primary Large'"]="xrandr --output eDP1 --primary --mode 1920x1080 --output DP1 --mode 1920x1080 --above eDP1"
+            ["97: Use Preset 'Office 4K'"]="xrandr --output eDP1 --auto --primary --output DP1 --auto --left-of eDP1"
             #["91: Use Preset 'Office'"]="xrandr --output eDP1 --auto --output DP1 --auto --above eDP1 --primary"
             #["90: Use Preset 'Work 1080'"]="xrandr --output eDP1 --mode 1920x1080; sleep 1; xrandr --output DP1-3 --mode 1920x1080; sleep 1; xrandr --output DP1-3 --above eDP1 --primary"
         )
