@@ -1,0 +1,30 @@
+#!/bin/bash
+set -e -u
+
+# Only run, when connected to the on board WiFi
+if [[ "$(iwgetid -r)" != 'WIFIonICE' ]]
+then
+    echo ''
+    exit 0
+fi
+
+ICON=''
+#ICON='🚄'
+TRIP_INFO=$(curl https://iceportal.de/api1/rs/tripInfo/trip 2> /dev/null || true)
+
+NEXT_STOP_EVA=$(echo "$TRIP_INFO" | jq -r '.trip.stopInfo.actualNext')
+
+if [[ -z "$NEXT_STOP_EVA" ]]
+then
+    echo ''
+else
+    STATION_INFO=$(echo "$TRIP_INFO" | jq -r ".trip.stops[] | select(.station.evaNr == \"$NEXT_STOP_EVA\")")
+    STATION_NAME=$(echo "$STATION_INFO" | jq -r ".station.name")
+    SCHEDULED_ARRIVAL_UNIX=$(echo "$STATION_INFO" | jq -r "(.timetable.scheduledArrivalTime | tonumber) / 1000")
+    ACTUAL_ARRIVAL_UNIX=$(echo "$STATION_INFO" | jq -r "(.timetable.actualArrivalTime | tonumber) / 1000")
+    ARRIVAL_DELAY=$(echo "$STATION_INFO" | jq -r ".timetable.arrivalDelay")
+
+    #echo "$STATION_NAME - $(date -d @"$SCHEDULED_ARRIVAL_UNIX" +'%H:%M') $ARRIVAL_DELAY"
+    echo "$STATION_NAME - $(date -d @"$SCHEDULED_ARRIVAL_UNIX" +'%H:%M') / $(date -d @"$ACTUAL_ARRIVAL_UNIX" +'%H:%M')"
+    #echo "$STATION_NAME - $(date -d @"$ACTUAL_ARRIVAL_UNIX" +'%H:%M')"
+fi

@@ -79,6 +79,10 @@ interval=10
 interval=5
 markup=pango
 
+# Show next stop with ETA
+[ice_trip]
+interval=5
+
 # Abuse i3blocks to just run background service without any block output
 [wacom_remap]
 interval=persist
@@ -111,5 +115,5 @@ interval=1
 # Shutdown menu, mainly so the NetworkManager indicator doesn't feel
 # so alone in that corner.
 [shutdown_menu]
-full_text= 
+full_text=
 command=$SCRIPT_DIR/shutdown_menu -c

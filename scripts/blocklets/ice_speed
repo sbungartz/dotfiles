@@ -10,7 +10,7 @@ fi
 
 ICON=''
 #ICON='🚄'
-STATUS=$(curl https://portal.imice.de/api1/rs/status 2> /dev/null || true)
+STATUS=$(curl https://iceportal.de/api1/rs/status 2> /dev/null || true)
 
 if [[ -z "$STATUS" ]]
 then
