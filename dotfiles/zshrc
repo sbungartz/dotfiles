@@ -1,5 +1,8 @@
 export DOTFILES=$HOME/.dotfiles
 
+# Set Browser for letter_opener gem
+export BROWSER=/usr/bin/google-chrome
+
 ########
 # Vi editing mode and respective key bindings
 bindkey -v
