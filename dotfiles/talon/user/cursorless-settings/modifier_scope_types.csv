@@ -50,3 +50,9 @@ token, token
 type, type
 value, value
 word, word
+
+
+# 2023-02-12 16:22:03 - New entries automatically added by cursorless
+branch, branch
+identifier, identifier
+unit, unit

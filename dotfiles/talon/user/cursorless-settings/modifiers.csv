@@ -7,3 +7,16 @@ leading, leading
 slice, verticalRange
 tail, extendThroughEndOf
 trailing, trailing
+
+
+# 2023-02-12 16:22:01 - New entries automatically added by cursorless
+backward, backward
+content, keepContentFilter
+empty, keepEmptyFilter
+every, every
+first, first
+forward, forward
+its, inferPreviousMark
+last, last
+next, next
+previous, previous
