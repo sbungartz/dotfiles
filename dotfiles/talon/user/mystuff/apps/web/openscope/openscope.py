@@ -4,8 +4,13 @@ mod = Module()
 ctx = Context()
 
 mod.list("icao_digit", desc="ICAO Digit")
-icao_digit_names = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "niner"]
+icao_digit_names = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"]
 ctx.lists["user.icao_digit"] = { word: str(value) for value, word in enumerate(icao_digit_names)}
+
+mod.list("icao_letter", desc="ICAO Digit")
+icao_letter_names = "alpha bravo charlie delta echo foxtrot golf hotel india juliett kilo lima mike november oscar papa quebec romeo sierra tango uniform victor whisky xray yankee zulu".split(" ")
+letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+ctx.lists["user.icao_letter"] = dict(zip(icao_letter_names, letters))
 
 mod.list("icao_runway_modifier", desc="ICAO Runway Modifier")
 ctx.lists["user.icao_runway_modifier"] = {
@@ -40,6 +45,30 @@ def icao_heading(m) -> str:
     Captures a three digit heading
     """
     return "".join(list(m.icao_digit_list))
+
+mod.list("icao_airline", desc="ICAO Airline telephony designators resolved to airline designator")
+ctx.lists["user.icao_airline"] = {
+  "austrian": "AUA",
+  "bee line": "BEL", # Brussels Airline
+  "easy": "EZY", # easyJet UK
+  "emirates": "UAE",
+  "euro wings": "EWG",
+  "german wings": "GWI",
+  "klm": "KLM",
+  "lufthansa": "DLH",
+  "ryanair": "RYR",
+  "shamrock": "EIN", # Aer Lingus
+  "speed bird": "BAW", # British Airways
+  "scandinavian": "SAS",
+  "swiss": "SWR",
+}
+
+@mod.capture(rule="[{user.icao_airline}] ({user.icao_letter} | {user.icao_digit} | <number>)+")
+def icao_callsign(m) -> str:
+  """
+  Captures a callsign
+  """
+  return "".join([str(x) for x in m])
 
 # UI overlay for controlling using eye mouse
 @imgui.open(x=ui.active_window().screen.x, y=ui.active_window().screen.rect.bot - 500)

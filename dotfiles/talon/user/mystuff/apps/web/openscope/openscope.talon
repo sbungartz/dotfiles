@@ -35,3 +35,6 @@ expect runway <user.icao_runway>:
 
 cleared ils runway <user.icao_runway>:
   "i {icao_runway} "
+
+<user.icao_callsign>:
+  "{icao_callsign} "
