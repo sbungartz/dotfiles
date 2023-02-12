@@ -21,3 +21,5 @@ Befehlsmodus:
 ^neuer Absatz$:
   edit.line_insert_down()
   edit.line_insert_down()
+^mehr einrücken$: edit.indent_more()
+^weniger einrücken$: edit.indent_less()
