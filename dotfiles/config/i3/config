@@ -260,8 +260,8 @@ bindsym $mod+Shift+8 move container to workspace $ws8; workspace $ws8
 bindsym $mod+Shift+i move container to workspace $ws81; workspace $ws81
 bindsym $mod+Shift+9 move container to workspace $ws9; workspace $ws9
 bindsym $mod+Shift+o move container to workspace $ws91; workspace $ws91
-bindsym $mod+Shift+F11 move container to workspace $ws91; workspace $ws92
-bindsym $mod+Shift+F12 move container to workspace $ws91; workspace $ws99
+bindsym $mod+Shift+F11 move container to workspace $ws92; workspace $ws92
+bindsym $mod+Shift+F12 move container to workspace $ws99; workspace $ws99
 bindsym $mod+Shift+0 move container to workspace $ws10; workspace $ws10
 
 # Assign some workspaces to specific screens
