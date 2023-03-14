@@ -11,6 +11,7 @@ language: de_DE
 ctx.lists["self.punctuation"] = {
   "Komma": ",",
   "Punkt": ".",
+  "Klecks": ".",
   "Ausrufezeichen": "!",
   "Fragezeichen": "?",
   "Doppelpunkt": ":",

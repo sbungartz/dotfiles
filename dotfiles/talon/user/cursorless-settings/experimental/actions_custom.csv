@@ -1,6 +1,7 @@
 Spoken form, VSCode command
 fold deep, editor.foldRecursively
 unfold deep, editor.unfoldRecursively
+termilize at, termilizer.pasteLineToTerminal
 complete, markdown.extension.checkTaskList
 tab close, workbench.action.closeActiveEditor
 disk at, workbench.action.files.save
