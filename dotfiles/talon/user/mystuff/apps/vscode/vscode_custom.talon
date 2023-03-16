@@ -7,7 +7,6 @@ termilize block: user.vscode("termilizer.pasteBlockToTerminal")
 
 collapse folders: user.vscode("workbench.files.action.collapseExplorerFolders")
 
-bar files: user.vscode("workbench.view.explorer")
 bar tabs: user.vscode("workbench.files.action.focusOpenEditorsView")
 
 
