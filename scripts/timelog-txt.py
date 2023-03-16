@@ -10,6 +10,8 @@ import sys
 
 timelog_path = expanduser("~/Notes/log/timelog.txt")
 
+TIME_FORMAT = '%Y-%m-%d %H:%M:%S'
+
 def pairwise(iterable):
   # pairwise('ABCDEFG') --> AB BC CD DE EF FG
   a, b = itertools.tee(iterable)
@@ -38,8 +40,8 @@ def parse_entry(line_entry, line_next):
   if match_entry is None:
     return None
 
-  started_at = datetime.strptime(match_entry.group(1), '%Y-%m-%d %H:%M:%S')
-  finished_at = datetime.strptime(match_next.group(1), '%Y-%m-%d %H:%M:%S') if match_next is not None else None
+  started_at = datetime.strptime(match_entry.group(1), TIME_FORMAT)
+  finished_at = datetime.strptime(match_next.group(1), TIME_FORMAT) if match_next is not None else None
   original_text = match_entry.group(2)
 
   if original_text == "STOP":
@@ -144,6 +146,18 @@ def print_current_activity_for_blocklet():
   print(shorttext)
   print(color)
 
+# Editing
+def start_new_activity_now(activity_text):
+  started_at = datetime.now()
+  line = f'{started_at.strftime(TIME_FORMAT)} {activity_text}\n'
+
+  with open(timelog_path, 'a') as f:
+    f.write(line)
+
+def stop_current_activity():
+  if current_activity() is not None:
+    start_new_activity_now("STOP")
+
 # CLI Commands
 command = sys.argv[1] if len(sys.argv) >= 2 else None
 if command == "recent-entries":
@@ -154,5 +168,9 @@ elif command == "current":
   print(current_activity())
 elif command == "current-for-blocklet":
   print_current_activity_for_blocklet()
+elif command == "start-now":
+  start_new_activity_now(' '.join(sys.argv[2:]))
+elif command == "stop":
+  stop_current_activity()
 else:
   print(list(read_all()))
