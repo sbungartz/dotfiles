@@ -88,7 +88,7 @@ def recent_projects():
 # Field calculations
 def get_project_icon(entry):
   # The last character of the project may be an icon
-  last_project_char = entry.project
+  last_project_char = entry.project[-1]
   # Treat characters in the Unicode Private Use Area as icons (works for font awesome)
   if last_project_char >= u'\ue000' and last_project_char <= u'\uf8ff':
     return last_project_char
@@ -96,9 +96,9 @@ def get_project_icon(entry):
     return None
 
 def get_ticket_number(entry):
-  tp_reference_match = re.match('^tp-([0-9]+) ', entry.project)
+  tp_reference_match = re.match('^tp-([0-9]+) ', entry.activity)
   if tp_reference_match:
-    return '#{}'.format(tp_reference_match.group(1))
+    return f'#{tp_reference_match.group(1)}'
   else:
     return None
 
@@ -117,9 +117,9 @@ def format_duration(duration_timedelta):
   total_seconds = round(duration_timedelta.total_seconds())
   hours, remainder = divmod(total_seconds, 3600)
   minutes, _seconds = divmod(remainder, 60)
-  return f'{hours:2d}:{minutes:2d}'
+  return f'{hours:02d}:{minutes:02d}'
 
-# Very special outputs
+# Very special functions
 def print_current_activity_for_blocklet():
   entry = current_activity()
   if entry is None:
