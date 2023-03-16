@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 
 import os
 from os.path import expanduser
@@ -50,6 +51,8 @@ def parse_entry(line_entry, line_next):
 
   return TimeLogEntry(started_at, finished_at, activity, project, original_text)
 
+
+# Loading and subsets
 def read_all():
   with open(expanduser(timelog_path), 'r') as f:
     lines = itertools.chain((line.strip() for line in f), [''])
@@ -63,6 +66,17 @@ def recent_entries():
   entries.reverse()
   return entries
 
+def current_activity():
+  last_entry = list(read_all())[-1]
+  if last_entry is None:
+    return None
+
+  if last_entry.finished_at is not None:
+    return None
+
+  return last_entry
+
+# Recent field extractions
 def recent_entry_texts():
   recent_texts = [entry.original_text for entry in recent_entries()]
   return unique_preserving_order(recent_texts)
@@ -71,14 +85,69 @@ def recent_projects():
   recent_projects = [entry.project for entry in recent_entries()]
   return unique_preserving_order(recent_projects)
 
+# Field calculations
+def get_project_icon(entry):
+  # The last character of the project may be an icon
+  last_project_char = entry.project
+  # Treat characters in the Unicode Private Use Area as icons (works for font awesome)
+  if last_project_char >= u'\ue000' and last_project_char <= u'\uf8ff':
+    return last_project_char
+  else:
+    return None
+
+def get_ticket_number(entry):
+  tp_reference_match = re.match('^tp-([0-9]+) ', entry.project)
+  if tp_reference_match:
+    return '#{}'.format(tp_reference_match.group(1))
+  else:
+    return None
+
+def compute_duration(entry):
+  started_at = entry.started_at
+  finished_at = entry.finished_at or datetime.now()
+  return finished_at - started_at
+
+# Output
 def print_as_lines(items):
   for item in items:
     print(item)
 
+# Formatting
+def format_duration(duration_timedelta):
+  total_seconds = round(duration_timedelta.total_seconds())
+  hours, remainder = divmod(total_seconds, 3600)
+  minutes, _seconds = divmod(remainder, 60)
+  return f'{hours:2d}:{minutes:2d}'
+
+# Very special outputs
+def print_current_activity_for_blocklet():
+  entry = current_activity()
+  if entry is None:
+    longtext = u''
+    shorttext = longtext
+    color = '#a0a0a0'
+  else:
+    icon = get_project_icon(entry) or u''
+    ticket_number = get_ticket_number(entry) or ''
+    time_separator = '' if ticket_number == '' else ' - '
+    duration = compute_duration(entry)
+
+    longtext = f'{icon} {ticket_number}{time_separator}{format_duration(duration)}'
+    shorttext = longtext
+    color = '#ffffff'
+  print(longtext)
+  print(shorttext)
+  print(color)
+
+# CLI Commands
 command = sys.argv[1] if len(sys.argv) >= 2 else None
 if command == "recent-entries":
   print_as_lines(recent_entry_texts())
 elif command == "recent-projects":
   print_as_lines(recent_projects())
+elif command == "current":
+  print(current_activity())
+elif command == "current-for-blocklet":
+  print_current_activity_for_blocklet()
 else:
   print(list(read_all()))
