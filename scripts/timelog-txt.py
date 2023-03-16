@@ -48,6 +48,8 @@ def parse_entry(line_entry, line_next):
   original_text_split = original_text.split("@")
   activity = original_text_split[0]
   project = "@".join(original_text_split[1:])
+  if len(project) == 0:
+    project = None
 
   return TimeLogEntry(started_at, finished_at, activity, project, original_text)
 
@@ -87,6 +89,9 @@ def recent_projects():
 
 # Field calculations
 def get_project_icon(entry):
+  if entry.project is None:
+    return None
+
   # The last character of the project may be an icon
   last_project_char = entry.project[-1]
   # Treat characters in the Unicode Private Use Area as icons (works for font awesome)
