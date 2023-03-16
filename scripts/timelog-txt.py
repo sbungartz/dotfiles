@@ -70,8 +70,11 @@ def recent_entries():
   entries.reverse()
   return entries
 
+def find_last_entry():
+  return list(read_all())[-1]
+
 def current_activity():
-  last_entry = list(read_all())[-1]
+  last_entry = find_last_entry()
   if last_entry is None:
     return None
 
@@ -147,12 +150,25 @@ def print_current_activity_for_blocklet():
   print(color)
 
 # Editing
-def start_new_activity_now(activity_text):
-  started_at = datetime.now()
+def start_new_activity(activity_text, started_at):
   line = f'{started_at.strftime(TIME_FORMAT)} {activity_text}\n'
-
   with open(timelog_path, 'a') as f:
     f.write(line)
+
+def start_new_activity_now(activity_text):
+  start_new_activity(activity_text, datetime.now())
+
+def start_new_activity_since_last_stop(activity_text):
+  last_entry = find_last_entry()
+  if last_entry is None or last_entry.finished_at is None:
+    start_new_activity_now(activity_text)
+  else:
+    with open(timelog_path, 'rb+') as f:
+      f.seek(0, 2)
+      f.seek(-5, 2) # Replace the trailing STOP\n with the new test, keeping its timestamp
+      if str(f.peek(5), 'utf-8') != 'STOP\n':
+        raise RuntimeError("Unexpected file situation")
+      f.write(bytes(f'{activity_text}\n', 'utf-8'))
 
 def stop_current_activity():
   if current_activity() is not None:
@@ -170,6 +186,8 @@ elif command == "current-for-blocklet":
   print_current_activity_for_blocklet()
 elif command == "start-now":
   start_new_activity_now(' '.join(sys.argv[2:]))
+elif command == "start-since-last-stop":
+  start_new_activity_since_last_stop(' '.join(sys.argv[2:]))
 elif command == "stop":
   stop_current_activity()
 else:
