@@ -58,14 +58,27 @@ def read_all():
       if entry is not None:
         yield entry
 
-def recent_entry_texts():
-  entries = [entry.original_text for entry in read_all()]
+def recent_entries():
+  entries = [entry for entry in read_all()]
   entries.reverse()
-  return unique_preserving_order(entries)
+  return entries
+
+def recent_entry_texts():
+  recent_texts = [entry.original_text for entry in recent_entries()]
+  return unique_preserving_order(recent_texts)
+
+def recent_projects():
+  recent_projects = [entry.project for entry in recent_entries()]
+  return unique_preserving_order(recent_projects)
+
+def print_as_lines(items):
+  for item in items:
+    print(item)
 
 command = sys.argv[1] if len(sys.argv) >= 2 else None
 if command == "recent-entries":
-  for line in recent_entry_texts():
-    print(line)
+  print_as_lines(recent_entry_texts())
+elif command == "recent-projects":
+  print_as_lines(recent_projects())
 else:
   print(list(read_all()))
