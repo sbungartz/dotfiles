@@ -91,6 +91,9 @@ interval=persist
 [hamster]
 interval=5
 
+# [timelog_txt]
+# interval=5
+
 # Show battery status if applicable.
 [battery]
 markup=pango

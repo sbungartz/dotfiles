@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+$HOME/.dotfiles/scripts/timelog-txt.py current-for-blocklet
