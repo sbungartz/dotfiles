@@ -32,7 +32,7 @@ task next: "cmts\n"
 
 task context show: "tcr\n"
 task context private: "tcs -+Work\n"
-task context day to day: "tcs -+Work -@Creation -@Lesen -@Agenda -@Warten\n"
+task context day to day: "tcs '@Home\|@Desk'\n"
 task context desk: "tcs @Desk\n"
 task context home: "tcs @Home\n"
 task context errands: "tcs @Besorgungen\n"
