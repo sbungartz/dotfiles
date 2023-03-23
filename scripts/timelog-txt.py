@@ -5,7 +5,7 @@ import os
 from os.path import expanduser
 import re
 import itertools
-from datetime import datetime
+from datetime import datetime, timedelta
 import sys
 
 timelog_path = expanduser("~/Notes/log/timelog.txt")
@@ -73,6 +73,15 @@ def recent_entries():
 def find_last_entry():
   return list(read_all())[-1]
 
+def find_todays_entries():
+  return filter_entries_of_today(read_all())
+
+def find_entries_like(other_entry):
+  return [entry for entry in read_all() if entry.original_text == other_entry.original_text]
+
+def filter_entries_of_today(entries):
+  return [entry for entry in entries if entry.started_at.date() == datetime.today().date()]
+
 def current_activity():
   last_entry = find_last_entry()
   if last_entry is None:
@@ -117,6 +126,12 @@ def compute_duration(entry):
   finished_at = entry.finished_at or datetime.now()
   return finished_at - started_at
 
+def sum_entry_durations(entries):
+  return sum_durations([compute_duration(entry) for entry in entries])
+
+def sum_durations(durations):
+  return sum(durations, timedelta(0))
+
 # Output
 def print_as_lines(items):
   for item in items:
@@ -148,6 +163,18 @@ def print_current_activity_for_blocklet():
   print(longtext)
   print(shorttext)
   print(color)
+
+def print_current_activity_report():
+  last_entry = find_last_entry()
+  print(f'Since {last_entry.started_at.strftime("%H:%M")}: {last_entry.original_text}')
+  print(f'Current duration: {format_duration(compute_duration(last_entry))}')
+
+  entries_for_activity = find_entries_like(last_entry)
+  print(f'Worked on this today for: {format_duration(sum_entry_durations(filter_entries_of_today(entries_for_activity)))}')
+  print(f'Worked on this in total for: {format_duration(sum_entry_durations(entries_for_activity))}')
+
+  print('')
+  print(f'Logged today for: {format_duration(sum_entry_durations(find_todays_entries()))}')
 
 # Editing
 def start_new_activity(activity_text, started_at):
@@ -184,6 +211,8 @@ elif command == "current":
   print(current_activity())
 elif command == "current-for-blocklet":
   print_current_activity_for_blocklet()
+elif command == "current-report":
+  print_current_activity_report()
 elif command == "start-now":
   start_new_activity_now(' '.join(sys.argv[2:]))
 elif command == "start-since-last-stop":
