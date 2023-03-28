@@ -1,10 +1,68 @@
-from talon import Module, ctrl, actions, ui
+from talon import Module, ctrl, actions, ui, imgui
+import time
 import inspect
 
 mod = Module()
 
+pop_scroll_active = False
+pop_scroll_currently_scrolling = False
+pop_scrolling_direction = "down"
+last_pop_at = None
+
+@imgui.open(x=700, y=0)
+def gui_pop_scroll_active(gui: imgui.GUI):
+    gui.text(f"Pop scrolling active")
+    gui.line()
+    if gui.button("pop scrolling off"):
+        actions.user.set_pop_scroll_active(False)
+
 @mod.action_class
 class Actions:
+  def set_pop_scroll_active(active: bool):
+    """Activates or deactivates pop scrolling"""
+    global pop_scroll_active
+    global pop_scroll_currently_scrolling
+    global pop_scrolling_direction
+
+    pop_scroll_active = active
+    if pop_scroll_active:
+      gui_pop_scroll_active.show()
+    else:
+      pop_scroll_active = False
+      pop_scroll_currently_scrolling = False
+      pop_scrolling_direction = "down"
+      actions.user.mouse_scroll_stop()
+      gui_pop_scroll_active.hide()
+
+  def mouse_on_pop():
+    """On pop callback for mouse related stuff"""
+    global last_pop_at
+    global pop_scroll_currently_scrolling
+    global pop_scrolling_direction
+
+    print(f"{time.perf_counter()}, {last_pop_at}")
+    is_double = False
+    if last_pop_at is not None and time.perf_counter() - last_pop_at < 0.5:
+      is_double = True
+
+    last_pop_at = time.perf_counter()
+
+    if pop_scroll_active:
+      if is_double:
+        print("is double")
+        pop_scrolling_direction = "up" if pop_scrolling_direction == "down" else "down"
+
+      if pop_scroll_currently_scrolling == False:
+        print(pop_scrolling_direction)
+        if pop_scrolling_direction == "down":
+          actions.user.mouse_scroll_down_continuous()
+        else:
+          actions.user.mouse_scroll_up_continuous()
+        pop_scroll_currently_scrolling = True
+      else:
+        actions.user.mouse_scroll_stop()
+        pop_scroll_currently_scrolling = False
+
   def mouse_switch_screen():
     """Toggles the primary display and runs calibration"""
     actions.user.system_command("~/.dotfiles/scripts/xrandr-swap-primary")
