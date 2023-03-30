@@ -40,7 +40,6 @@ class Actions:
     global pop_scroll_currently_scrolling
     global pop_scrolling_direction
 
-    print(f"{time.perf_counter()}, {last_pop_at}")
     is_double = False
     if last_pop_at is not None and time.perf_counter() - last_pop_at < 0.5:
       is_double = True
@@ -49,11 +48,11 @@ class Actions:
 
     if pop_scroll_active:
       if is_double:
-        print("is double")
+        # Set currently_scrolling to False, so that it will always be started again in the next if statement
+        pop_scroll_currently_scrolling = False
         pop_scrolling_direction = "up" if pop_scrolling_direction == "down" else "down"
 
       if pop_scroll_currently_scrolling == False:
-        print(pop_scrolling_direction)
         if pop_scrolling_direction == "down":
           actions.user.mouse_scroll_down_continuous()
         else:
