@@ -1,6 +1,10 @@
 pop scrolling on:
 	user.set_pop_scroll_active(1)
 
+pop scrolling here:
+	user.mouse_move_center_active_window()
+	user.set_pop_scroll_active(1)
+
 pop scrolling off:
 	user.set_pop_scroll_active(0)
 
