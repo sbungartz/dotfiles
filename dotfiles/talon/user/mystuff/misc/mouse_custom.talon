@@ -2,6 +2,7 @@ pop scrolling on:
 	user.set_pop_scroll_active(1)
 
 pop scrolling here:
+	user.mouse_toggle_control_mouse(0)
 	user.mouse_move_center_active_window()
 	user.set_pop_scroll_active(1)
 
@@ -12,6 +13,7 @@ mouse switch screen:
 	user.mouse_switch_screen()
 
 mouse go:
+	user.set_pop_scroll_active(0)
   user.mouse_toggle_control_mouse(1)
 
 mouse stop:

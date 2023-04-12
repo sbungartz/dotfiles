@@ -41,7 +41,7 @@ class Actions:
     global pop_scrolling_direction
 
     is_double = False
-    if last_pop_at is not None and time.perf_counter() - last_pop_at < 0.5:
+    if last_pop_at is not None and time.perf_counter() - last_pop_at < 0.25:
       is_double = True
 
     last_pop_at = time.perf_counter()
