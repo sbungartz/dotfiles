@@ -1,3 +1,49 @@
 #!/usr/bin/env bash
+set -e -u -o pipefail
 
-$HOME/.dotfiles/scripts/timelog-txt.py current-for-blocklet
+BLOCK_BUTTON=${BLOCK_BUTTON:-}
+
+function timelog_script() {
+  "$HOME/.dotfiles/scripts/timelog-txt.py" "$@"
+}
+
+function prompt_new_activity() {
+  activity="$(timelog_script recent-entries | rofi -dmenu -i -lines 6 -p "Start")"
+  if ! [[ "$activity" = *"@"* ]] ; then
+    project="$(timelog_script recent-projects | rofi -dmenu -i -lines 6 -p "Project")"
+    activity="${activity}@${project}"
+  fi
+  echo "$activity"
+}
+
+if [[ "$BLOCK_BUTTON" = "1" ]] || [[ "$BLOCK_BUTTON" = "3" ]] ; then
+  current_activity_info="$(timelog_script current-for-rofi)"
+  if [[ "$current_activity_info" != "STOP" ]] ; then
+    options="${current_activity_info}\nStop tracking"
+  else
+    options="Start new activity now\nStart new activity from $(timelog_script last-stop-time)"
+  fi
+
+  selected_option="$(echo -e "$options" | rofi -dmenu -i -lines 4 -p "Timelog")"
+
+  if [[ "$selected_option" == "Stop tracking" ]] ; then
+    timelog_script stop
+  elif [[ "$selected_option" = "Start new activity from "* ]] ; then
+    new_activity="$(prompt_new_activity)"
+    timelog_script start-since-last-stop "$(new_activity)"
+  else
+    new_activity="$(prompt_new_activity)"
+    timelog_script start-now "${new_activity}"
+  fi
+else
+  "$HOME/.dotfiles/scripts/timelog-txt.py" current-for-blocklet
+fi
+
+
+
+# 1. start jetzt / start recent
+# 2. wähle eintrag aus liste oder nimm neuen, schneide Ausrufezeichen am Ende ab
+#   3a. wenn Eintrag @ enthält => direkt aufrufen mit eintrag
+#   3b. wenn Eintrag kein @ enthält
+#     3b.1. merke Eintrag als Activity und biete Projekte zur Auswahl
+#   3

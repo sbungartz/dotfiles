@@ -164,6 +164,17 @@ def print_current_activity_for_blocklet():
   print(shorttext)
   print(color)
 
+def print_current_activity_for_rofi():
+  entry = current_activity()
+  if entry is None:
+    print('STOP')
+  else:
+    print(f'{entry.original_text} ({format_duration(compute_duration(entry))})')
+
+def print_last_entry_stop_time():
+  entry = find_last_entry()
+  print(f'{entry.finished_at}')
+
 def print_current_activity_report():
   last_entry = find_last_entry()
   print(f'Since {last_entry.started_at.strftime("%H:%M")}: {last_entry.original_text}')
@@ -208,11 +219,15 @@ if command == "recent-entries":
 elif command == "recent-projects":
   print_as_lines(recent_projects())
 elif command == "current":
-  print(current_activity())
+  print(current_activity() or "STOP")
 elif command == "current-for-blocklet":
   print_current_activity_for_blocklet()
 elif command == "current-report":
   print_current_activity_report()
+elif command == "current-for-rofi":
+  print_current_activity_for_rofi()
+elif command == "last-stop-time":
+  print_last_entry_stop_time()
 elif command == "start-now":
   start_new_activity_now(' '.join(sys.argv[2:]))
 elif command == "start-since-last-stop":
