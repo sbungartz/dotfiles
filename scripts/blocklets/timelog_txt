@@ -38,12 +38,3 @@ if [[ "$BLOCK_BUTTON" = "1" ]] || [[ "$BLOCK_BUTTON" = "3" ]] ; then
 else
   "$HOME/.dotfiles/scripts/timelog-txt.py" current-for-blocklet
 fi
-
-
-
-# 1. start jetzt / start recent
-# 2. wähle eintrag aus liste oder nimm neuen, schneide Ausrufezeichen am Ende ab
-#   3a. wenn Eintrag @ enthält => direkt aufrufen mit eintrag
-#   3b. wenn Eintrag kein @ enthält
-#     3b.1. merke Eintrag als Activity und biete Projekte zur Auswahl
-#   3
