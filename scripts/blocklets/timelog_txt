@@ -7,14 +7,14 @@ function timelog_script() {
   "$HOME/.dotfiles/scripts/timelog-txt.py" "$@"
 }
 
-function prompt_new_activity() {
+function prompt_new_activity() {( set -e
   activity="$(timelog_script recent-entries | rofi -dmenu -i -lines 6 -p "Start")"
   if ! [[ "$activity" = *"@"* ]] ; then
     project="$(timelog_script recent-projects | rofi -dmenu -i -lines 6 -p "Project")"
     activity="${activity}@${project}"
   fi
   echo "$activity"
-}
+)}
 
 if [[ "$BLOCK_BUTTON" = "1" ]] || [[ "$BLOCK_BUTTON" = "3" ]] ; then
   current_activity_info="$(timelog_script current-for-rofi)"
