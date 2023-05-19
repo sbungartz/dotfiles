@@ -5,7 +5,8 @@ import os
 from os.path import expanduser
 import re
 import itertools
-from datetime import datetime, timedelta
+from collections import defaultdict
+from datetime import datetime, date, timedelta
 import sys
 
 timelog_path = expanduser("~/Notes/log/timelog.txt")
@@ -74,13 +75,16 @@ def find_last_entry():
   return list(read_all())[-1]
 
 def find_todays_entries():
-  return filter_entries_of_today(read_all())
+  return find_day_entries(date.today())
+
+def find_day_entries(day):
+  return filter_entries_of_day(read_all(), day)
 
 def find_entries_like(other_entry):
   return [entry for entry in read_all() if entry.original_text == other_entry.original_text]
 
-def filter_entries_of_today(entries):
-  return [entry for entry in entries if entry.started_at.date() == datetime.today().date()]
+def filter_entries_of_day(entries, day):
+  return [entry for entry in entries if entry.started_at.date() == day]
 
 def current_activity():
   last_entry = find_last_entry()
@@ -132,17 +136,26 @@ def sum_entry_durations(entries):
 def sum_durations(durations):
   return sum(durations, timedelta(0))
 
+def sum_entry_durations_by_text(entries):
+  durations_by_text = defaultdict(timedelta)
+  for entry in entries:
+    durations_by_text[entry.original_text] += compute_duration(entry)
+  return dict(durations_by_text)
+
 # Output
 def print_as_lines(items):
   for item in items:
     print(item)
 
 # Formatting
-def format_duration(duration_timedelta):
+def format_duration(duration_timedelta, include_seconds=False):
   total_seconds = round(duration_timedelta.total_seconds())
   hours, remainder = divmod(total_seconds, 3600)
-  minutes, _seconds = divmod(remainder, 60)
-  return f'{hours:02d}:{minutes:02d}'
+  minutes, seconds = divmod(remainder, 60)
+  formatted = f'{hours:02d}:{minutes:02d}'
+  if include_seconds:
+    formatted = f'{formatted}:{seconds:02d}'
+  return formatted
 
 # Very special functions
 def print_current_activity_for_blocklet():
@@ -178,14 +191,21 @@ def print_last_entry_stop_time():
 def print_current_activity_report():
   last_entry = find_last_entry()
   print(f'Since {last_entry.started_at.strftime("%H:%M")}: {last_entry.original_text}')
-  print(f'Current duration: {format_duration(compute_duration(last_entry))}')
+  print('')
+  print(f'Current duration: {format_duration(compute_duration(last_entry), include_seconds=True)}')
 
   entries_for_activity = find_entries_like(last_entry)
-  print(f'Worked on this today for: {format_duration(sum_entry_durations(filter_entries_of_today(entries_for_activity)))}')
-  print(f'Worked on this in total for: {format_duration(sum_entry_durations(entries_for_activity))}')
+  print(f'Worked on this today for: {format_duration(sum_entry_durations(filter_entries_of_day(entries_for_activity, date.today())), include_seconds=True)}')
+  print(f'Worked on this in total for: {format_duration(sum_entry_durations(entries_for_activity), include_seconds=True)}')
 
   print('')
-  print(f'Logged today for: {format_duration(sum_entry_durations(find_todays_entries()))}')
+  print(f'Logged today for: {format_duration(sum_entry_durations(find_todays_entries()), include_seconds=True)}')
+
+def print_report_for_day(report_date):
+  entries = find_day_entries(report_date)
+  durations_by_text = sum_entry_durations_by_text(entries)
+  for text, duration in durations_by_text.items():
+    print(f'{format_duration(duration)} {text}')
 
 # Editing
 def start_new_activity(activity_text, started_at):
@@ -224,6 +244,11 @@ elif command == "current-for-blocklet":
   print_current_activity_for_blocklet()
 elif command == "current-report":
   print_current_activity_report()
+elif command == "report-for-day":
+  date_str = sys.argv[2]
+  # report_date = date.fromisoformat(date_str)
+  report_date = date.fromtimestamp(datetime.strptime(date_str, "%Y-%m-%d").timestamp())
+  print_report_for_day(report_date)
 elif command == "current-for-rofi":
   print_current_activity_for_rofi()
 elif command == "last-stop-time":
