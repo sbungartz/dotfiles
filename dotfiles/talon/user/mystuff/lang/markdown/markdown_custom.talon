@@ -14,3 +14,6 @@ preview refresh: user.vscode("markdown.preview.refresh")
 preview lock toggle: user.vscode("markdown.preview.toggleLock")
 
 state check: "- [ ] "
+
+note new: user.vscode("vscodeMarkdownNotes.newNote")
+state link: "[["

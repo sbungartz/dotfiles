@@ -30,6 +30,8 @@ ctx.lists["user.snippets"] = {
   "expect not block": "expect not block",
   "expect content": "expect content",
   "expect not content": "expect not content",
+  "expect selector": "expect selector",
+  "expect not selector": "expect not selector",
   "it does": "it do",
   "let": "let",
   "let bang": "let!",
