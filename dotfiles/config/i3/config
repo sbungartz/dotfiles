@@ -78,10 +78,13 @@ bindsym $mod+F3 exec nautilus --no-desktop --new-window
 bindsym $mod+Shift+F3 exec gksu pcmanfm
 bindsym $mod+F5 exec terminal -e 'mocp'
 bindsym $mod+Mod1+Shift+t exec --no-startup-id pkill compton
-bindsym $mod+Mod1+t exec --no-startup-id $SCRIPTS/restart-compton
+# bindsym $mod+Mod1+t exec --no-startup-id $SCRIPTS/restart-compton
 
-bindsym $mod+t exec BLOCK_BUTTON=1 $BLOCKET_DIR/hamster
-bindsym $mod+Ctrl+t exec $SCRIPTS/hamster-current-activity-report
+bindsym $mod+Mod1+t exec BLOCK_BUTTON=1 $BLOCKET_DIR/hamster
+bindsym $mod+Mod1+Ctrl+t exec $SCRIPTS/hamster-current-activity-report
+
+bindsym $mod+t exec BLOCK_BUTTON=1 $BLOCKET_DIR/timelog_txt
+bindsym $mod+Ctrl+t exec $SCRIPTS/timelog-txt-current-activity-report
 
 #bindsym $mod+Ctrl+x --release exec --no-startup-id xkill
 
