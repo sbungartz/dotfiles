@@ -30,7 +30,7 @@ if [[ "$BLOCK_BUTTON" = "1" ]] || [[ "$BLOCK_BUTTON" = "3" ]] ; then
     timelog_script stop
   elif [[ "$selected_option" = "Start new activity from "* ]] ; then
     new_activity="$(prompt_new_activity)"
-    timelog_script start-since-last-stop "$(new_activity)"
+    timelog_script start-since-last-stop "${new_activity}"
   else
     new_activity="$(prompt_new_activity)"
     timelog_script start-now "${new_activity}"
