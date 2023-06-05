@@ -8,9 +8,9 @@ function timelog_script() {
 }
 
 function prompt_new_activity() {( set -e
-  activity="$(timelog_script recent-entries | rofi -dmenu -i -lines 6 -p "Start")"
+  activity="$(timelog_script recent-entries | rofi -dmenu -i -lines 12 -p "Start")"
   if ! [[ "$activity" = *"@"* ]] ; then
-    project="$(timelog_script recent-projects | rofi -dmenu -i -lines 6 -p "Project")"
+    project="$(timelog_script recent-projects | rofi -dmenu -i -lines 12 -p "Project")"
     activity="${activity}@${project}"
   fi
   echo "$activity"
@@ -18,15 +18,18 @@ function prompt_new_activity() {( set -e
 
 if [[ "$BLOCK_BUTTON" = "1" ]] || [[ "$BLOCK_BUTTON" = "3" ]] ; then
   current_activity_info="$(timelog_script current-for-rofi)"
+  common_options="Open Timelog"
   if [[ "$current_activity_info" != "STOP" ]] ; then
-    options="${current_activity_info}\nStop tracking"
+    options="${current_activity_info}\nStop tracking\n${common_options}"
   else
-    options="Start new activity now\nStart new activity from $(timelog_script last-stop-time)"
+    options="Start new activity now\nStart new activity from $(timelog_script last-stop-time)\n${common_options}"
   fi
 
   selected_option="$(echo -e "$options" | rofi -dmenu -i -lines 4 -p "Timelog")"
 
-  if [[ "$selected_option" == "Stop tracking" ]] ; then
+  if [[ "$selected_option" == "Open Timelog" ]] ; then
+    code "$HOME/Notes/log/timelog.txt"
+  elif [[ "$selected_option" == "Stop tracking" ]] ; then
     timelog_script stop
   elif [[ "$selected_option" = "Start new activity from "* ]] ; then
     new_activity="$(prompt_new_activity)"

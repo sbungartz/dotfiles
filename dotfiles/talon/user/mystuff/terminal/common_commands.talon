@@ -78,4 +78,4 @@ docker compose build: "docker compose build"
 time log token:
   insert(" export NOKO_TOKEN=''")
   key("left")
-time log export today: ".dotfiles/scripts/hamster-to-noko"
+time log export today: ".dotfiles/scripts/timelog-txt-to-noko.py"

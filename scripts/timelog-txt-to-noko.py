@@ -33,12 +33,20 @@ api_headers = {
         'X-NokoToken': NOKO_TOKEN
 }
 
+total_time_for_day = timedelta(0)
+total_time_unskipped_for_day = timedelta(0)
+
 for entry_text, total_time in durations_by_text.items():
     activity, project = entry_text.split("@")
     noko_project_id = noko_project_id_for_category.get(project)
+
+    total_time_for_day += total_time
+
     if noko_project_id is None:
         print(f'skipping {total_time} of "{entry_text}" because no project id is mapped')
         continue
+
+    total_time_unskipped_for_day += total_time
 
     tp_reference_match = re.match('^[tT][pP]-([0-9]+) (.*)', activity)
     if tp_reference_match:
@@ -60,3 +68,7 @@ for entry_text, total_time in durations_by_text.items():
 
         response = requests.post(entries_url, json=payload, headers=api_headers)
         print(response.status_code)
+
+print('-----------------')
+print(f'Logged: {total_time_for_day}')
+print(f'Worked: {total_time_unskipped_for_day}')
