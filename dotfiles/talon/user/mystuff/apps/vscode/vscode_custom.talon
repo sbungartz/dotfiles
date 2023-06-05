@@ -2,6 +2,14 @@ mode: command
 app: vscode
 -
 
+downer:
+  key(down:30)
+  # key(ctrl+down:30)
+
+upper:
+  key(up:30)
+  # key(ctrl+up:30)
+
 termilize line: user.vscode("termilizer.pasteLineToTerminal")
 termilize block: user.vscode("termilizer.pasteBlockToTerminal")
 
