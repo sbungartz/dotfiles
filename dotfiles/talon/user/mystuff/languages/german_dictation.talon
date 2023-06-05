@@ -20,7 +20,7 @@ Befehlsmodus:
 ^wiederherstellen$: edit.redo()
 
 ^(Eingabetaste | klatsch)$: key("enter")
-^neue Zeile$: edit.line_insert_down()
+neue Zeile: edit.line_insert_down()
 ^neuer Absatz$:
   edit.line_insert_down()
   edit.line_insert_down()
