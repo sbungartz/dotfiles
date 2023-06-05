@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # Required packages:
-# sudo pip3 install pulsectl
+# pip3 install pulsectl
 
 import pulsectl
 import sys
@@ -9,7 +9,7 @@ class Mode:
     def __init__(self, mode, stream_names):
         self.mode = mode
         self.stream_names = stream_names
-    
+
     def should_mute(self, stream):
         if self.mode == 'mute-only':
             return stream.name in self.stream_names

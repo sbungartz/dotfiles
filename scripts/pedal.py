@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # Required packages:
 # sudo apt install python3-mido python3-rtmidi
+# pip3 install pulsectl
 
 from typing import NamedTuple
 import signal
