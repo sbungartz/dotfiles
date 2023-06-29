@@ -9,6 +9,12 @@ function timelog_script() {
 
 function prompt_new_activity() {( set -e
   activity="$(timelog_script recent-entries | rofi -dmenu -i -lines 12 -p "Start")"
+  # Remove trailing "!" from activity to allow entering variants
+  if [[ "$activity" = *"!"* ]] ; then
+    # remove "!" from activity
+    activity="${activity%?}"
+  fi
+
   if ! [[ "$activity" = *"@"* ]] ; then
     project="$(timelog_script recent-projects | rofi -dmenu -i -lines 12 -p "Project")"
     activity="${activity}@${project}"
