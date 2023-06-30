@@ -87,10 +87,6 @@ interval=5
 [wacom_remap]
 interval=persist
 
-# Show time for current task tracked using the 'Project Hamster' time tracker.
-[hamster]
-interval=5
-
 [timelog_txt]
 interval=5
 
