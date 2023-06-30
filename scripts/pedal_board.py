@@ -17,8 +17,9 @@ last_scroll_at = None
 
 def scroll_once():
   mouse_button = 5 if scrolls_per_second > 0 else 4
-  os.system(f"xdotool mousedown {mouse_button}")
-  os.system(f"xdotool mouseup {mouse_button}")
+  # os.system(f"xdotool mousedown {mouse_button}")
+  # os.system(f"xdotool mouseup {mouse_button}")
+  os.system(f"xdotool click {mouse_button}")
 
 def scroll_if_necessary():
   global last_scroll_at
@@ -43,14 +44,18 @@ def scroll_if_necessary():
   last_scroll_at += scrolls_to_perform * seconds_per_scroll
 
 def scroll_loop():
+  global scrolls_per_second
   while True:
     scroll_if_necessary()
-    time.sleep(0.05)
+    sleep_time = 0.8 if scrolls_per_second == 0 else 0.05
+    time.sleep(sleep_time)
 
 scroll_thread = threading.Thread(target=scroll_loop, daemon=True)
 scroll_thread.start()
 
 mode = 'bidirectional'
+
+pedal_mute_toggle = False
 
 with mido.open_input(input_name) as port:
   for message in port:
@@ -67,3 +72,12 @@ with mido.open_input(input_name) as port:
         else:
           scrolls_per_second = converted_value * 10
         print(f'{message.value} -> {inverted_polarity} -> {converted_value} -> {scrolls_per_second}')
+    elif message.type == 'control_change' and message.control == 69 and message.value > 63:
+      print('pedal down')
+      if pedal_mute_toggle:
+        print('pedal mute toggle')
+        os.system('xdotool key super+ctrl+shift+alt+F12')
+      else:
+        print('pedal mute')
+        os.system('xdotool key super+ctrl+shift+alt+F6')
+      pedal_mute_toggle = not pedal_mute_toggle
