@@ -51,11 +51,27 @@ def scroll_loop():
     time.sleep(sleep_time)
 
 scroll_thread = threading.Thread(target=scroll_loop, daemon=True)
-scroll_thread.start()
+# scroll_thread.start()
 
 mode = 'bidirectional'
 
 pedal_mute_toggle = False
+
+pedal_names_for_cc = {
+  64: '1',
+  65: '2',
+  66: '3',
+  67: '4',
+}
+
+keys_for_cc = {
+  64: 'F1',
+  65: 'F2',
+  66: 'F3',
+  67: 'F4',
+  # 68: 'F5', # pedal for pedal.py
+  # 69: 'F6', # pedal_mute_toggle handled specially below
+}
 
 with mido.open_input(input_name) as port:
   for message in port:
@@ -81,3 +97,9 @@ with mido.open_input(input_name) as port:
         print('pedal mute')
         os.system('xdotool key super+ctrl+shift+alt+F6')
       pedal_mute_toggle = not pedal_mute_toggle
+    elif message.type == 'control_change' and message.control in pedal_names_for_cc:
+      key = pedal_names_for_cc[message.control]
+      #print(f'pressing combo with {key}')
+      #os.system(f'xdotool keydown super+ctrl+shift+alt+{key}')
+      #os.system(f'xdotool keyup super+ctrl+shift+alt+{key}')
+      os.system(f'echo "actions.user.pedal_board_pedal_action(\'{key}\', { message.value > 63 })" | ~/.talon/bin/repl')
