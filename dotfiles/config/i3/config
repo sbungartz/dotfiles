@@ -256,7 +256,7 @@ bindsym $mod+Shift+3 move container to workspace $ws3; workspace $ws3
 bindsym $mod+Shift+4 move container to workspace $ws4; workspace $ws4
 bindsym $mod+Shift+5 move container to workspace $ws5; workspace $ws5
 bindsym $mod+Shift+6 move container to workspace $ws6; workspace $ws6
-bindcode $mod+Shift+61 move container to workspace $ws61; workspace $ws61
+bindcode $mod+Shift+29 move container to workspace $ws61; workspace $ws61
 bindsym $mod+Shift+7 move container to workspace $ws7; workspace $ws7
 bindsym $mod+Shift+u move container to workspace $ws71; workspace $ws71
 bindsym $mod+Shift+8 move container to workspace $ws8; workspace $ws8
@@ -266,6 +266,10 @@ bindsym $mod+Shift+o move container to workspace $ws91; workspace $ws91
 bindsym $mod+Shift+F11 move container to workspace $ws92; workspace $ws92
 bindsym $mod+Shift+F12 move container to workspace $ws99; workspace $ws99
 bindsym $mod+Shift+0 move container to workspace $ws10; workspace $ws10
+
+# Swap workspaces between monitors
+bindsym $mod+shift+minus exec --no-startup-id $SCRIPTS/i3-swap-outputs
+bindsym $mod+minus focus output left; focus output up; exec --no-startup-id $SCRIPTS/i3-swap-outputs
 
 # Assign some workspaces to specific screens
 {%@@ if profile == 'simon-xps13' @@%}
