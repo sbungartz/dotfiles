@@ -268,8 +268,11 @@ bindsym $mod+Shift+F12 move container to workspace $ws99; workspace $ws99
 bindsym $mod+Shift+0 move container to workspace $ws10; workspace $ws10
 
 # Swap workspaces between monitors
-bindsym $mod+shift+minus exec --no-startup-id $SCRIPTS/i3-swap-outputs
-bindsym $mod+minus focus output left; focus output up; exec --no-startup-id $SCRIPTS/i3-swap-outputs
+bindsym $mod+minus exec --no-startup-id $SCRIPTS/i3-swap-outputs
+bindsym $mod+shift+minus focus output left; focus output up; exec --no-startup-id $SCRIPTS/i3-swap-outputs
+# also binding to less than / greater than on german keyboard
+bindcode $mod+94 exec --no-startup-id $SCRIPTS/i3-swap-outputs
+bindcode $mod+Shift+94 focus output left; focus output up; exec --no-startup-id $SCRIPTS/i3-swap-outputs
 
 # Assign some workspaces to specific screens
 {%@@ if profile == 'simon-xps13' @@%}
@@ -507,7 +510,7 @@ exec_always --no-startup-id $SCRIPTS/wacom-init
 exec --no-startup-id xfce4-power-manager
 # Set keyboard layout and (re-)start kbdd for blocklet and keybindings/autolayout
 exec_always --no-startup-id "setxkbmap -layout de,us; killall kbdd; kbdd"
-exec_always --no-startup-id "sleep 0.5; $SCRIPTS/keyboard-remap"
+#exec_always --no-startup-id "sleep 0.5; $SCRIPTS/keyboard-remap"
 
 # Set highdpi scaling factor...
 exec_always --no-startup-id gsettings set org.gnome.desktop.interface scaling-factor {{@@ display_scale @@}}
