@@ -39,6 +39,8 @@ mark toggle: user.vscode("bookmarks.toggle")
 mark last: user.vscode("bookmarks.jumpToPrevious")
 mark next: user.vscode("bookmarks.jumpToNext")
 
+(copilot | your controls): user.vscode("editor.action.inlineSuggest.trigger")
+
 source stage selection: user.vscode("git.stageSelectedRanges")
 source unstage selection: user.vscode("git.unstageSelectedRanges")
 source revert selection: user.vscode("git.revertSelectedRanges")
