@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-INPUT_PATH = "#{ENV['HOME']}/Notes/Irgendwann-Vielleicht.md"
+INPUT_PATH = "#{ENV['HOME']}/Meins/Notizen/Irgendwann-Vielleicht.md"
 #INPUT_PATH = 'Test.md'
 
 OUTPUT_PATH = "#{ENV['HOME']}/.cache/maybe-matrix.html"

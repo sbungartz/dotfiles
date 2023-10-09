@@ -20,7 +20,7 @@ autocmd FileType nerdtree nmap ,a :call MyNERDTreeArchiveNote()<CR>
 function! MyNERDTreeArchiveNote()
   let curNode = g:NERDTreeFileNode.GetSelected()
   let curPath = curNode.path.str()
-  let newPath = substitute(curPath, '^/home/simon/Notes/', '/home/simon/Notes/Archiv/' . strftime('%Y') . '/', '')
+  let newPath = substitute(curPath, '^/home/simon/Meins/Notizen/', '/home/simon/Meins/Notizen/Archiv/' . strftime('%Y') . '/', '')
 
   if filereadable(newPath)
     call nerdtree#echoWarning('This destination already exists. Aborted.')

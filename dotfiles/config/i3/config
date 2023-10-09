@@ -72,7 +72,7 @@ bindsym $mod+Ctrl+m exec pavucontrol
 
 # Start Applications
 bindsym $mod+Ctrl+b exec terminal -e 'bmenu'
-bindsym $mod+F3 exec nautilus --no-desktop --new-window
+bindsym $mod+F3 exec nautilus --no-desktop --new-window ~/Meins
 # bindsym $mod+F12 exec XDG_CURRENT_DESKTOP=Unity unity-control-center
 # bindsym $mod+F3 exec ranger
 bindsym $mod+Shift+F3 exec gksu pcmanfm
@@ -307,7 +307,7 @@ assign [class="jetbrains-pycharm-ce"] $ws3
 assign [class="TeXstudio"] $ws3
 assign [class="org-contikios-cooja-Cooja"] $ws4
 # Standard workspaces:
-for_window [title=".* - Notes - Visual Studio Code"] move to workspace $ws11
+for_window [title=".* - Notizen - Visual Studio Code"] move to workspace $ws11
 for_window [title=".* - Drafts - Visual Studio Code"] move to workspace $ws92
 for_window [title=".* - .dotfiles - Visual Studio Code"] move to workspace $ws7
 for_window [title=".* - knausj_talon - Visual Studio Code"] move to workspace $ws7
@@ -332,7 +332,7 @@ assign [instance="Cypress"] $ws6
 bindsym $mod+Mod1+1 exec $BROWSER --new-window
 bindsym $mod+Mod1+u exec $BROWSER --new-window https://zweitag.tpondemand.com;
 # bindsym $mod+Mod1+u exec firefox --new-window https://zweitag.tpondemand.com;
-bindsym $mod+Mod1+F2 exec code $HOME/Notes
+bindsym $mod+Mod1+F2 exec code $HOME/Meins/Notizen
 {%@@ if profile == 'simon-xps13' @@%}
 bindsym $mod+Mod1+8 exec $BROWSER --new-window https://mail.google.com;
 {%@@ else @@%}

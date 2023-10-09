@@ -4,7 +4,7 @@ import itertools
 from collections import defaultdict
 from datetime import datetime, date, timedelta
 
-timelog_path = expanduser("~/Notes/log/timelog.txt")
+timelog_path = expanduser("~/Meins/Notizen/log/timelog.txt")
 
 TIME_FORMAT = '%Y-%m-%d %H:%M:%S'
 

@@ -3,7 +3,7 @@ tag: terminal
 
 clear mode off: "cmoff\n"
 
-open notes work: "cd ~/Notes && vim -c GTDWork\n"
+open notes work: "cd ~/Meins/Notizen && vim -c GTDWork\n"
 
 think:
   insert("think ''")

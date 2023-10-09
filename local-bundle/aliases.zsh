@@ -46,7 +46,7 @@ capshot() { xdg-open tmp/screenshots/*.png(om[1]) }
 capshotold() { xdg-open tmp/capybara/*.png(om[1]) }
 
 # Open vim in Notes folder
-alias nv='cd ~/Notes && vim'
+alias nv='cd ~/Meins/Notizen && vim'
 
 # todo.txt
 alias media='todo-txt -d ~/.todo-txt/config_media'
@@ -112,7 +112,7 @@ tcr() { cat "$TODO_CONTEXT_FILE" }
 tcc() { rm -f "$TODO_CONTEXT_FILE" }
 
 # Append thought to Inbox
-THOUGHT_INBOX="$HOME/Notes/Inbox/QuickNote.md"
+THOUGHT_INBOX="$HOME/Meins/Notizen/Inbox/QuickNote.md"
 think() { echo -e -n "\n- $@" >> "$THOUGHT_INBOX" }
 
 # List todos for current context
@@ -127,7 +127,7 @@ tta() { t a $@ ${TODO_CONTEXT:-$(tcr)} }
 trs() { t ice_recur -s | awk '{split($0,a," -- "); printf "%s   %-50s   %s\n", a[3],a[4],a[2]}' | sort }
 
 # Generate and open maybe-matrix
-alias mm="xdg-open $HOME/.cache/maybe-matrix.html && ls $HOME/Notes/Irgendwann-Vielleicht.md | entr $HOME/.dotfiles/scripts/maybe-matrix"
+alias mm="xdg-open $HOME/.cache/maybe-matrix.html && ls $HOME/Meins/Notizen/Irgendwann-Vielleicht.md | entr $HOME/.dotfiles/scripts/maybe-matrix"
 #
 # Frequently used clearmodes
 alias cm='clearmode with'
@@ -140,13 +140,17 @@ alias cmte='clearmode with tte'
 alias cmts='clearmode with tts'
 alias cmtp='clearmode with ttp'
 alias cmth='clearmode with th'
+alias cmtb='clearmode with tb'
 alias cmc='cm t ls @Creation'
 alias cma='clearmode with ta'
 alias cmw='clearmode with twa'
 
-tcsd() { tcs @Desk; cmt }
-tcsh() { tcs @Home; cmt }
-tcsc() { tcs @Creation; cmt }
+tcsb() { tcs @Besorgungen }
+tcsd() { tcs @Desk }
+tcsh() { tcs @Home }
+tcsp() { tcs '@Home\|@Desk' }
+tcsc() { tcs @Creation }
+tcso() { tcs '@Office' }
 
 # udisksctl mounting and unmounting
 function udls {

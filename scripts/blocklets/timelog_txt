@@ -28,7 +28,7 @@ if [[ "$BLOCK_BUTTON" = "1" ]] || [[ "$BLOCK_BUTTON" = "3" ]] ; then
   selected_option="$(echo -e "$options" | rofi -dmenu -i -lines 4 -p "Timelog")"
 
   if [[ "$selected_option" == "Open Timelog" ]] ; then
-    code "$HOME/Notes/log/timelog.txt"
+    code "$HOME/Meins/Notizen/log/timelog.txt"
   elif [[ "$selected_option" == "Stop tracking" ]] ; then
     timelog_script stop
   elif [[ "$selected_option" = "Start new activity from "* ]] ; then
