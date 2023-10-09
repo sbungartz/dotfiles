@@ -39,6 +39,8 @@ mark toggle: user.vscode("bookmarks.toggle")
 mark last: user.vscode("bookmarks.jumpToPrevious")
 mark next: user.vscode("bookmarks.jumpToNext")
 
+(copilot | your controls): user.vscode("editor.action.inlineSuggest.trigger")
+
 source stage selection: user.vscode("git.stageSelectedRanges")
 source unstage selection: user.vscode("git.unstageSelectedRanges")
 source revert selection: user.vscode("git.revertSelectedRanges")
@@ -69,10 +71,12 @@ file next:
   user.vscode("workbench.files.action.showActiveFileInExplorer")
   key("down")
   key("space")
+  user.vscode("workbench.action.focusActiveEditorGroup")
 file last:
   user.vscode("workbench.files.action.showActiveFileInExplorer")
   key("up")
   key("space")
+  user.vscode("workbench.action.focusActiveEditorGroup")
 
 # user.vscode currently times out when trying to send commands to vscode code plugin
 # therefore we just use keyboard commands here.

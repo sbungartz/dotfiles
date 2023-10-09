@@ -13,6 +13,11 @@ import sys
 print(mido.get_input_names())
 
 input_name = 'MPK mini 3:MPK mini 3 MIDI 1'
+cc_numbers = [64]
+
+input_name = 'PACER:PACER MIDI 1'
+cc_numbers = [68, 80, 11]
+
 scripts_folder = os.path.expanduser('~/.dotfiles/scripts')
 
 class PIDLock:
@@ -105,6 +110,8 @@ if len(sys.argv) < 2:
 mode_name = sys.argv[1]
 mode = get_mode_by_name(mode_name)
 
+last_pedal_value = False
+
 with PIDLock():
     if mode_name == 'off':
         exit(0)
@@ -115,14 +122,16 @@ with PIDLock():
     try:
         with mido.open_input(input_name) as port:
             for message in port:
-                print(message)
-                if message.type == 'control_change' and message.control == 64:
-                    if message.value > 63:
+                # print(message)
+                if message.type == 'control_change' and message.control in cc_numbers:
+                    if message.value > 63 and not last_pedal_value:
                         print('pedal down')
                         os.system(mode.on_down)
-                    else:
+                        last_pedal_value = True
+                    elif message.value <= 63 and last_pedal_value:
                         print('pedal up')
                         os.system(mode.on_up)
+                        last_pedal_value = False
     finally:
         print('running on_exit command')
         os.system(mode.on_exit)
