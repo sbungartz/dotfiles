@@ -114,9 +114,9 @@ def get_project_icon(entry):
     return None
 
 def get_ticket_number(entry):
-  tp_reference_match = re.match('^tp-([0-9]+) ', entry.activity)
+  tp_reference_match = re.match('^([A-Za-z]+)-([0-9]+) ', entry.activity)
   if tp_reference_match:
-    return f'#{tp_reference_match.group(1)}'
+    return f'{tp_reference_match.group(0)}'
   else:
     return None
 
