@@ -138,7 +138,7 @@ class SyncthingApiEventStream:
             try:
                 results = self.api.poll_events_once(params=params)
             except (Timeout, TimeoutError):
-                results = None 
+                results = None
 
             if results:
                 for event in results:
@@ -280,7 +280,7 @@ def follow_event_stream():
                 for folder_id, folder in state.folders.items():
                     # Glob for sync-conflict files within folder using pathlib instead of glob module
                     # since pathlib includes dotfiles (and dot-directories) which we obviously want here.
-                    folder['has_conflicts'] = any(pathlib.Path(folder['path']).glob('**/*sync-conflict*'))
+                    folder['has_conflicts'] = any(pathlib.Path(os.path.expanduser(folder['path'])).glob('**/*sync-conflict*'))
                 on_change()
             else:
                 changed = False
