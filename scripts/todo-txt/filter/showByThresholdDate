@@ -1,0 +1,94 @@
+#!/usr/bin/env python3
+
+"""
+group based on date threshold
+
+date threshold in tasks: "t:YYYY-MM-DD"
+
+this is intended to be used as TODOTXT_SORT_COMMAND
+"""
+
+import sys
+import re
+
+import datetime
+from collections import defaultdict
+
+
+pattern_date = re.compile(r"t:(\d{4})-(\d{2})-(\d{2})")
+pattern_priority = re.compile(r"^\d+ \(([A-Z])\) ")
+
+def extract_date(line):
+	match = pattern_date.search(line)
+	if match:
+		threshold = [int(i) for i in match.groups()]
+		return datetime.date(*threshold)
+	else:
+		return None
+
+def get_calendar_week(date):
+	return date.isocalendar()[1]
+
+def extract_date_bin(line):
+	today = datetime.date.today()
+	date = extract_date(line)
+	if date is None:
+		return "ZZ:No threshold"
+	if date < today:
+		return "B:Already started in the past"
+	if date == today:
+		return f"C:Today ({date})"
+	if date == today + datetime.timedelta(1):
+		return f"D:Tomorrow ({date})"
+	if date.year > today.year + 1:
+		return "Z:In some later year"
+	if date.year == today.year + 1:
+		return "Y:Next year"
+	if get_calendar_week(date) == get_calendar_week(today):
+		return f"E{date.weekday()}:{date.strftime('%A')} ({date})"
+	if get_calendar_week(date) == get_calendar_week(today) + 1:
+		return "F:Next week"
+	if get_calendar_week(date) == get_calendar_week(today) + 2:
+		return "G:In two weeks"
+	if date.month == today.month:
+		return "H:Later this month"
+	if date.month == today.month + 1:
+		return "I:Next month"
+	else:
+		return "J:Later this year"
+
+def bin_title(date_bin):
+	return date_bin.split(":")[1]
+
+def extract_priority(line):
+	match = pattern_priority.match(line)
+	if match:
+		return match.group(1)
+	else:
+		return "ZZZ" # Move unprioritized tasks to the end
+
+def print_lines_sorted(lines):
+	lines.sort(key=extract_priority)
+	for line in lines:
+		print(line)
+
+def main(args=None):
+	lines_by_date = defaultdict(lambda: [])
+	for line in sys.stdin:
+		date = extract_date_bin(line)
+		lines_by_date[date].append(line.strip())
+
+	first_bin = True
+	for date_bin in sorted(lines_by_date.keys()):
+		if first_bin:
+			first_bin = False
+		else:
+			print()
+		print("== " + bin_title(date_bin) + " ==")
+		print_lines_sorted(lines_by_date[date_bin])
+
+	return True
+
+if __name__ == "__main__":
+	status = not main(sys.argv)
+	sys.exit(status)

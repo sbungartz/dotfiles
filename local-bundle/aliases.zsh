@@ -51,6 +51,7 @@ alias nv='cd ~/Meins/Notizen && vim'
 # todo.txt
 alias media='todo-txt -d ~/.todo-txt/config_media'
 alias t='TODOTXT_SORT_COMMAND=~/.dotfiles/scripts/todo-txt/filter/sortCommand TODOTXT_FINAL_FILTER=~/.dotfiles/scripts/todo-txt/filter/finalFilter todo-txt $TODOTXT_FLAGS'
+alias tcal='TODOTXT_SORT_COMMAND=~/.dotfiles/scripts/todo-txt/filter/showByThresholdDate todo-txt $TODOTXT_FLAGS'
 alias tvim='vim ~/.todo-txt/todo.txt'
 alias tvd='vim ~/.todo-txt/done.txt'
 alias tx='t xp 5'
@@ -119,6 +120,7 @@ think() { echo -e -n "\n- $@" >> "$THOUGHT_INBOX" }
 # Either global todo context or via $TODO_CONTEXT
 tt() { t ls ${TODO_CONTEXT:-$(tcr)} $@ }
 tte() { t lsp A-B ${TODO_CONTEXT:-$(tcr)} $@ }
+ttcal() { tcal ls ${TODO_CONTEXT:-$(tcr)} $@ }
 tts() { t lsp ${TODO_CONTEXT:-$(tcr)} $@ }
 ttp() { t lsp ${TODO_CONTEXT:-$(tcr)} $@ }
 tta() { t a $@ ${TODO_CONTEXT:-$(tcr)} }
@@ -137,6 +139,7 @@ alias cmt='clearmode with tt'
 alias cme='clearmode with te'
 alias cms='clearmode with ts'
 alias cmte='clearmode with tte'
+alias cmtcal="clearmode with ttcal"
 alias cmts='clearmode with tts'
 alias cmtp='clearmode with ttp'
 alias cmth='clearmode with th'
