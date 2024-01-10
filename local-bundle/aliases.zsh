@@ -140,11 +140,11 @@ alias cme='clearmode with te'
 alias cms='clearmode with ts'
 alias cmte='clearmode with tte'
 alias cmtcal="clearmode with ttcal"
+alias cmtc="clearmode with ttcal"
 alias cmts='clearmode with tts'
 alias cmtp='clearmode with ttp'
 alias cmth='clearmode with th'
 alias cmtb='clearmode with tb'
-alias cmc='cm t ls @Creation'
 alias cma='clearmode with ta'
 alias cmw='clearmode with twa'
 
@@ -152,7 +152,6 @@ tcsb() { tcs @Besorgungen }
 tcsd() { tcs @Desk }
 tcsh() { tcs @Home }
 tcsp() { tcs '@Home\|@Desk' }
-tcsc() { tcs @Creation }
 tcso() { tcs '@Office' }
 
 # udisksctl mounting and unmounting
