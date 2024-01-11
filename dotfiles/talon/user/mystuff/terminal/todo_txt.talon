@@ -29,6 +29,7 @@ task schedule <number> <user.text>: "t schedule {number} {text}"
 task all: "cmt\n"
 task today: "cmte\n"
 task next: "cmts\n"
+task (cal|calendar): "cmtc\n"
 
 task context show: "tcr\n"
 task context private: "tcs -+Work\n"
