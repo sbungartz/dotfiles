@@ -125,6 +125,14 @@ tts() { t lsp ${TODO_CONTEXT:-$(tcr)} $@ }
 ttp() { t lsp ${TODO_CONTEXT:-$(tcr)} $@ }
 tta() { t a $@ ${TODO_CONTEXT:-$(tcr)} }
 
+# Set task prio to B and schedule to date
+tps() {
+  task_no="$1"
+  shift
+  t p "$task_no" b
+  t schedule "$task_no" "$@"
+}
+
 # List recurring tasks by next scheduled date
 trs() { t ice_recur -s | awk '{split($0,a," -- "); printf "%s   %-50s   %s\n", a[3],a[4],a[2]}' | sort }
 
