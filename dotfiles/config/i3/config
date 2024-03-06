@@ -179,7 +179,7 @@ bindsym $mod+Ctrl+Right workspace next
 bindsym $mod+Ctrl+Left workspace prev
 
 # wacom
-# bindsym $mod+Ctrl+F12 exec xsetwacom set "Wacom Intuos S Pen stylus" MapToOutput next
+bindsym $mod+Ctrl+F7 exec xsetwacom set "Wacom Intuos S Pen stylus" MapToOutput next
 
 # Workspace names
 # to display names or symbols instead of plain workspace numbers you can use
