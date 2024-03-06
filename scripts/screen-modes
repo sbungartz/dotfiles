@@ -23,6 +23,7 @@ then
     # Configure all outputs automatically and the connected output as primary display with it's preferred mode and no scale
     xrandr --auto --output $CONNECTED --primary $([[ $(hostname) = 'simon-xps13' ]] && echo '--mode 1920x1080' || echo '--auto') --scale '1x1'
     # Now call the post-display change hooks
+    sleep 3
     "$SCRIPT_DIR/after-screen-change"
 else
     PRIMARY=$(echo "$XRANDR" | grep '\bconnected primary' | cut -d ' ' -f 1)
@@ -53,7 +54,7 @@ else
             ["91: Use Preset 'Work 1080 Primary Small'"]="xrandr --output eDP1 --mode 1920x1080 --primary --output DP1-3 --mode 1920x1080 --right-of eDP1"
             ["95: Use Preset 'Office'"]="xrandr --output eDP1 --mode 1920x1080 --primary --output DP1 --mode 1920x1080 --above eDP1"
             ["96: Use Preset 'Office Primary Large'"]="xrandr --output eDP1 --primary --mode 1920x1080 --output DP1 --mode 1920x1080 --above eDP1"
-            ["97: Use Preset 'Office 4K'"]="xrandr --output eDP1 --auto --primary --output DP1 --auto --left-of eDP1"
+            ["97: Use Preset 'Office 4K'"]="xrandr --output eDP1 --auto --output DP1 --auto --primary --above eDP1"
 
         )
     else
@@ -71,7 +72,7 @@ else
             ["91: Use Preset 'Work 1080 Primary Small'"]="xrandr --output eDP1 --mode 1920x1080 --primary --output DP1-3 --mode 1920x1080 --right-of eDP1"
             ["95: Use Preset 'Office'"]="xrandr --output eDP1 --mode 1920x1080 --primary --output DP1 --mode 1920x1080 --above eDP1"
             ["96: Use Preset 'Office Primary Large'"]="xrandr --output eDP1 --primary --mode 1920x1080 --output DP1 --mode 1920x1080 --above eDP1"
-            ["97: Use Preset 'Office 4K'"]="xrandr --output eDP1 --auto --primary --output DP1 --auto --left-of eDP1"
+            ["97: Use Preset 'Office 4K'"]="xrandr --output eDP1 --auto --output DP1 --auto --primary --above eDP1"
             #["91: Use Preset 'Office'"]="xrandr --output eDP1 --auto --output DP1 --auto --above eDP1 --primary"
             #["90: Use Preset 'Work 1080'"]="xrandr --output eDP1 --mode 1920x1080; sleep 1; xrandr --output DP1-3 --mode 1920x1080; sleep 1; xrandr --output DP1-3 --above eDP1 --primary"
         )
@@ -86,6 +87,7 @@ else
         # Now apply the selected setup command
         ${menu[${selection}]}
         # Finally call the post-change hooks to re-confgure wallpapers and so on
+        sleep 3
         "$SCRIPT_DIR/after-screen-change"
     fi
 fi
