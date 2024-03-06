@@ -190,7 +190,9 @@ set $ws1 10:
 {%@@ else @@%}
 set $ws1 10:
 {%@@ endif @@%}
-set $ws11 11:
+#  
+set $ws11 11:
+set $ws12 12:
 set $ws2 20:
 set $ws3 30:
 set $ws4 40:
@@ -211,7 +213,8 @@ set $ws10 100:
 
 # switch to workspace
 bindsym $mod+1 workspace $ws1
-bindsym $mod+F2 workspace $ws11
+bindsym $mod+F1 workspace $ws11
+bindsym $mod+F2 workspace $ws12
 bindsym $mod+2 workspace $ws2
 bindsym $mod+3 workspace $ws3
 bindsym $mod+4 workspace $ws4
@@ -231,7 +234,8 @@ bindsym $mod+0 workspace $ws10
 
 # Move focused container to workspace
 bindsym $mod+Ctrl+1 move container to workspace $ws1
-bindsym $mod+Ctrl+F2 move container to workspace $ws11
+bindsym $mod+Ctrl+F1 move container to workspace $ws11
+bindsym $mod+Ctrl+F2 move container to workspace $ws12
 bindsym $mod+Ctrl+2 move container to workspace $ws2
 bindsym $mod+Ctrl+3 move container to workspace $ws3
 bindsym $mod+Ctrl+4 move container to workspace $ws4
@@ -250,7 +254,8 @@ bindsym $mod+Ctrl+0 move container to workspace $ws10
 
 # Move to workspace with focused container
 bindsym $mod+Shift+1 move container to workspace $ws1; workspace $ws1
-bindsym $mod+Shift+F2 move container to workspace $ws11; workspace $ws11
+bindsym $mod+Shift+F1 move container to workspace $ws11; workspace $ws11
+bindsym $mod+Shift+F2 move container to workspace $ws12; workspace $ws12
 bindsym $mod+Shift+2 move container to workspace $ws2; workspace $ws2
 bindsym $mod+Shift+3 move container to workspace $ws3; workspace $ws3
 bindsym $mod+Shift+4 move container to workspace $ws4; workspace $ws4
@@ -292,6 +297,7 @@ set $DISPL_TV HDUMMY3
 
 workspace "$ws1" output $DISPL_PRIMARY
 workspace "$ws11" output $DISPL_PRIMARY
+workspace "$ws12" output $DISPL_PRIMARY
 workspace "$ws2" output $DISPL_PRIMARY
 workspace "$ws3" output $DISPL_PRIMARY
 workspace "$ws4" output $DISPL_PRIMARY
@@ -314,7 +320,8 @@ assign [class="jetbrains-pycharm-ce"] $ws3
 assign [class="TeXstudio"] $ws3
 assign [class="org-contikios-cooja-Cooja"] $ws4
 # Standard workspaces:
-for_window [title=".* - Notizen - Visual Studio Code"] move to workspace $ws11
+assign [class="obsidian"] $ws11
+for_window [title=".* - Notizen - Visual Studio Code"] move to workspace $ws12
 for_window [title=".* - Drafts - Visual Studio Code"] move to workspace $ws92
 for_window [title=".* - .dotfiles - Visual Studio Code"] move to workspace $ws7
 for_window [title=".* - knausj_talon - Visual Studio Code"] move to workspace $ws7
@@ -339,6 +346,7 @@ assign [instance="Cypress"] $ws6
 bindsym $mod+Mod1+1 exec $BROWSER --new-window
 bindsym $mod+Mod1+u exec $BROWSER --new-window https://zweitag.tpondemand.com;
 # bindsym $mod+Mod1+u exec firefox --new-window https://zweitag.tpondemand.com;
+bindsym $mod+Mod1+F1 exec obsidian
 bindsym $mod+Mod1+F2 exec code $HOME/Meins/Notizen
 {%@@ if profile == 'simon-xps13' @@%}
 bindsym $mod+Mod1+8 exec $BROWSER --new-window https://mail.google.com;
