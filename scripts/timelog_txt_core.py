@@ -17,6 +17,11 @@ def pairwise(iterable):
 def unique_preserving_order(items):
   return list(dict.fromkeys(items))
 
+class InvalidLogDataException(Exception):
+  def __init__(self, errors):
+    self.errors = errors
+    super().__init__("There are errors in the timelog file")
+
 class TimeLogEntry:
   def __init__(self, started_at, finished_at, activity, project, original_text):
     self.started_at = started_at
@@ -137,6 +142,13 @@ def sum_entry_durations_by_text(entries):
     durations_by_text[entry.original_text] += compute_duration(entry)
   return dict(durations_by_text)
 
+def validate_entries(entries):
+  errors = []
+  for entry in entries:
+    if compute_duration(entry) < timedelta(0):
+      errors.append(f'Negative duration in entry {entry.started_at.strftime("%H:%M")} {entry.original_text}!')
+  return errors
+
 # Output
 def print_as_lines(items):
   for item in items:
@@ -184,6 +196,15 @@ def print_last_entry_stop_time():
   print(f'{entry.finished_at}')
 
 def print_current_activity_report():
+  entries_for_today = find_todays_entries()
+  errors_today = validate_entries(entries_for_today)
+  if len(errors_today) > 0:
+    print('')
+    print('There are errors in todays logs:')
+    for error in errors_today:
+      print(error)
+    return
+
   last_entry = find_last_entry()
   print(f'Since {last_entry.started_at.strftime("%H:%M")}: {last_entry.original_text}')
   print('')
@@ -194,10 +215,14 @@ def print_current_activity_report():
   print(f'Worked on this in total for: {format_duration(sum_entry_durations(entries_for_activity), include_seconds=True)}')
 
   print('')
-  print(f'Logged today for: {format_duration(sum_entry_durations(find_todays_entries()), include_seconds=True)}')
+  print(f'Logged today for: {format_duration(sum_entry_durations(entries_for_today), include_seconds=True)}')
+
 
 def compute_durations_by_text_for_day(report_date):
   entries = find_day_entries(report_date)
+  errors = validate_entries(entries)
+  if len(errors) > 0:
+    raise InvalidLogDataException(errors)
   return sum_entry_durations_by_text(entries)
 
 def print_report_for_day(report_date):

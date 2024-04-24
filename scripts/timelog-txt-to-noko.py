@@ -25,7 +25,14 @@ with open(expanduser('~/.config/hamster-scripting/projects.json'), 'r') as f:
 
 export_date = date.fromtimestamp(datetime.strptime(date_str, "%Y-%m-%d").timestamp())
 
-durations_by_text = timelog_txt_core.compute_durations_by_text_for_day(export_date)
+try:
+    durations_by_text = timelog_txt_core.compute_durations_by_text_for_day(export_date)
+except timelog_txt_core.InvalidLogDataException as e:
+    print('')
+    print("Aborting export because there are errors in the log file:")
+    for error in e.errors:
+        print(error)
+    exit(1)
 
 print(f'uploading entries for {export_date}')
 entries_url = 'https://api.nokotime.com/v2/entries'
