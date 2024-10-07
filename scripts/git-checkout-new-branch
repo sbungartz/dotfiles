@@ -1,0 +1,10 @@
+#!/bin/bash
+# Convenience function to commit and create a new branch in one command.
+# Sluggifies the commit message using https://gist.github.com/oneohthree/f528c7ae1e701ad990e6 to create a branch name.
+
+set -e -u -o pipefail
+
+message="$*"
+branch_name="$(echo "$message" | iconv -t 'ascii//TRANSLIT' | sed -r 's/[^a-zA-Z0-9]+/-/g' | sed -r 's/^-+\|-+$//g' | tr A-Z a-z)"
+git checkout -b "$branch_name"
+git commit -m "$message"

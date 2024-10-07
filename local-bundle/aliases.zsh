@@ -13,6 +13,9 @@ alias glola="glol --all"
 
 alias glfp='glol --first-parent'
 
+alias gcnb="~/.dotfiles/scripts/git-checkout-new-branch"
+
+
 # During a merge, get diffs from merge base to HEAD or MERGE_HEAD
 # This helps showing the differences in the two branches in isolation
 alias gdmh='gd $(git merge-base MERGE_HEAD HEAD) HEAD'
