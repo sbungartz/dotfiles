@@ -6,7 +6,9 @@ ctx = Context()
 # Map for spoken name of i3 workspace to both workspace number and the associated key, split by colon
 i3_ports = {
   "web": "10:1",
-  "notes": "11:f2",
+  "books": "11:f1",
+  "notes": "12:f2",
+  "tasks": "13:f3",
   "term": "20:2",
   "code": "30:3",
   "screen": "40:4",
