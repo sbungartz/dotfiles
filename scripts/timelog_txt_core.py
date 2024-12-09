@@ -80,11 +80,21 @@ def find_todays_entries():
 def find_day_entries(day):
   return filter_entries_of_day(read_all(), day)
 
+def find_this_weeks_entries():
+  return filter_entries_of_week(read_all(), date.today())
+
 def find_entries_like(other_entry):
   return [entry for entry in read_all() if entry.original_text == other_entry.original_text]
 
 def filter_entries_of_day(entries, day):
   return [entry for entry in entries if entry.started_at.date() == day]
+
+def filter_entries_of_week(entries, day):
+  iso_year_and_week = day.isocalendar()[:2]
+  return [entry for entry in entries if entry.started_at.isocalendar()[:2] == iso_year_and_week]
+
+def filter_entries_with_project(entries, project):
+  return [entry for entry in entries if entry.project == project]
 
 def current_activity():
   last_entry = find_last_entry()
@@ -217,6 +227,17 @@ def print_current_activity_report():
   print('')
   print(f'Logged today for: {format_duration(sum_entry_durations(entries_for_today), include_seconds=True)}')
 
+  # Report hours for this week per project that was worked on this week
+  print('')
+  print('')
+  print('This weeks totals by project:')
+  entries_for_week = find_this_weeks_entries()
+  total_for_week = sum_entry_durations(entries_for_week)
+  projects_worked_on_this_week = sorted(list({ entry.project for entry in entries_for_week }))
+  for project in projects_worked_on_this_week:
+    total_for_week_and_project = sum_entry_durations(filter_entries_with_project(entries_for_week, project))
+    projected_duration = (total_for_week_and_project / total_for_week) * timedelta(hours=40)
+    print(f'{project}: {format_duration(total_for_week_and_project)} – projected: {format_duration(projected_duration)}')
 
 def compute_durations_by_text_for_day(report_date):
   entries = find_day_entries(report_date)
