@@ -20,7 +20,7 @@ if NOKO_TOKEN is None:
     print('DRY RUN: not actually uploading anything.')
     print('Set environment variable NOKO_TOKEN to actually upload data.')
 
-with open(expanduser('~/.config/hamster-scripting/projects.json'), 'r') as f:
+with open(expanduser('~/.config/timelog-txt/projects.json'), 'r') as f:
     noko_project_id_for_category = json.load(f)
 
 export_date = date.fromtimestamp(datetime.strptime(date_str, "%Y-%m-%d").timestamp())

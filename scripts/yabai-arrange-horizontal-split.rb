@@ -21,9 +21,9 @@ def classify_ratio(ratio)
   end
 end
 
-def classify_layout(focused_ratio, other_ratio, target_split_direction)
-  left_ratio = target_split_direction == :left ? focused_ratio : other_ratio
-  right_ratio = target_split_direction == :left ? other_ratio : focused_ratio
+def classify_layout(focused_ratio, other_ratio, focused_window_left_of_other)
+  left_ratio = focused_window_left_of_other ? focused_ratio : other_ratio
+  right_ratio = focused_window_left_of_other ? other_ratio : focused_ratio
   left_class = classify_ratio(left_ratio)
   right_class = classify_ratio(right_ratio)
   if left_class == :one_third && right_class == :two_thirds
@@ -46,11 +46,22 @@ def layout_sequence(target_split_direction)
   end
 end
 
-def next_layout(current_layout, target_split_direction)
+def find_next_layout(current_layout, target_split_direction)
   sequence = layout_sequence(target_split_direction)
   current_layout_index = sequence.index(current_layout)
   return sequence.first if current_layout_index.nil?
   sequence[(current_layout_index + 1) % sequence.size]
+end
+
+def mirror_layout(current_layout)
+  case current_layout
+  when :large_small
+    :small_large
+  when :small_large
+    :large_small
+  else
+    :half_half
+  end
 end
 
 direction = ARGV[0]
@@ -73,20 +84,29 @@ display_width = focused_display.fetch("frame").fetch("w")
 
 focused_window_ratio = focused_window.fetch("frame").fetch("w") / display_width
 other_window_ratio = other_window.fetch("frame").fetch("w") / display_width
-current_layout = classify_layout(focused_window_ratio, other_window_ratio, direction)
-left_command, right_command = LAYOUTS.fetch(next_layout(current_layout, direction))
+focused_window_left_of_other = focused_window.fetch("frame").fetch("x") < other_window.fetch("frame").fetch("x")
+
+current_layout = classify_layout(focused_window_ratio, other_window_ratio, focused_window_left_of_other)
+next_layout = find_next_layout(current_layout, direction)
+
+if current_layout != :unknown
+  focused_window_in_target_direction = direction == :left ? focused_window_left_of_other : !focused_window_left_of_other
+  unless focused_window_in_target_direction
+    next_layout = mirror_layout(current_layout)
+  end
+end
+
+left_command, right_command = LAYOUTS.fetch(next_layout)
+
 
 # Focus other window
 `yabai -m window --focus #{other_window.fetch("id")}`
-sleep(0.1)
 
 # Resize window using the non target side command
 `open -g raycast://extensions/raycast/window-management/#{direction == :left ? right_command : left_command}`
-sleep(0.1)
 
 # Focus original window
 `yabai -m window --focus #{focused_window.fetch("id")}`
-sleep(0.1)
 
 # Resize window using the target side command
 `open -g raycast://extensions/raycast/window-management/#{direction == :left ? left_command : right_command}`

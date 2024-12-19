@@ -123,7 +123,8 @@ def get_project_icon(entry):
   # The last character of the project may be an icon
   last_project_char = entry.project[-1]
   # Treat characters in the Unicode Private Use Area as icons (works for font awesome)
-  if last_project_char >= u'\ue000' and last_project_char <= u'\uf8ff':
+  # or: Emoji can also be icons, this does not match all emoji yet however.
+  if last_project_char >= u'\ue000' and last_project_char <= u'\uf8ff' or last_project_char >= u'\U0001f300' and last_project_char <= u'\U0001f5ff':
     return last_project_char
   else:
     return None
@@ -131,7 +132,7 @@ def get_project_icon(entry):
 def get_ticket_number(entry):
   tp_reference_match = re.match('^([A-Za-z]+)-([0-9]+) ', entry.activity)
   if tp_reference_match:
-    return f'{tp_reference_match.group(0)}'
+    return f'{tp_reference_match.group(0)}'.strip()
   else:
     return None
 
@@ -184,7 +185,7 @@ def print_current_activity_for_blocklet():
   else:
     icon = get_project_icon(entry) or u''
     ticket_number = get_ticket_number(entry) or ''
-    time_separator = '' if ticket_number == '' else ' - '
+    time_separator = '' if ticket_number == '' else ' – '
     duration = compute_duration(entry)
 
     longtext = f'{icon} {ticket_number}{time_separator}{format_duration(duration)}'
@@ -193,6 +194,23 @@ def print_current_activity_for_blocklet():
   print(longtext)
   print(shorttext)
   print(color)
+
+def print_current_activity_for_swiftbar():
+  entry = current_activity()
+  if entry is None:
+    longtext = u':cup.and.heat.waves:'
+    shorttext = longtext
+    color = '#a0a0a0'
+  else:
+    icon = get_project_icon(entry) or u''
+    ticket_number = get_ticket_number(entry) or ''
+    time_separator = '' if ticket_number == '' else ' – '
+    duration = compute_duration(entry)
+
+    longtext = f'{icon} {ticket_number}{time_separator}{format_duration(duration)}'
+    shorttext = longtext
+    color = '#000000'
+  print(f'{longtext} | font=\'FontAwesome\'')
 
 def print_current_activity_for_rofi():
   entry = current_activity()

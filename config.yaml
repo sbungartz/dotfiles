@@ -97,3 +97,10 @@ profiles:
     - ALL
     variables:
       display_scale: 1
+  simon-bungartz-mac:
+    dotfiles:
+    - f_gitconfig
+    - f_tmux.conf
+    - f_vimrc
+    - f_zshrc
+    - f_default-gems

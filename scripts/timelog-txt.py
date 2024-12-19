@@ -17,6 +17,8 @@ elif command == "current":
   print(current_activity() or "STOP")
 elif command == "current-for-blocklet":
   print_current_activity_for_blocklet()
+elif command == "current-for-swiftbar":
+  print_current_activity_for_swiftbar()
 elif command == "current-report":
   print_current_activity_report()
 elif command == "report-for-day":

@@ -25,7 +25,7 @@ Plugin 'Chiel92/vim-autoformat'
 " Languages: Meta
 Plugin 'vim-syntastic/syntastic'
 Plugin 'ludovicchabant/vim-gutentags'
-Plugin 'Valloric/YouCompleteMe'
+"Plugin 'Valloric/YouCompleteMe'
 "Plugin 'rdnetto/YCM-Generator'
 
 " Languages: Single
