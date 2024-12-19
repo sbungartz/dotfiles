@@ -26,7 +26,7 @@ sleep(0.1)
 
 # Move window to other display
 `open -g raycast://extensions/raycast/window-management/next-display`
-sleep(0.1)
+sleep(0.3)
 
 # Focus focused window
 `yabai -m window --focus #{focused_window.fetch("id")}`

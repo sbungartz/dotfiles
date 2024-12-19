@@ -22,15 +22,12 @@ other_window = windows_on_same_display[1]
 
 # Focus other window
 `yabai -m window --focus #{other_window.fetch("id")}`
-sleep(0.1)
 
 # Move window to other display
 `open -g raycast://extensions/raycast/window-management/maximize`
-sleep(0.1)
 
 # Focus original window
 `yabai -m window --focus #{focused_window.fetch("id")}`
-sleep(0.1)
 
 # Move window to left half
 `open -g raycast://extensions/raycast/window-management/maximize`

@@ -24,7 +24,7 @@ other_window = windows_on_other_display.first
 
 # Move window to other display
 `open -g raycast://extensions/raycast/window-management/next-display`
-sleep(0.1)
+sleep(0.3)
 
 # Focus other window
 `yabai -m window --focus #{other_window.fetch("id")}`
