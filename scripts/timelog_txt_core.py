@@ -3,10 +3,13 @@ import re
 import itertools
 from collections import defaultdict
 from datetime import datetime, date, timedelta
+import json
 
 timelog_path = expanduser("~/Meins/Notizen/log/timelog.txt")
+icon_config_path = expanduser("~/.config/timelog-txt/project-icons.json")
 
 TIME_FORMAT = '%Y-%m-%d %H:%M:%S'
+WORK_WEEK_DURATION = timedelta(hours=40)
 
 def pairwise(iterable):
   # pairwise('ABCDEFG') --> AB BC CD DE EF FG
@@ -120,6 +123,12 @@ def get_project_icon(entry):
   if entry.project is None:
     return None
 
+  with open(expanduser(icon_config_path), 'r') as f:
+    icon_for_project = json.load(f)
+
+  # Get icon if available or return None
+  return icon_for_project.get(entry.project)
+
   # The last character of the project may be an icon
   last_project_char = entry.project[-1]
   # Treat characters in the Unicode Private Use Area as icons (works for font awesome)
@@ -202,7 +211,7 @@ def print_current_activity_for_swiftbar():
     shorttext = longtext
     color = '#a0a0a0'
   else:
-    icon = get_project_icon(entry) or u''
+    icon = get_project_icon(entry) or u':briefcase.fill:'
     ticket_number = get_ticket_number(entry) or ''
     time_separator = '' if ticket_number == '' else ' – '
     duration = compute_duration(entry)
@@ -210,7 +219,41 @@ def print_current_activity_for_swiftbar():
     longtext = f'{icon} {ticket_number}{time_separator}{format_duration(duration)}'
     shorttext = longtext
     color = '#000000'
-  print(f'{longtext} | font=\'FontAwesome\'')
+  print(f'{longtext}')
+
+  # Report in Submenu (using refresh=true to avoid very grayed out text due to non interactable menu items)
+  print("---")
+
+  entries_for_today = find_todays_entries()
+  errors_today = validate_entries(entries_for_today)
+  if len(errors_today) > 0:
+    print('')
+    print('There are errors in todays logs: | color=red refresh=true')
+    for error in errors_today:
+      print(error)
+    return
+
+  last_entry = find_last_entry()
+  print(f'Since {last_entry.started_at.strftime("%H:%M")}: {last_entry.original_text}')
+
+  entries_for_activity = find_entries_like(last_entry)
+  print(f'Worked on this today for: {format_duration(sum_entry_durations(filter_entries_of_day(entries_for_activity, date.today())), include_seconds=True)} | refresh=true')
+  print(f'Worked on this in total for: {format_duration(sum_entry_durations(entries_for_activity), include_seconds=True)} | refresh=true')
+
+  print("---")
+
+  print(f'Logged today for: {format_duration(sum_entry_durations(entries_for_today), include_seconds=True)} | refresh=true')
+
+  # Report hours for this week per project that was worked on this week
+  print('This weeks totals by project')
+  entries_for_week = find_this_weeks_entries()
+  total_for_week = sum_entry_durations(entries_for_week)
+  projects_worked_on_this_week = sorted(list({ entry.project for entry in entries_for_week }))
+  for project in projects_worked_on_this_week:
+    total_for_week_and_project = sum_entry_durations(filter_entries_with_project(entries_for_week, project))
+    projected_duration = (total_for_week_and_project / total_for_week) * WORK_WEEK_DURATION
+    print(f'-- {project}: {format_duration(total_for_week_and_project)} – projected: {format_duration(projected_duration)} | refresh=true')
+
 
 def print_current_activity_for_rofi():
   entry = current_activity()
@@ -254,7 +297,7 @@ def print_current_activity_report():
   projects_worked_on_this_week = sorted(list({ entry.project for entry in entries_for_week }))
   for project in projects_worked_on_this_week:
     total_for_week_and_project = sum_entry_durations(filter_entries_with_project(entries_for_week, project))
-    projected_duration = (total_for_week_and_project / total_for_week) * timedelta(hours=40)
+    projected_duration = (total_for_week_and_project / total_for_week) * WORK_WEEK_DURATION
     print(f'{project}: {format_duration(total_for_week_and_project)} – projected: {format_duration(projected_duration)}')
 
 def compute_durations_by_text_for_day(report_date):
