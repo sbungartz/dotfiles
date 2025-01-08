@@ -304,8 +304,9 @@ def print_current_activity_report():
   projects_worked_on_this_week = sorted(list({ entry.project for entry in entries_for_week }))
   project_targets = read_project_targets()
   target_sum = timedelta(hours=sum(project_targets.values()))
+  time_remaining_in_week = target_sum - total_for_week
 
-  print(f'Logged this week: {format_duration(total_for_week)} / {format_duration(target_sum)}')
+  print(f'Logged this week: {format_duration(total_for_week)} / {format_duration(target_sum)} – remaining: {format_duration(time_remaining_in_week)}')
 
   print('')
   print('')
@@ -313,8 +314,9 @@ def print_current_activity_report():
   for project in projects_worked_on_this_week:
     total_for_week_and_project = sum_entry_durations(filter_entries_with_project(entries_for_week, project))
     project_target = timedelta(hours=project_targets.get(project, 0))
+    time_remaining = project_target - total_for_week_and_project
     projected_duration = (total_for_week_and_project / total_for_week) * target_sum
-    print(f'{project}: {format_duration(total_for_week_and_project)} / {format_duration(project_target)} – projected: {format_duration(projected_duration)}')
+    print(f'{project: <25} {format_duration(total_for_week_and_project)} / {format_duration(project_target)} – remaining: {format_duration(time_remaining)} – projected: {format_duration(projected_duration)}')
 
 def compute_durations_by_text_for_day(report_date):
   entries = find_day_entries(report_date)
