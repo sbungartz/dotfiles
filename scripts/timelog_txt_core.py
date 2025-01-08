@@ -7,9 +7,9 @@ import json
 
 timelog_path = expanduser("~/Meins/Notizen/log/timelog.txt")
 icon_config_path = expanduser("~/.config/timelog-txt/project-icons.json")
+targets_path = expanduser("~/.config/timelog-txt/project-targets.json")
 
 TIME_FORMAT = '%Y-%m-%d %H:%M:%S'
-WORK_WEEK_DURATION = timedelta(hours=40)
 
 def pairwise(iterable):
   # pairwise('ABCDEFG') --> AB BC CD DE EF FG
@@ -68,6 +68,10 @@ def read_all():
       entry = parse_entry(line_entry, line_next)
       if entry is not None:
         yield entry
+
+def read_project_targets():
+  with open(expanduser(targets_path), 'r') as f:
+    return json.load(f)
 
 def recent_entries():
   entries = [entry for entry in read_all()]
@@ -242,17 +246,23 @@ def print_current_activity_for_swiftbar():
 
   print("---")
 
-  print(f'Logged today for: {format_duration(sum_entry_durations(entries_for_today), include_seconds=True)} | refresh=true')
+  print(f'Logged today for: {format_duration(sum_entry_durations(entries_for_today))} | refresh=true')
 
   # Report hours for this week per project that was worked on this week
-  print('This weeks totals by project')
   entries_for_week = find_this_weeks_entries()
   total_for_week = sum_entry_durations(entries_for_week)
   projects_worked_on_this_week = sorted(list({ entry.project for entry in entries_for_week }))
+  project_targets = read_project_targets()
+  target_sum = timedelta(hours=sum(project_targets.values()))
+
+  print(f'Logged this week: {format_duration(total_for_week)} / {format_duration(target_sum)} | refresh=true')
+
+  print('This weeks totals by project')
   for project in projects_worked_on_this_week:
     total_for_week_and_project = sum_entry_durations(filter_entries_with_project(entries_for_week, project))
-    projected_duration = (total_for_week_and_project / total_for_week) * WORK_WEEK_DURATION
-    print(f'-- {project}: {format_duration(total_for_week_and_project)} – projected: {format_duration(projected_duration)} | refresh=true')
+    project_target = timedelta(hours=project_targets.get(project, 0))
+    projected_duration = (total_for_week_and_project / total_for_week) * target_sum
+    print(f'-- {project}: {format_duration(total_for_week_and_project)} / {format_duration(project_target)} – projected: {format_duration(projected_duration)} | refresh=true')
 
 
 def print_current_activity_for_rofi():
@@ -286,19 +296,25 @@ def print_current_activity_report():
   print(f'Worked on this in total for: {format_duration(sum_entry_durations(entries_for_activity), include_seconds=True)}')
 
   print('')
-  print(f'Logged today for: {format_duration(sum_entry_durations(entries_for_today), include_seconds=True)}')
+  print(f'Logged today for: {format_duration(sum_entry_durations(entries_for_today))}')
 
   # Report hours for this week per project that was worked on this week
-  print('')
-  print('')
-  print('This weeks totals by project:')
   entries_for_week = find_this_weeks_entries()
   total_for_week = sum_entry_durations(entries_for_week)
   projects_worked_on_this_week = sorted(list({ entry.project for entry in entries_for_week }))
+  project_targets = read_project_targets()
+  target_sum = timedelta(hours=sum(project_targets.values()))
+
+  print(f'Logged this week: {format_duration(total_for_week)} / {format_duration(target_sum)}')
+
+  print('')
+  print('')
+  print('This weeks totals by project:')
   for project in projects_worked_on_this_week:
     total_for_week_and_project = sum_entry_durations(filter_entries_with_project(entries_for_week, project))
-    projected_duration = (total_for_week_and_project / total_for_week) * WORK_WEEK_DURATION
-    print(f'{project}: {format_duration(total_for_week_and_project)} – projected: {format_duration(projected_duration)}')
+    project_target = timedelta(hours=project_targets.get(project, 0))
+    projected_duration = (total_for_week_and_project / total_for_week) * target_sum
+    print(f'{project}: {format_duration(total_for_week_and_project)} / {format_duration(project_target)} – projected: {format_duration(projected_duration)}')
 
 def compute_durations_by_text_for_day(report_date):
   entries = find_day_entries(report_date)
