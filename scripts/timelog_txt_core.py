@@ -181,9 +181,10 @@ def print_as_lines(items):
 # Formatting
 def format_duration(duration_timedelta, include_seconds=False):
   total_seconds = round(duration_timedelta.total_seconds())
-  hours, remainder = divmod(total_seconds, 3600)
+  sign = '-' if total_seconds < 0 else ''
+  hours, remainder = divmod(abs(total_seconds), 3600)
   minutes, seconds = divmod(remainder, 60)
-  formatted = f'{hours:02d}:{minutes:02d}'
+  formatted = f'{sign}{hours:02d}:{minutes:02d}'
   if include_seconds:
     formatted = f'{formatted}:{seconds:02d}'
   return formatted
@@ -316,7 +317,7 @@ def print_current_activity_report():
     project_target = timedelta(hours=project_targets.get(project, 0))
     time_remaining = project_target - total_for_week_and_project
     projected_duration = (total_for_week_and_project / total_for_week) * target_sum
-    print(f'{project: <25} {format_duration(total_for_week_and_project)} / {format_duration(project_target)} – remaining: {format_duration(time_remaining)} – projected: {format_duration(projected_duration)}')
+    print(f'{project: <25} {format_duration(total_for_week_and_project)} / {format_duration(project_target)} – remaining: {format_duration(time_remaining):>6} – projected: {format_duration(projected_duration)}')
 
 def compute_durations_by_text_for_day(report_date):
   entries = find_day_entries(report_date)
