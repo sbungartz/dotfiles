@@ -3,12 +3,16 @@ set -e -u -o pipefail
 
 BLOCK_BUTTON=${BLOCK_BUTTON:-}
 
+function dmenu_dropin() {
+  /Users/simon.bungartz/Work/Repositories/dmenu_raycast/dmenu_raycast "$@"
+}
+
 function timelog_script() {
   "$HOME/.dotfiles/scripts/timelog-txt.py" "$@"
 }
 
 function prompt_new_activity() {( set -e
-  activity="$(timelog_script recent-entries | rofi -dmenu -i -lines 12 -p "Start")"
+  activity="$(timelog_script recent-entries | dmenu_dropin -p "Start")"
   # Remove trailing "!" from activity to allow entering variants
   if [[ "$activity" = *"!"* ]] ; then
     # remove "!" from activity
@@ -16,7 +20,7 @@ function prompt_new_activity() {( set -e
   fi
 
   if ! [[ "$activity" = *"@"* ]] ; then
-    project="$(timelog_script recent-projects | rofi -dmenu -i -lines 12 -p "Project")"
+    project="$(timelog_script recent-projects | dmenu_dropin -p "Project")"
     activity="${activity}@${project}"
   fi
   echo "$activity"
@@ -31,7 +35,7 @@ if [[ "$BLOCK_BUTTON" = "1" ]] || [[ "$BLOCK_BUTTON" = "3" ]] ; then
     options="Start new activity now\nStart new activity from $(timelog_script last-stop-time)\n${common_options}"
   fi
 
-  selected_option="$(echo -e "$options" | rofi -dmenu -i -lines 4 -p "Timelog")"
+  selected_option="$(echo -e "$options" | dmenu_dropin -p "Timelog")"
 
   if [[ "$selected_option" == "Open Timelog" ]] ; then
     code "$HOME/Meins/Notizen/log/timelog.txt"
