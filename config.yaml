@@ -80,6 +80,10 @@ dotfiles:
     src: talon/user/cursorless-settings
     dst: ~/.talon/user/cursorless-settings
     link: absolute
+  f_yabairc:
+    src: config/yabai/yabairc
+    dst: ~/.config/yabai/yabairc
+    chmod: '755'
 profiles:
   simon-xps13:
     dotfiles:
@@ -97,10 +101,18 @@ profiles:
     - ALL
     variables:
       display_scale: 1
-  simon-bungartz-mac:
+  macos:
     dotfiles:
     - f_gitconfig
+    - f_gitignore
     - f_tmux.conf
     - f_vimrc
     - f_zshrc
     - f_default-gems
+    - f_yabairc
+  simon-bungartz-mac:
+    include:
+    - macos
+  MacBook-Air-von-Simon.local:
+    include:
+    - macos
