@@ -12,3 +12,4 @@
 .duplicity-ignore
 *.launch
 .vscode/settings.json
+.DS_Store
