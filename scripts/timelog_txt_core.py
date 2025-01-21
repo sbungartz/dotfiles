@@ -253,17 +253,19 @@ def print_current_activity_for_swiftbar():
   entries_for_week = find_this_weeks_entries()
   total_for_week = sum_entry_durations(entries_for_week)
   projects_worked_on_this_week = sorted(list({ entry.project for entry in entries_for_week }))
-  project_targets = read_project_targets()
+  project_times = read_project_targets()
+  project_targets = read_project_targets()["targets"]
   target_sum = timedelta(hours=sum(project_targets.values()))
 
   print(f'Logged this week: {format_duration(total_for_week)} / {format_duration(target_sum)} | refresh=true')
 
+  print("---")
   print('This weeks totals by project')
   for project in projects_worked_on_this_week:
     total_for_week_and_project = sum_entry_durations(filter_entries_with_project(entries_for_week, project))
     project_target = timedelta(hours=project_targets.get(project, 0))
     projected_duration = (total_for_week_and_project / total_for_week) * target_sum
-    print(f'-- {project}: {format_duration(total_for_week_and_project)} / {format_duration(project_target)} – projected: {format_duration(projected_duration)} | refresh=true')
+    print(f'{project}: {format_duration(total_for_week_and_project)} / {format_duration(project_target)} – projected: {format_duration(projected_duration)} | refresh=true')
 
 
 def print_current_activity_for_rofi():
@@ -303,7 +305,9 @@ def print_current_activity_report():
   entries_for_week = find_this_weeks_entries()
   total_for_week = sum_entry_durations(entries_for_week)
   projects_worked_on_this_week = sorted(list({ entry.project for entry in entries_for_week }))
-  project_targets = read_project_targets()
+  project_times = read_project_targets()
+  project_targets = project_times["targets"]
+  project_offsets = project_times["offsets"]
   target_sum = timedelta(hours=sum(project_targets.values()))
   time_remaining_in_week = target_sum - total_for_week
 
@@ -312,12 +316,22 @@ def print_current_activity_report():
   print('')
   print('')
   print('This weeks totals by project:')
+  other_sum_week = timedelta(hours=0)
   for project in projects_worked_on_this_week:
-    total_for_week_and_project = sum_entry_durations(filter_entries_with_project(entries_for_week, project))
+    total_for_week_and_project = sum_entry_durations(filter_entries_with_project(entries_for_week, project)) + timedelta(minutes=project_offsets.get(project, 0))
+    if project not in project_targets.keys():
+      other_sum_week += total_for_week_and_project
     project_target = timedelta(hours=project_targets.get(project, 0))
     time_remaining = project_target - total_for_week_and_project
     projected_duration = (total_for_week_and_project / total_for_week) * target_sum
     print(f'{project: <25} {format_duration(total_for_week_and_project)} / {format_duration(project_target)} – remaining: {format_duration(time_remaining):>6} – projected: {format_duration(projected_duration)}')
+
+  other_sum_week += timedelta(minutes=project_offsets.get("OTHER", 0))
+  other_target = timedelta(hours=project_targets.get('OTHER', 0))
+  other_time_remaining = other_target - other_sum_week
+  other_label = "Other"
+  other_projected_duration = (other_sum_week / total_for_week) * target_sum
+  print(f'{other_label: <25} {format_duration(other_sum_week)} / {format_duration(other_target)} – remaining: {format_duration(other_time_remaining):>6} – projected: {format_duration(other_projected_duration)}')
 
 def compute_durations_by_text_for_day(report_date):
   entries = find_day_entries(report_date)
