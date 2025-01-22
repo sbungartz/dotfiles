@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# Required parameters:
+# @raycast.schemaVersion 1
+# @raycast.title Raycast: Next Display 2
+# @raycast.mode silent
+
+# Optional parameters:
+# @raycast.icon 🖥️
+
+open -g raycast://extensions/raycast/window-management/next-display
