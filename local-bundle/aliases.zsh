@@ -13,6 +13,7 @@ alias glola="glol --all"
 
 alias glfp='glol --first-parent'
 
+alias gcwip='git commit -m "WIP $(date)"'
 alias gcnb="~/.dotfiles/scripts/git-checkout-new-branch"
 
 
