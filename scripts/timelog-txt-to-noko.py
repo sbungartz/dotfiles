@@ -55,9 +55,9 @@ for entry_text, total_time in durations_by_text.items():
 
     total_time_unskipped_for_day += total_time
 
-    tp_reference_match = re.match('^[tT][pP]-([0-9]+) (.*)', activity)
-    if tp_reference_match:
-        noko_description = '#{} {}'.format(tp_reference_match.group(1), tp_reference_match.group(2))
+    ticket_reference_match = re.match('^(tp|gh)-([0-9]+) (.*)', activity)
+    if ticket_reference_match:
+        noko_description = '#{} {}'.format(ticket_reference_match.group(2), ticket_reference_match.group(3))
     else:
         noko_description = activity
 
