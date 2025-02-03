@@ -304,10 +304,11 @@ def print_current_activity_report():
   # Report hours for this week per project that was worked on this week
   entries_for_week = find_this_weeks_entries()
   total_for_week = sum_entry_durations(entries_for_week)
-  projects_worked_on_this_week = sorted(list({ entry.project for entry in entries_for_week }))
+  projects_worked_on_this_week = { entry.project for entry in entries_for_week }
   project_times = read_project_targets()
   project_targets = project_times["targets"]
   project_offsets = project_times["offsets"]
+  projects = sorted(list(projects_worked_on_this_week.union(project_targets.keys()) - {"OTHER"}))
   target_sum = timedelta(hours=sum(project_targets.values()))
   time_remaining_in_week = target_sum - total_for_week
 
@@ -317,7 +318,7 @@ def print_current_activity_report():
   print('')
   print('This weeks totals by project:')
   other_sum_week = timedelta(hours=0)
-  for project in projects_worked_on_this_week:
+  for project in projects:
     total_for_week_and_project = sum_entry_durations(filter_entries_with_project(entries_for_week, project)) + timedelta(minutes=project_offsets.get(project, 0))
     if project not in project_targets.keys():
       other_sum_week += total_for_week_and_project
