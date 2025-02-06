@@ -115,6 +115,7 @@ setopt HIST_IGNORE_SPACE
 
 if [ -d $HOME/.asdf ]
 then
-    source $HOME/.asdf/asdf.sh
+    export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
+    #source $HOME/.asdf/asdf.sh
     #source $HOME/.asdf/completions/asdf.bash
 fi
