@@ -16,6 +16,29 @@ alias glfp='glol --first-parent'
 alias gcwip='git commit -m "WIP $(date)"'
 alias gcnb="~/.dotfiles/scripts/git-checkout-new-branch"
 
+gcontinnuestagingreset() {
+    if [ -z "$(git status --porcelain)" ]; then
+        for branch in $(gh pr list --label Staging --json headRefName | jq -r ". | reverse | .[] | .headRefName")
+        do
+            git merge --no-ff --no-edit origin/"${branch}"
+        done
+    else
+        echo "Working directory is not clean. Aborting" >&2
+        return 1
+    fi
+}
+
+gstagingreset() {
+    if [ -z "$(git status --porcelain)" ]; then
+        git fetch
+        git checkout staging
+        git reset --hard origin/main
+        gcontinnuestagingreset
+    else
+        echo "Working directory is not clean. Aborting" >&2
+        return 1
+    fi
+}
 
 # During a merge, get diffs from merge base to HEAD or MERGE_HEAD
 # This helps showing the differences in the two branches in isolation
