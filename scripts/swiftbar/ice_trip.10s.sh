@@ -2,7 +2,9 @@
 set -e -u
 
 # Only run, when connected to the on board WiFi
-current_wifi_name="$(networksetup -listallhardwareports | awk '/Wi-Fi/{getline; print $2}' | xargs networksetup -getairportnetwork)"
+# current_wifi_name="$(networksetup -listallhardwareports | awk '/Wi-Fi/{getline; print $2}' | xargs networksetup -getairportnetwork)"
+current_wifi_name='Current Wi-Fi Network: WIFIonICE'
+#current_wifi_name="off"
 if [[ "$current_wifi_name" != 'Current Wi-Fi Network: WIFIonICE' ]]
 then
     exit 0
@@ -27,7 +29,17 @@ else
     ARRIVAL_DELAY=$(echo "$STATION_INFO" | jq -r ".timetable.arrivalDelay")
 
     #output_next_stop="$STATION_NAME – $(date -r "$SCHEDULED_ARRIVAL_UNIX" +'%H:%M') / $(date -r "$ACTUAL_ARRIVAL_UNIX" +'%H:%M')"
-    output_next_stop="$STATION_NAME ${ARRIVAL_DELAY:-+0} / $(date -r "$ACTUAL_ARRIVAL_UNIX" +'%H:%M')"
+    output_next_stop="${ARRIVAL_DELAY:-+0} / $(date -r "$ACTUAL_ARRIVAL_UNIX" +'%H:%M')"
+    #output_next_stop_full="${STATION_NAME} ${ARRIVAL_DELAY:-+0} / $(date -r "$ACTUAL_ARRIVAL_UNIX" +'%H:%M')"
+
+    output_coming_stops="$(
+      curl https://iceportal.de/api1/rs/tripInfo/trip 2> /dev/null| jq -c '.trip.stops[] | select(.info.passed == false) | {name: .station.name, scheduledArrivalTime: .timetable.scheduledArrivalTime, actualArrivalTime: .timetable.actualArrivalTime}' | while read -r line; do
+        c_name=$(echo "$line" | jq -r ".name")
+        c_scheduled_arrival_unix=$(echo "$line" | jq -r "(.scheduledArrivalTime | tonumber) / 1000")
+        c_actual_arrival_unix=$(echo "$line" | jq -r "(.actualArrivalTime | tonumber) / 1000")
+        echo "$(date -r "$c_scheduled_arrival_unix" +'%H:%M') $(date -r "$c_actual_arrival_unix" +'%H:%M') ${c_name} | refresh=true"
+      done
+    )"
 fi
 
 # Current speed
@@ -52,10 +64,14 @@ fi
 if [[ -n "$output_next_stop" && -n "$output_speed" ]]
 then
   echo "$output_next_stop – $output_speed"
+  echo "---"
+  echo "$output_coming_stops"
 elif [[ -n "$output_next_stop" ]]
 then
   echo "$output_next_stop"
 elif [[ -n "$output_speed" ]]
 then
   echo "$output_speed"
+else
+  echo "N/A"
 fi
