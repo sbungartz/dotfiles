@@ -56,3 +56,10 @@ word, word
 branch, branch
 identifier, identifier
 unit, unit
+
+# 2025-03-18 07:49:45 - New entries automatically added by cursorless
+command, command
+glyph, glyph
+instance, instance
+sentence, sentence
+short block, boundedParagraph

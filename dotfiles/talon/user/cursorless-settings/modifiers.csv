@@ -20,3 +20,7 @@ its, inferPreviousMark
 last, last
 next, next
 previous, previous
+
+# 2025-03-18 07:49:45 - New entries automatically added by cursorless
+grand, ancestor
+visible, visible
