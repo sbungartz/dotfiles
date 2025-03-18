@@ -42,6 +42,7 @@ export PASSWORD_STORE_ENABLE_EXTENSIONS='true'
 
 # paths
 export PATH="$HOME/.bin:$PATH"
+export PATH="/opt/homebrew/bin/python3:$PATH"
 export PATH="$PATH:/usr/local/bin"
 
 export GOPATH=$HOME/go-work
