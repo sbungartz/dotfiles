@@ -109,6 +109,8 @@ profiles:
     - f_vimrc
     - f_zshrc
     - f_default-gems
+    - d_talon_user_mystuff
+    - d_cursorless-settings
     - f_yabairc
   simon-bungartz-mac:
     include:
