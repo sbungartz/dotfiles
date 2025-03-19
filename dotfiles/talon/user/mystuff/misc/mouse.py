@@ -1,4 +1,4 @@
-from talon import Module, ctrl, actions, ui, imgui
+from talon import Module, ctrl, actions, ui, imgui, app
 import time
 import inspect
 
@@ -88,7 +88,8 @@ class Actions:
     actions.user.clear_drag()
 
     # Also release any modifier keys
-    for modifier in ['ctrl', 'alt', 'super', 'shift']:
+    special_key = "cmd" if app.platform == "mac" else "super"
+    for modifier in ['ctrl', 'alt', special_key, 'shift']:
       actions.key(f"{modifier}:up")
 
     # Also release any held down keys
