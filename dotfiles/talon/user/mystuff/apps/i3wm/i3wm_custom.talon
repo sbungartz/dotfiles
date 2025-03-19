@@ -1,4 +1,5 @@
 mode: command
+os: linux
 -
 
 port {user.i3wm_port}: user.i3wm_focus_workspace(i3wm_port)
