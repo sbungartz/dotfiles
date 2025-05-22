@@ -49,7 +49,7 @@ alias gdmm='gd $(git merge-base MERGE_HEAD HEAD) MERGE_HEAD'
 alias glsc='git diff --name-only --diff-filter=U'
 
 # Override "dangerous" aliases from oh-my-zsh
-alias gstc="echo 'DANGER ZONE: use \"git stash clear\" to actually clear the cache'""
+alias gstc="echo 'DANGER ZONE: use \"git stash clear\" to actually clear the cache'"
 
 # correct htop display in tmux
 alias htopx='TERM=screen htop'
