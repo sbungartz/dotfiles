@@ -69,7 +69,8 @@ raise "Invalid direction: #{direction}" unless ["left", "right"].include?(direct
 direction = direction.to_sym
 
 displays = JSON.parse(`yabai -m query --displays`)
-windows = JSON.parse(`yabai -m query --windows`)
+# Filter out windows that are always on top (happens with Slack huddles) since they are always sorted first
+windows = JSON.parse(`yabai -m query --windows`).select { |window| window.fetch("level") == 0}
 
 focused_window = windows.first
 raise "First window does not have focus" unless focused_window.fetch("has-focus") == true
