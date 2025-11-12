@@ -8,9 +8,6 @@ alias gsur='git submodule update --recursive'
 
 alias gdc='git diff --cached'
 
-alias glol="git log --graph --pretty=format:'%Cred%h%Creset %G? -%C(yellow)%d%Creset %s %Cgreen(%cd) %C(bold blue)<%an> %C(bold red)[%GS]%Creset' --abbrev-commit --date=relative"
-alias glola="glol --all"
-
 alias glfp='glol --first-parent'
 
 alias gcwip='git commit -m "WIP $(date)"'
